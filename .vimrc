@@ -38,6 +38,11 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 
+" 新しいウィンドウを下に開く
+set splitbelow
+" 新しいウィンドウを右に開く
+set splitright
+
 " spell check
 set spelllang=en,cjk
 
