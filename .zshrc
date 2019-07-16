@@ -8,8 +8,9 @@ autoload -Uz colors
 colors
 
 # プロンプト
-PROMPT="${vcs_info_msg_0_}%F{green}❯❯%f %F{blue}%~%f
-#%F{green}❯%f${reset_color} "
+PROMPT="
+%{${fg[magenta]}%}%~%{${reset_color}%}
+[%{${fg[magenta]}%}%n%{${reset_color}%}]$ "
 
 # 初期化
 eval "$(anyenv init -)"
