@@ -12,10 +12,6 @@ PROMPT="
 %{${fg[magenta]}%}%~%{${reset_color}%}
 [%{${fg[magenta]}%}%n%{${reset_color}%}]$ "
 
-# 初期化
-eval "$(anyenv init -)"
-eval "$(direnv hook zsh)"
-
 # alias
 alias ls='ls -GF'
 alias ui-start='foreman start -f Procfile.dev'
@@ -51,3 +47,14 @@ source ~/.zplug/init.zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions", defer:2 
 zplug load
+
+# 環境別設定を読み込む
+ZSHHOME="${HOME}/.zsh"
+
+if [ -d $ZSHHOME -a -r $ZSHHOME -a \
+     -x $ZSHHOME ]; then
+    for i in $ZSHHOME/*; do
+        [[ ${i##*/} = *.zsh ]] &&
+            [ \( -f $i -o -h $i \) -a -r $i ] && . $i
+    done
+fi
