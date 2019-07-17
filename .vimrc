@@ -1,6 +1,10 @@
 "" setting
 set fenc=utf-8
 
+" color
+syntax on
+colorscheme iceberg
+
 " バックアップファイルを作らない
 set nobackup
 
@@ -67,8 +71,8 @@ vnoremap <c-c> <Esc>
 "vnoremap jj <Esc>  
 "inoremap <C-@> <Esc> " tmuxとprefix被るから無理だった
 
+" delete key
 inoremap <c-d> <Del>
-inoremap <c-h> <BS>
 
 " レジスタを汚さない削除
 nnoremap x "_x
@@ -95,4 +99,7 @@ call plug#begin()
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'yonchu/accelerated-smooth-scroll'
+  Plug 'tpope/vim-rails'
+  Plug 'cohama/lexima.vim'
 call plug#end()
+
