@@ -97,7 +97,7 @@ call plug#begin()
   Plug 'posva/vim-vue'
   Plug 'othree/yajs.vim'
   Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'christoomey/vim-tmux-navigator'
+"  Plug 'christoomey/vim-tmux-navigator'
   Plug 'yonchu/accelerated-smooth-scroll'
   Plug 'tpope/vim-rails'
   Plug 'cohama/lexima.vim'
