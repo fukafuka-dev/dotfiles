@@ -74,6 +74,11 @@ vnoremap <c-c> <Esc>
 " delete key
 inoremap <c-d> <Del>
 
+" 行頭、行末
+nnoremap <c-a> 0
+nnoremap <c-k> <c-e>
+nnoremap <c-e> $
+
 " レジスタを汚さない削除
 nnoremap x "_x
 vnoremap x "_x
