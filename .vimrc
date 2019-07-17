@@ -76,7 +76,8 @@ inoremap <c-d> <Del>
 
 " 行頭、行末
 nnoremap <c-a> 0
-nnoremap <c-k> <c-e>
+nnoremap <c-j> <c-e>
+nnoremap <c-k> <c-y>
 nnoremap <c-e> $
 
 " レジスタを汚さない削除
