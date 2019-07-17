@@ -67,6 +67,9 @@ vnoremap <c-c> <Esc>
 "vnoremap jj <Esc>  
 "inoremap <C-@> <Esc> " tmuxとprefix被るから無理だった
 
+inoremap <c-d> <Del>
+inoremap <c-h> <BS>
+
 " レジスタを汚さない削除
 nnoremap x "_x
 vnoremap x "_x

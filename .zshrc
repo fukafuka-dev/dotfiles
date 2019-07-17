@@ -48,13 +48,35 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions", defer:2 
 zplug load
 
-# 環境別設定を読み込む
-ZSHHOME="${HOME}/.zsh"
+# peco
+# cd先一覧
+function find_cd() {
+    cd "$(find . -type d | peco)"
+}
+alias fc="find_cd"
 
-if [ -d $ZSHHOME -a -r $ZSHHOME -a \
-     -x $ZSHHOME ]; then
-    for i in $ZSHHOME/*; do
-        [[ ${i##*/} = *.zsh ]] &&
-            [ \( -f $i -o -h $i \) -a -r $i ] && . $i
-    done
-fi
+#history検索
+function peco-select-history() {
+  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+
+# 環境別設定を読み込む
+load_zsh() {
+  local x=$1
+  ZSHHOME="${HOME}/${x}"
+
+  if [ -d $ZSHHOME -a -r $ZSHHOME -a \
+       -x $ZSHHOME ]; then
+      for i in $ZSHHOME/*; do
+          [[ ${i##*/} = *.zsh ]] &&
+              [ \( -f $i -o -h $i \) -a -r $i ] && . $i
+      done
+  fi
+}
+
+echo 'load below'
+load_zsh '.zsh_local'
