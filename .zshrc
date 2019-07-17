@@ -48,21 +48,23 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions", defer:2 
 zplug load
 
-# peco
-# cd先一覧
-function find_cd() {
-    cd "$(find . -type d | peco)"
-}
-alias fc="find_cd"
+# fzf
+function history-fzf() {
+  local tac
 
-#history検索
-function peco-select-history() {
-  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
+  if which tac > /dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+
+  BUFFER=$(history -n 1 | eval $tac | fzf-tmux --query "$LBUFFER")
   CURSOR=$#BUFFER
-  zle clear-screen
+
+  zle reset-prompt
 }
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+zle -N history-fzf
+bindkey '^r' history-fzf
 
 # 環境別設定を読み込む
 load_zsh() {
