@@ -19,11 +19,11 @@ alias ss='bin/spring stop'
 
 # memos
 today_new_memo() {
-  mkdir -p ~/workspace/memo/$(date "+%Y/%m")  
-  vim ~/workspace/memo/$(date "+%Y/%m/%d.md")
+  mkdir -p ~/memo/$(date "+%Y/%m")  
+  vim ~/memo/$(date "+%Y/%m/%d.md")
 }
 alias nm='today_new_memo'
-alias nmy='vim ~/workspace/memo/$(date -d "1 day ago" "+%Y/%m/%d.md")'
+alias nmy='vim ~/memo/$(date -d "1 day ago" "+%Y/%m/%d.md")'
 
 # 補完
 autoload -Uz compinit

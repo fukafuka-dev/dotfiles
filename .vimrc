@@ -20,6 +20,9 @@ set hidden
 " 入力中のコマンドをステータスに表示する
 set showcmd
 
+" クリップボードを有効にする
+set clipboard+=unnamed
+
 " 見た目系
 " 行番号を表示
 set number
@@ -86,8 +89,9 @@ vnoremap x "_x
 nnoremap X "_X
 vnoremap X "_X
 
-" その他
+" Leader
 let mapleader = "\<Space>"
+nnoremap <Leader>w :w<CR>
 
 " netrwは常にtree view
 let g:netrw_liststyle = 3
