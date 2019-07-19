@@ -1,7 +1,13 @@
 # 環境変数
 export LANG=ja_JP.UTF-8
-export EDITOR=zsh
 export TERM=xterm-256color
+
+export EDITOR='vim' # nanoからvimに変更
+export VISUAL='vim' # nanoからvimに変更
+export PAGER='less'
+
+# emacs風bindkey
+bindkey -e
 
 # 色
 autoload -Uz colors
@@ -24,6 +30,17 @@ today_new_memo() {
 }
 alias nm='today_new_memo'
 alias nmy='vim ~/memo/$(date -d "1 day ago" "+%Y/%m/%d.md")'
+
+# memos
+today_new_memo_private() {
+  mkdir -p ~/Dropbox/plane/dialy/$(date "+%Y/%m")  
+  vim ~/Dropbox/plane/dialy/$(date "+%Y/%m/%d.md")
+}
+alias nmp='today_new_memo_private'
+alias nmpy='vim ~/Dropbox/plane/dialy/$(date -d "1 day ago" "+%Y/%m/%d.md")'
+
+alias todo='vim ~/Dropbox/plane/todo.txt'
+alias todo-ls='cat ~/Dropbox/plane/todo.txt | fzf'
 
 # 補完
 autoload -Uz compinit

@@ -3,7 +3,9 @@ set fenc=utf-8
 
 " color
 syntax on
-colorscheme iceberg
+set t_Co=256
+set background=dark
+colorscheme gruvbox
 
 " バックアップファイルを作らない
 set nobackup
@@ -53,6 +55,13 @@ set splitright
 " spell check
 set spelllang=en,cjk
 
+" 検索関係
+set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
+set ignorecase " 検索パターンに大文字小文字を区別しない
+set smartcase " 検索パターンに大文字を含んでいたら大文字小文字を区別する
+set hlsearch " 検索結果をハイライト
+autocmd QuickFixCmdPost *grep* cwindow "vimgrepすると新しいwindowで開く
+
 " キーバインド
 
 " 折り返しでも行単位で移動
@@ -71,7 +80,7 @@ vnoremap k gk
 inoremap <c-c> <Esc>
 inoremap jj <Esc>
 vnoremap <c-c> <Esc>
-"vnoremap jj <Esc>  
+"vnoremap jj <Esc>
 "inoremap <C-@> <Esc> " tmuxとprefix被るから無理だった
 
 " delete key
@@ -102,6 +111,25 @@ let g:netrw_altv = 1
 " oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
 let g:netrw_alto = 1
 
+" ファイル名表示
+set statusline=%F
+" 変更チェック表示
+set statusline+=%m
+" 読み込み専用かどうか表示
+set statusline+=%r
+" ヘルプページなら[HELP]と表示
+set statusline+=%h
+" プレビューウインドウなら[Prevew]と表示
+set statusline+=%w
+" これ以降は右寄せ表示
+set statusline+=%=
+" file encoding
+set statusline+=[ENC=%{&fileencoding}]
+" 現在行数/全行数
+set statusline+=[LOW=%l/%L]
+" ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
+set laststatus=2
+
 call plug#begin()
   Plug 'vim-ruby/vim-ruby'
   Plug 'posva/vim-vue'
@@ -111,5 +139,24 @@ call plug#begin()
   Plug 'yonchu/accelerated-smooth-scroll'
   Plug 'tpope/vim-rails'
   Plug 'cohama/lexima.vim'
+  Plug 'vim-scripts/todo-txt.vim'
+  Plug 'scrooloose/syntastic'
+  Plug 'bronson/vim-trailing-whitespace'
+  Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
 call plug#end()
+
+" autocmd
+" vim-trailing-whitespace
+autocmd BufWritePre * :FixWhitespace
+
+" syntacstic
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers = ['rubocop']
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_wq = 0
 
