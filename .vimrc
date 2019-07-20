@@ -58,6 +58,15 @@ set splitright
 " spell check
 set spelllang=en,cjk
 
+if has('vim_starting')
+    " 挿入モード時に非点滅の縦棒タイプのカーソル
+    let &t_SI .= "\e[6 q"
+    " ノーマルモード時に非点滅のブロックタイプのカーソル
+    let &t_EI .= "\e[2 q"
+    " 置換モード時に非点滅の下線タイプのカーソル
+    let &t_SR .= "\e[4 q"
+endif
+
 " 検索関係
 set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
 set ignorecase " 検索パターンに大文字小文字を区別しない
@@ -134,6 +143,7 @@ set statusline+=[LOW=%l/%L]
 set laststatus=2
 
 call plug#begin()
+  Plug 'vim-jp/vital.vim'
   Plug 'vim-ruby/vim-ruby'
   Plug 'posva/vim-vue'
   Plug 'othree/yajs.vim'
@@ -146,6 +156,7 @@ call plug#begin()
   Plug 'scrooloose/syntastic'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'itchyny/lightline.vim'
 call plug#end()
 
 " autocmd

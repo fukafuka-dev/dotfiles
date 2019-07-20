@@ -25,7 +25,7 @@ alias ss='bin/spring stop'
 
 # memos
 today_new_memo() {
-  mkdir -p ~/memo/$(date "+%Y/%m")  
+  mkdir -p ~/memo/$(date "+%Y/%m")
   vim ~/memo/$(date "+%Y/%m/%d.md")
 }
 alias nm='today_new_memo'
@@ -33,7 +33,7 @@ alias nmy='vim ~/memo/$(date -d "1 day ago" "+%Y/%m/%d.md")'
 
 # memos
 today_new_memo_private() {
-  mkdir -p ~/Dropbox/plane/dialy/$(date "+%Y/%m")  
+  mkdir -p ~/Dropbox/plane/dialy/$(date "+%Y/%m")
   vim ~/Dropbox/plane/dialy/$(date "+%Y/%m/%d.md")
 }
 alias nmp='today_new_memo_private'
@@ -70,7 +70,7 @@ fix_comp_assoc _postpatcomps "${(k)_postpatcomps[@]}"
 # plugin
 source ~/.zplug/init.zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-autosuggestions", defer:2 
+zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug load
 
 # fzf
@@ -107,3 +107,4 @@ load_zsh() {
 
 echo 'load below'
 load_zsh '.zsh_local'
+
