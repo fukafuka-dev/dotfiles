@@ -1,5 +1,8 @@
 "" setting
 set fenc=utf-8
+set nocompatible
+set wildmenu
+filetype plugin on
 
 " color
 syntax on
@@ -143,7 +146,6 @@ set statusline+=[LOW=%l/%L]
 set laststatus=2
 
 call plug#begin()
-  Plug 'vim-jp/vital.vim'
   Plug 'vim-ruby/vim-ruby'
   Plug 'posva/vim-vue'
   Plug 'othree/yajs.vim'
