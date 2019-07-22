@@ -108,3 +108,5 @@ load_zsh() {
 echo 'load below'
 load_zsh '.zsh_local'
 
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

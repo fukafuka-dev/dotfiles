@@ -150,15 +150,20 @@ call plug#begin()
   Plug 'posva/vim-vue'
   Plug 'othree/yajs.vim'
   Plug 'nathanaelkane/vim-indent-guides'
-"  Plug 'christoomey/vim-tmux-navigator'
   Plug 'yonchu/accelerated-smooth-scroll'
   Plug 'tpope/vim-rails'
   Plug 'cohama/lexima.vim'
   Plug 'vim-scripts/todo-txt.vim'
   Plug 'scrooloose/syntastic'
+  Plug 'sekel/vim-vue-syntastic'
+    Plug 'tpope/vim-pathogen'
+
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'itchyny/lightline.vim'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " autocmd
@@ -166,7 +171,7 @@ call plug#end()
 autocmd BufWritePre * :FixWhitespace
 
 " syntacstic
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby', 'javascript', 'vue'] }
 let g:syntastic_ruby_checkers = ['rubocop']
 
 set statusline+=%#warningmsg#
@@ -175,4 +180,17 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
+
+" [syntacstic]eslint
+execute pathogen#infect()
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_vue_checkers = ['eslint']
+let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+if matchstr(local_eslint, "^\/\\w") == ''
+    let local_eslint = getcwd() . "/" . local_eslint
+endif
+if executable(local_eslint)
+    let g:syntastic_javascript_eslint_exec = local_eslint
+    let g:syntastic_vue_eslint_exec = local_eslint
+endif
 
