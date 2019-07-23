@@ -18,10 +18,24 @@ PROMPT="
 %{${fg[magenta]}%}%~%{${reset_color}%}
 [%{${fg[magenta]}%}%n%{${reset_color}%}]$ "
 
+# Git連携
+autoload -Uz vcs_info
+setopt prompt_subst
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+precmd () { vcs_info }
+RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
+
 # alias
 alias ls='ls -GF'
 alias ui-start='foreman start -f Procfile.dev'
 alias ss='bin/spring stop'
+
+alias repos='ghq list -p | fzf'
+alias repo='cd $(repos)'
 
 # memos
 today_new_memo() {
