@@ -115,7 +115,8 @@ vnoremap X "_X
 
 " Leader
 let mapleader = "\<Space>"
-nnoremap <Leader>w :w<CR>
+let maplocalleader = "\<Space>"
+nnoremap <leader>w :w<CR>
 
 " netrwは常にtree view
 let g:netrw_liststyle = 3
@@ -153,17 +154,17 @@ call plug#begin()
   Plug 'yonchu/accelerated-smooth-scroll'
   Plug 'tpope/vim-rails'
   Plug 'cohama/lexima.vim'
-  Plug 'vim-scripts/todo-txt.vim'
   Plug 'scrooloose/syntastic'
   Plug 'sekel/vim-vue-syntastic'
     Plug 'tpope/vim-pathogen'
-
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'itchyny/lightline.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'airblade/vim-gitgutter'
+  Plug 'callmekohei/vim-todoedit'
+    Plug 'thinca/vim-partedit'
 call plug#end()
 
 " autocmd
