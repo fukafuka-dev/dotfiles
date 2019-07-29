@@ -12,6 +12,7 @@ colorscheme gruvbox
 
 " バックアップファイルを作らない
 set nobackup
+set nowritebackup
 
 " スワップファイルを作らない
 set noswapfile
@@ -35,6 +36,19 @@ set backspace=indent,eol,start
 " 行番号を表示
 set number
 
+" 不可視文字を表示
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+
+" Show gitgutter column always
+set signcolumn=yes
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=100
+
+" always show signcolumns
+set signcolumn=yes
+
 " 現在の行を強調表示
 set cursorline
 
@@ -46,6 +60,8 @@ set smartindent
 
 " 括弧入力時の対応する括弧を表示
 set showmatch
+" 対応括弧の表示秒数を3秒にする
+set matchtime=3
 
 " ステータスラインを常に表示
 set laststatus=2
@@ -117,6 +133,13 @@ vnoremap X "_X
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 nnoremap <leader>w :w<CR>
+nnoremap <leader>q :bd<CR>
+
+" fzf-vim
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>g :GFiles<CR>
+nnoremap <leader>s :GFiles?<CR>
 
 " netrwは常にtree view
 let g:netrw_liststyle = 3
@@ -163,11 +186,12 @@ call plug#begin()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'airblade/vim-gitgutter'
-  Plug 'callmekohei/vim-todoedit'
     Plug 'thinca/vim-partedit'
+  Plug 'kamykn/spelunker.vim'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'callmekohei/vim-todoedit'
 call plug#end()
 
-" autocmd
 " vim-trailing-whitespace
 autocmd BufWritePre * :FixWhitespace
 
