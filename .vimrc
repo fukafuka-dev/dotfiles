@@ -190,6 +190,7 @@ call plug#begin()
   Plug 'kamykn/spelunker.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'callmekohei/vim-todoedit'
+  Plug 'elzr/vim-json'
 call plug#end()
 
 " vim-trailing-whitespace
@@ -219,3 +220,5 @@ if executable(local_eslint)
     let g:syntastic_vue_eslint_exec = local_eslint
 endif
 
+" vim-json
+let g:vim_json_syntax_conceal = 0
