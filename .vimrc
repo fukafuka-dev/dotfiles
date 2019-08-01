@@ -6,8 +6,7 @@ filetype plugin on
 
 " color
 syntax on
-set t_Co=256
-set background=dark
+set termguicolors
 colorscheme gruvbox
 
 " バックアップファイルを作らない
@@ -181,7 +180,6 @@ call plug#begin()
   Plug 'sekel/vim-vue-syntastic'
     Plug 'tpope/vim-pathogen'
   Plug 'bronson/vim-trailing-whitespace'
-  Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'itchyny/lightline.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
@@ -191,6 +189,10 @@ call plug#begin()
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'callmekohei/vim-todoedit'
   Plug 'elzr/vim-json'
+
+  Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'jacoborus/tender.vim', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'jeetsukumaran/vim-nefertiti', {'do': 'cp colors/* ~/.vim/colors/'}
 call plug#end()
 
 " vim-trailing-whitespace
