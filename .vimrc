@@ -176,9 +176,6 @@ call plug#begin()
   Plug 'yonchu/accelerated-smooth-scroll'
   Plug 'tpope/vim-rails'
   Plug 'cohama/lexima.vim'
-  Plug 'scrooloose/syntastic'
-  Plug 'sekel/vim-vue-syntastic'
-    Plug 'tpope/vim-pathogen'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'itchyny/lightline.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -193,34 +190,36 @@ call plug#begin()
   Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'jacoborus/tender.vim', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'jeetsukumaran/vim-nefertiti', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'aereal/vim-colors-japanesque', {'do': 'cp colors/* ~/.vim/colors/'}
+
+  Plug 'dense-analysis/ale'
+  Plug 'maximbaz/lightline-ale'
 call plug#end()
 
 " vim-trailing-whitespace
 autocmd BufWritePre * :FixWhitespace
 
-" syntacstic
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby', 'javascript', 'vue'] }
-let g:syntastic_ruby_checkers = ['rubocop']
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_wq = 0
-
-" [syntacstic]eslint
-execute pathogen#infect()
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_vue_checkers = ['eslint']
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-if matchstr(local_eslint, "^\/\\w") == ''
-    let local_eslint = getcwd() . "/" . local_eslint
-endif
-if executable(local_eslint)
-    let g:syntastic_javascript_eslint_exec = local_eslint
-    let g:syntastic_vue_eslint_exec = local_eslint
-endif
-
 " vim-json
 let g:vim_json_syntax_conceal = 0
+
+" ale
+let g:ale_javascript_eslint_use_global = 1
+
+" lightline-ale
+let g:lightline = {}
+
+let g:lightline.component_expand = {
+  \  'linter_checking': 'lightline#ale#checking',
+  \  'linter_warnings': 'lightline#ale#warnings',
+  \  'linter_errors': 'lightline#ale#errors',
+  \  'linter_ok': 'lightline#ale#ok',
+  \ }
+
+let g:lightline.component_type = {
+  \     'linter_checking': 'left',
+  \     'linter_warnings': 'warning',
+  \     'linter_errors': 'error',
+  \     'linter_ok': 'left',
+  \ }
+
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
