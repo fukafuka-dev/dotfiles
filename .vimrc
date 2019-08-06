@@ -177,14 +177,10 @@ call plug#begin()
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'callmekohei/vim-todoedit'
   Plug 'elzr/vim-json'
-
   Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
-  Plug 'jacoborus/tender.vim', {'do': 'cp colors/* ~/.vim/colors/'}
-  Plug 'jeetsukumaran/vim-nefertiti', {'do': 'cp colors/* ~/.vim/colors/'}
-  Plug 'aereal/vim-colors-japanesque', {'do': 'cp colors/* ~/.vim/colors/'}
-
   Plug 'dense-analysis/ale'
   Plug 'maximbaz/lightline-ale'
+  Plug 'bfredl/nvim-miniyank'
 call plug#end()
 
 " --------------------------------------------------
@@ -269,10 +265,16 @@ let g:lightline.active = {
 function! AbsolutePath()
   let a = substitute(expand('%:p'), $HOME, '~', '')
   if a == ""
-    return '※'
+    return 'none'
   elseif strlen(a) > 40
     return a[strlen(a)-40:]
   else
     return a
   endif
 endfunction
+
+" --------------------------------------------------
+" OSXでの矩形yank&pasteのバグ
+" --------------------------------------------------
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)

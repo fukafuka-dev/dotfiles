@@ -44,7 +44,9 @@ alias repos='ghq list -p | fzf --preview "tree -C {} | head -200"'
 alias repo='cd $(repos)'
 
 alias dia="dialy.zsh"
-
+alias todo='vim ~/Dropbox/plane/todo/todo.txt'
+alias todo-ls='cat ~/Dropbox/plane/todo/todo.txt | fzf'
+#
 # 補完
 autoload -Uz compinit
 compinit
