@@ -3,6 +3,7 @@ set fenc=utf-8
 set nocompatible
 set wildmenu
 filetype plugin on
+set ambiwidth=double
 
 " color
 syntax on
@@ -31,25 +32,12 @@ set clipboard+=unnamed
 " backspece
 set backspace=indent,eol,start
 
-" 見た目系
-" 行番号を表示
-set number
+" 自動更新時間
+set updatetime=500
 
-" 不可視文字を表示
-set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-
-" Show gitgutter column always
-set signcolumn=yes
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=100
-
-" always show signcolumns
-set signcolumn=yes
-
-" 現在の行を強調表示
-set cursorline
+" --------------------------------------------------
+" 操作
+" --------------------------------------------------
 
 " 行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
@@ -57,8 +45,35 @@ set virtualedit=onemore
 " インデントはスマートインデント
 set smartindent
 
+" 新しいウインドウを下に開く
+set splitbelow
+
+" 新しいウィンドウを右に開く
+set splitright
+
+" スペルチェック言語
+set spelllang=en,cjk
+
+" --------------------------------------------------
+" 表示
+" --------------------------------------------------
+
+" 行番号を表示
+set number
+
+" 不可視文字を表示
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+
+" サインカラムを常に表示する
+set signcolumn=yes
+
+" 現在の行を強調表示
+set cursorline
+
 " 括弧入力時の対応する括弧を表示
 set showmatch
+
 " 対応括弧の表示秒数を3秒にする
 set matchtime=3
 
@@ -68,14 +83,7 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 
-" 新しいウィンドウを下に開く
-set splitbelow
-" 新しいウィンドウを右に開く
-set splitright
-
-" spell check
-set spelllang=en,cjk
-
+" カーソル設定
 if has('vim_starting')
     " 挿入モード時に非点滅の縦棒タイプのカーソル
     let &t_SI .= "\e[6 q"
@@ -85,14 +93,28 @@ if has('vim_starting')
     let &t_SR .= "\e[4 q"
 endif
 
-" 検索関係
-set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
-set ignorecase " 検索パターンに大文字小文字を区別しない
-set smartcase " 検索パターンに大文字を含んでいたら大文字小文字を区別する
-set hlsearch " 検索結果をハイライト
-autocmd QuickFixCmdPost *grep* cwindow "vimgrepすると新しいwindowで開く
+" --------------------------------------------------
+" 検索
+" --------------------------------------------------
 
+" インクリメンタルサーチ. １文字入力毎に検索を行う
+set incsearch
+
+" 検索パターンに大文字小文字を区別しない
+set ignorecase
+
+" 検索パターンに大文字を含んでいたら大文字小文字を区別する
+set smartcase
+
+" 検索結果をハイライト
+set hlsearch
+
+"vimgrepすると新しいwindowで開く
+autocmd QuickFixCmdPost *grep* cwindow
+
+" --------------------------------------------------
 " キーバインド
+" --------------------------------------------------
 
 " 折り返しでも行単位で移動
 nnoremap j gj
@@ -111,7 +133,6 @@ inoremap <c-c> <Esc>
 inoremap jj <Esc>
 vnoremap <c-c> <Esc>
 "vnoremap jj <Esc>
-"inoremap <C-@> <Esc> " tmuxとprefix被るから無理だった
 
 " delete key
 inoremap <c-d> <Del>
@@ -134,39 +155,9 @@ let maplocalleader = "\<Space>"
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :bd<CR>
 
-" fzf-vim
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>g :GFiles<CR>
-nnoremap <leader>s :GFiles?<CR>
-
-" netrwは常にtree view
-let g:netrw_liststyle = 3
-
-" vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
-let g:netrw_altv = 1
-
-" oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
-let g:netrw_alto = 1
-
-" ファイル名表示
-set statusline=%F
-" 変更チェック表示
-set statusline+=%m
-" 読み込み専用かどうか表示
-set statusline+=%r
-" ヘルプページなら[HELP]と表示
-set statusline+=%h
-" プレビューウインドウなら[Prevew]と表示
-set statusline+=%w
-" これ以降は右寄せ表示
-set statusline+=%=
-" file encoding
-set statusline+=[ENC=%{&fileencoding}]
-" 現在行数/全行数
-set statusline+=[LOW=%l/%L]
-" ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
-set laststatus=2
+" --------------------------------------------------
+" vim-plug
+" --------------------------------------------------
 
 call plug#begin()
   Plug 'vim-ruby/vim-ruby'
@@ -196,30 +187,92 @@ call plug#begin()
   Plug 'maximbaz/lightline-ale'
 call plug#end()
 
+" --------------------------------------------------
+" fzf-vim
+" --------------------------------------------------
+
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>g :GFiles<CR>
+nnoremap <leader>s :GFiles?<CR>
+
+" --------------------------------------------------
+" netrw
+" --------------------------------------------------
+
+" netrwは常にtree view
+let g:netrw_liststyle = 3
+
+" vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
+let g:netrw_altv = 1
+
+" oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
+let g:netrw_alto = 1
+
+" --------------------------------------------------
 " vim-trailing-whitespace
+" --------------------------------------------------
+
 autocmd BufWritePre * :FixWhitespace
 
+" --------------------------------------------------
 " vim-json
+" --------------------------------------------------
+
 let g:vim_json_syntax_conceal = 0
 
+" --------------------------------------------------
 " ale
+" --------------------------------------------------
+
 let g:ale_javascript_eslint_use_global = 1
 
-" lightline-ale
+" --------------------------------------------------
+" lightline/ale
+" --------------------------------------------------
+
 let g:lightline = {}
 
+let g:lightline.colorscheme = 'wombat'
+
 let g:lightline.component_expand = {
-  \  'linter_checking': 'lightline#ale#checking',
-  \  'linter_warnings': 'lightline#ale#warnings',
-  \  'linter_errors': 'lightline#ale#errors',
-  \  'linter_ok': 'lightline#ale#ok',
-  \ }
+\   'linter_checking': 'lightline#ale#checking',
+\   'linter_warnings': 'lightline#ale#warnings',
+\   'linter_errors': 'lightline#ale#errors',
+\   'linter_ok': 'lightline#ale#ok',
+\ }
 
 let g:lightline.component_type = {
-  \     'linter_checking': 'left',
-  \     'linter_warnings': 'warning',
-  \     'linter_errors': 'error',
-  \     'linter_ok': 'left',
-  \ }
+\   'linter_checking': 'left',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error',
+\   'linter_ok': 'left',
+\ }
 
-let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+let g:lightline.component_function = {
+\   'absolute_path': 'AbsolutePath'
+\ }
+
+let g:lightline.active = {
+\   'left': [
+\     ['mode', 'paste'],
+\     ['readonly', 'absolute_path', 'modified']
+\   ],
+\  'right': [
+\     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+\     [ 'lineinfo' ],
+\     [ 'percent' ],
+\     [ 'fileformat', 'fileencoding', 'filetype' ]
+\   ]
+\ }
+
+function! AbsolutePath()
+  let a = substitute(expand('%:p'), $HOME, '~', '')
+  if a == ""
+    return '※'
+  elseif strlen(a) > 40
+    return a[strlen(a)-40:]
+  else
+    return a
+  endif
+endfunction
