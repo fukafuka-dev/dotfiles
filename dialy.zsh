@@ -3,7 +3,7 @@
 local -A opthash
 zparseopts -D -A opthash -- p d:
 
-# init
+# default init
 work_dir=$HOME/doc/dialy
 open_file_date=$(date "+%Y/%m/%d.md")
 
@@ -12,10 +12,10 @@ if [[ -n "${opthash[(i)-p]}" ]]; then
   work_dir=$HOME/Dropbox/plane/dialy
 fi
 
-if [[ -n "${opthash[(i)-d]}" ]]; then
-  y=$(echo ${opthash[-d]} | cut -b 1-2)
-  m=$(echo ${opthash[-d]} | cut -b 3-4)
-  d=$(echo ${opthash[-d]} | cut -b 5-6)
+if [[ -n $@ ]]; then
+  y=$(echo $@ | cut -b 1-2)
+  m=$(echo $@ | cut -b 3-4)
+  d=$(echo $@ | cut -b 5-6)
   open_file_date=20$y/$m/$d.md
 fi
 
