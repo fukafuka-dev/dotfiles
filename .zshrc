@@ -6,6 +6,9 @@ export EDITOR='vim' # nanoからvimに変更
 export VISUAL='vim' # nanoからvimに変更
 export PAGER='less'
 
+# bin
+export PATH="$HOME/bin":"$PATH"
+
 # emacs風bindkey
 bindkey -e
 
@@ -40,24 +43,7 @@ alias ss='bin/spring stop'
 alias repos='ghq list -p | fzf --preview "tree -C {} | head -200"'
 alias repo='cd $(repos)'
 
-# memos
-today_new_memo() {
-  mkdir -p ~/memo/$(date "+%Y/%m")
-  vim ~/memo/$(date "+%Y/%m/%d.md")
-}
-alias nm='today_new_memo'
-alias nmy='vim ~/memo/$(date -d "1 day ago" "+%Y/%m/%d.md")'
-
-# memos
-today_new_memo_private() {
-  mkdir -p ~/Dropbox/plane/dialy/$(date "+%Y/%m")
-  vim ~/Dropbox/plane/dialy/$(date "+%Y/%m/%d.md")
-}
-alias nmp='today_new_memo_private'
-alias nmpy='vim ~/Dropbox/plane/dialy/$(date -d "1 day ago" "+%Y/%m/%d.md")'
-
-alias todo='vim ~/Dropbox/plane/todo.txt'
-alias todo-ls='cat ~/Dropbox/plane/todo.txt | fzf'
+alias dia="dialy.zsh"
 
 # 補完
 autoload -Uz compinit
