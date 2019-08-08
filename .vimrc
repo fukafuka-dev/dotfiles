@@ -153,7 +153,7 @@ vnoremap X "_X
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 nnoremap <leader>w :w<CR>
-nnoremap <leader>q :bd<CR>
+nnoremap <leader>q :Sayonara<CR>
 
 " --------------------------------------------------
 " vim-plug
@@ -181,6 +181,10 @@ call plug#begin()
   Plug 'dense-analysis/ale'
   Plug 'maximbaz/lightline-ale'
   Plug 'bfredl/nvim-miniyank'
+  Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+  Plug 'simeji/winresizer'
+  Plug 'scrooloose/nerdtree'
+  Plug 'docunext/closetag.vim'
 call plug#end()
 
 " --------------------------------------------------
@@ -222,6 +226,8 @@ let g:vim_json_syntax_conceal = 0
 " --------------------------------------------------
 
 let g:ale_javascript_eslint_use_global = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
 
 " --------------------------------------------------
 " lightline/ale
@@ -274,7 +280,12 @@ function! AbsolutePath()
 endfunction
 
 " --------------------------------------------------
+"  NERDTree
+" --------------------------------------------------
+nnoremap <leader>t :NERDTreeToggle<CR>
+" --------------------------------------------------
 " OSXでの矩形yank&pasteのバグ
 " --------------------------------------------------
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
+
