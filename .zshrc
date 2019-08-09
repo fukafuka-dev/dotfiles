@@ -1,9 +1,11 @@
-# 環境変数
+# ----------------------------------------------------------------
+# 環境設定
+# ----------------------------------------------------------------
 export LANG=ja_JP.UTF-8
 export TERM=xterm-256color
 
-export EDITOR='vim' # nanoからvimに変更
-export VISUAL='vim' # nanoからvimに変更
+export EDITOR='vim'
+export VISUAL='vim'
 export PAGER='less'
 
 # bin
@@ -16,7 +18,10 @@ bindkey -e
 autoload -Uz colors
 colors
 
+# ----------------------------------------------------------------
 # プロンプト
+# ----------------------------------------------------------------
+
 PROMPT="
 %{${fg[magenta]}%}%~%{${reset_color}%}
 [%{${fg[magenta]}%}%n%{${reset_color}%}]$ "
@@ -34,7 +39,10 @@ precmd () {
 }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
+# ----------------------------------------------------------------
 # alias
+# ----------------------------------------------------------------
+
 alias vim='nvim'
 alias ls='ls -GF'
 alias ui-start='foreman start -f Procfile.dev'
@@ -44,10 +52,14 @@ alias repos='ghq list -p | fzf --preview "tree -C {} | head -200"'
 alias repo='cd $(repos)'
 
 alias dia="dialy.zsh"
-alias todo='vim ~/Dropbox/plane/todo/todo.txt'
-alias todo-ls='cat ~/Dropbox/plane/todo/todo.txt | fzf'
-#
+dropbox_dir=~/Dropbox/plane
+alias todo='vim $dropbox_dir/todo/todo.txt'
+alias todo-ls='cat $dropbox_dir/todo/todo.txt | fzf'
+
+# ----------------------------------------------------------------
 # 補完
+# ----------------------------------------------------------------
+
 autoload -Uz compinit
 compinit
 
@@ -72,13 +84,41 @@ fix_comp_assoc _services     "${(k)_services[@]}"
 fix_comp_assoc _patcomps     "${(k)_patcomps[@]}"
 fix_comp_assoc _postpatcomps "${(k)_postpatcomps[@]}"
 
-# plugin
-source ~/.zplug/init.zsh
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-autosuggestions", defer:2
-zplug load
 
+# ----------------------------------------------------------------
+# 環境別設定を読み込む
+# ----------------------------------------------------------------
+load_zsh() {
+  local x=$1
+  ZSHHOME="${HOME}/${x}"
+
+  if [ -d $ZSHHOME -a -r $ZSHHOME -a \
+       -x $ZSHHOME ]; then
+      for i in $ZSHHOME/*; do
+          [[ ${i##*/} = *.zsh ]] &&
+              [ \( -f $i -o -h $i \) -a -r $i ] && . $i
+      done
+  fi
+}
+
+echo 'load below'
+load_zsh '.zsh_local'
+
+# ----------------------------------------------------------------
+# zplugin
+# ----------------------------------------------------------------
+
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+
+zplugin light zsh-users/zsh-syntax-highlighting
+zplugin light zsh-users/zsh-autosuggestions
+zplugin light b4b4r07/zsh-gomi
+
+# ----------------------------------------------------------------
 # fzf
+# ----------------------------------------------------------------
 function history-fzf() {
   local tac
 
@@ -96,22 +136,7 @@ function history-fzf() {
 zle -N history-fzf
 bindkey '^r' history-fzf
 
-# 環境別設定を読み込む
-load_zsh() {
-  local x=$1
-  ZSHHOME="${HOME}/${x}"
-
-  if [ -d $ZSHHOME -a -r $ZSHHOME -a \
-       -x $ZSHHOME ]; then
-      for i in $ZSHHOME/*; do
-          [[ ${i##*/} = *.zsh ]] &&
-              [ \( -f $i -o -h $i \) -a -r $i ] && . $i
-      done
-  fi
-}
-
-echo 'load below'
-load_zsh '.zsh_local'
-
+# ----------------------------------------------------------------
 # fzf
+# ----------------------------------------------------------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

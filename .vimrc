@@ -7,8 +7,9 @@ set ambiwidth=double
 
 " color
 syntax on
-set termguicolors
 colorscheme gruvbox
+set termguicolors
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " バックアップファイルを作らない
 set nobackup
@@ -34,6 +35,9 @@ set backspace=indent,eol,start
 
 " 自動更新時間
 set updatetime=500
+
+" ビープ音消す
+set vb t_vb=
 
 " --------------------------------------------------
 " 操作
@@ -148,6 +152,10 @@ nnoremap x "_x
 vnoremap x "_x
 nnoremap X "_X
 vnoremap X "_X
+
+" terminal
+tnoremap <silent> <ESC> <C-\><C-n>
+tnoremap <silent> jj <C-\><C-n>
 
 " Leader
 let mapleader = "\<Space>"
