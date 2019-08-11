@@ -46,6 +46,7 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 # alias
 # ----------------------------------------------------------------
 
+alias vim='nvim'
 alias ls='ls -GF'
 alias ui-start='foreman start -f Procfile.dev'
 alias ss='bin/spring stop'
