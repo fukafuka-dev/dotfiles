@@ -9,6 +9,6 @@ ln -sf $repodir/.vimrc ~/.vimrc
 ln -sf $repodir/.tigrc ~/.tigrc
 ln -sf $repodir/.tmux.conf ~/.tmux.conf
 
-mkdir -p ~/.config
-ln -s ~/.vim ~/.config/nvim
-ln -s ~/.vimrc ~/.config/nvim/init.vim
+mkdir -p ~/.config/nvim
+ln -sf ~/.vim ~/.config/nvim
+ln -sf ~/.vimrc ~/.config/nvim/init.vim
