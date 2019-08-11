@@ -1,6 +1,7 @@
 #!/bin/sh
 
 repodir=~/dev/github.com/albtrs/dotfiles
+mkdir ~/bin
 ln -sf $repodir/bin/dialy.zsh ~/bin/dialy.zsh
 ln -sf $repodir/bin/show_colors.sh ~/bin/show_colors.sh
 ln -sf $repodir/.zshrc ~/.zshrc
