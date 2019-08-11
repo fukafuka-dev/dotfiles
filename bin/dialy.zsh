@@ -22,4 +22,4 @@ fi
 # create
 open_dir_date=$(echo $open_file_date | cut -b -7)
 mkdir -p $work_dir/$open_dir_date
-vim $work_dir/$open_file_date
+nvim $work_dir/$open_file_date
