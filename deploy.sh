@@ -1,6 +1,9 @@
 #!/bin/sh
 
-repodir=$HOME/dev/github.com/albtrs/dotfiles
+set -eu
+
+repodir=$PWD
+echo $repodir
 mkdir -p $HOME/bin
 ln -sf $repodir/bin/dialy.zsh $HOME/bin/dialy.zsh
 ln -sf $repodir/bin/show_colors.sh $HOME/bin/show_colors.sh
