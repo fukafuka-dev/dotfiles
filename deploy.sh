@@ -2,7 +2,10 @@
 
 set -eu
 
-repodir=$PWD
+rm -f ~/.zshrc
+rm -f ~/.vimrc
+
+repodir=$(cd $(dirname $0); pwd)
 echo $repodir
 mkdir -p $HOME/bin
 ln -sf $repodir/bin/dialy.zsh $HOME/bin/dialy.zsh
