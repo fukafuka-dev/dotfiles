@@ -4,8 +4,8 @@
 export LANG=ja_JP.UTF-8
 export TERM=xterm-256color
 
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PAGER='less'
 
 # bin
