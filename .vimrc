@@ -2,8 +2,11 @@
 set fenc=utf-8
 set nocompatible
 set wildmenu
-filetype plugin on
 set ambiwidth=double
+
+" 一旦ファイルタイプ関連を無効化する
+filetype off
+filetype plugin indent off
 
 " color
 syntax on
@@ -297,3 +300,8 @@ nnoremap <leader>t :NERDTreeToggle<CR>
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
 
+
+" --------------------------------------------------
+" ファイルタイプ関連を有効にする
+" --------------------------------------------------
+filetype plugin indent on
