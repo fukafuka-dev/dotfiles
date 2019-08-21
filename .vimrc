@@ -195,6 +195,7 @@ call plug#begin()
   Plug 'scrooloose/nerdtree'
   Plug 'docunext/closetag.vim'
   Plug 'christoomey/vim-tmux-navigator'
+  Plug 'mhinz/vim-startify'
 call plug#end()
 
 " --------------------------------------------------
