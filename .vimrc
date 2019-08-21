@@ -11,8 +11,6 @@ filetype plugin indent off
 " color
 syntax on
 colorscheme gruvbox
-set termguicolors
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " バックアップファイルを作らない
 set nobackup
