@@ -196,6 +196,7 @@ call plug#begin()
   Plug 'simeji/winresizer'
   Plug 'scrooloose/nerdtree'
   Plug 'docunext/closetag.vim'
+  Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 " --------------------------------------------------
