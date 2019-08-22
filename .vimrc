@@ -9,7 +9,7 @@ filetype off
 filetype plugin indent off
 
 " color
-syntax on
+syntax enable
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -139,6 +139,7 @@ vnoremap k gk
 
 inoremap <c-c> <Esc>
 inoremap jj <Esc>
+inoremap っｊ <Esc>
 vnoremap <c-c> <Esc>
 "vnoremap jj <Esc>
 
@@ -189,7 +190,6 @@ call plug#begin()
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'callmekohei/vim-todoedit'
   Plug 'elzr/vim-json'
-  Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'dense-analysis/ale'
   Plug 'maximbaz/lightline-ale'
   Plug 'bfredl/nvim-miniyank'
@@ -199,6 +199,9 @@ call plug#begin()
   Plug 'docunext/closetag.vim'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'mhinz/vim-startify'
+
+  Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'flazz/vim-colorschemes', {'do': 'cp colors/* ~/.vim/colors/'}
 call plug#end()
 
 " --------------------------------------------------

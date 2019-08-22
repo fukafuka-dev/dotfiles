@@ -51,8 +51,7 @@ alias ls='ls -GF'
 alias ui-start='foreman start -f Procfile.dev'
 alias ss='bin/spring stop'
 
-alias repos='ghq list -p | fzf --preview "tree -C {} | head -200"'
-alias repo='cd $(repos)'
+alias repo='() { cd $(ghq list -p | fzf -q "$*"  --preview "tree -C {} | head -200") }'
 
 alias dia="dialy.zsh"
 dropbox_dir=~/Dropbox/plane
@@ -86,7 +85,6 @@ fix_comp_assoc _comps        "${(k)_comps[@]}"
 fix_comp_assoc _services     "${(k)_services[@]}"
 fix_comp_assoc _patcomps     "${(k)_patcomps[@]}"
 fix_comp_assoc _postpatcomps "${(k)_postpatcomps[@]}"
-
 
 # ----------------------------------------------------------------
 # 環境別設定を読み込む
