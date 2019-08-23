@@ -24,10 +24,10 @@ export XDG_CONFIG_HOME=~/.config
 # ----------------------------------------------------------------
 # プロンプト
 # ----------------------------------------------------------------
-
 PROMPT="
-%{${fg[magenta]}%}%~%{${reset_color}%}
-[%{${fg[magenta]}%}%n%{${reset_color}%}]$ "
+%{${fg[cyan]}%}%~%{${reset_color}%}
+[%{${fg[cyan]}%}%n%{${reset_color}%}]$ "
+AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=11'
 
 # Git連携
 autoload -Uz vcs_info
@@ -46,17 +46,27 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 # alias
 # ----------------------------------------------------------------
 
-alias vim='nvim'
+alias vim=$EDITOR
 alias ls='ls -GF'
-alias ui-start='foreman start -f Procfile.dev'
-alias ss='bin/spring stop'
 
+# vim
+alias vin='() { vim $(ls $1 | fzf) }'
+
+# ghq
 alias repo='() { cd $(ghq list -p | fzf -q "$*"  --preview "tree -C {} | head -200") }'
 
+# メモ関係
 alias dia="dialy.zsh"
 dropbox_dir=~/Dropbox/plane
 alias todo='vim $dropbox_dir/todo/todo.txt'
 alias todo-ls='cat $dropbox_dir/todo/todo.txt | fzf'
+
+# 特定のコマンドを実行した時背景色を変える（終了したら戻る）
+alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=colour17"; ssh $1; tmux select-pane -P "fg=default,bg=default" }'
+
+# プロジェクト固有
+alias ui-start='foreman start -f Procfile.dev'
+alias ss='bin/spring stop'
 
 # ----------------------------------------------------------------
 # 補完

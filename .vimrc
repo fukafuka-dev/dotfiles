@@ -13,7 +13,9 @@ syntax enable
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-colorscheme gruvbox
+"colorscheme gruvbox
+"colorscheme gotham
+colorscheme solarized8_dark_high
 
 " バックアップファイルを作らない
 set nobackup
@@ -121,7 +123,7 @@ set hlsearch
 autocmd QuickFixCmdPost *grep* cwindow
 
 " --------------------------------------------------
-" キーバインド
+" key bind
 " --------------------------------------------------
 
 " 折り返しでも行単位で移動
@@ -151,6 +153,10 @@ nnoremap <c-a> 0
 nnoremap <c-j> <c-e>
 nnoremap <c-k> <c-y>
 nnoremap <c-e> $
+
+" ウインドウ入れ替え(なるべくtmuxに寄せる)
+nnoremap <silent> <c-w>{ <c-w><c-x>
+nnoremap <silent> <c-w>} <c-w>x
 
 " レジスタを汚さない削除
 nnoremap x "_x
