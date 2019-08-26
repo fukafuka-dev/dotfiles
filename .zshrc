@@ -56,6 +56,7 @@ alias vin='() { vim $(ls $1 | fzf) }'
 alias repo='() { cd $(ghq list -p | fzf -q "$*"  --preview "tree -C {} | head -200") }'
 
 # メモ関係
+alias memo="memo.zsh"
 alias dia="dialy.zsh"
 dropbox_dir=~/Dropbox/plane
 alias todo='vim $dropbox_dir/todo/todo.txt'
@@ -63,6 +64,9 @@ alias todo-ls='cat $dropbox_dir/todo/todo.txt | fzf'
 
 # 特定のコマンドを実行した時背景色を変える（終了したら戻る）
 alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=colour17"; ssh $1; tmux select-pane -P "fg=default,bg=default" }'
+
+# Docker
+alias docker-login='() { docker exec -it $1 bash }'
 
 # プロジェクト固有
 alias ui-start='foreman start -f Procfile.dev'
