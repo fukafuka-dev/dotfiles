@@ -69,7 +69,7 @@ function edit {
     query=$1
   fi
 
-  file=$(ls $work_dir | fzf -q "$query")
+  file=$(ls $work_dir | fzf -q "$query" --preview "head -100 $work_dir/{}")
   if [ -n "$file" ]; then
     $EDITOR $work_dir/$file
   fi
@@ -88,7 +88,7 @@ function remove {
     query=$1
   fi
 
-  file=$(ls $work_dir | fzf -q "$query")
+  file=$(ls $work_dir | fzf -q "$query" --preview 'head -100 {}')
   if [ -n "$file" ]; then
     echo $work_dir/$file
     echo "ok?(y/N): "
