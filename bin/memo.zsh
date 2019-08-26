@@ -90,7 +90,7 @@ elif [ "$subcmd" = g ] || [ "$subcmd" = grep ]; then
   grep $2
 elif [ "$subcmd" = r ] || [ "$subcmd" = remove ]; then
   remove $2
-elif [ "$subcmd" = s ] || [ "$subcmd" = server]; then
+elif [ "$subcmd" = s ] || [ "$subcmd" = server ]; then
   server $2
 else
   echo 'command not found.'
