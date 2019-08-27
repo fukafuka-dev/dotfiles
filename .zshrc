@@ -57,6 +57,8 @@ alias repo='() { cd $(ghq list -p | fzf -q "$*"  --preview "tree -C {} | head -2
 
 # メモ関係
 alias memo="memo.zsh"
+alias memop="memo.zsh -e private"
+
 alias dia="dialy.zsh"
 dropbox_dir=~/Dropbox/plane
 alias todo='vim $dropbox_dir/todo/todo.txt'
@@ -82,18 +84,18 @@ compinit
 # ほとんどの補完の定義を削除する。
 # special contexts の定義のみ残す (see: man zshcompsys)
 fix_comp_assoc() {
-	local var=$1
-	shift
-	for key in "$argv[@]"; do
-		case $key in
-		-redirect-,\<,*) unset "${var}[$key]";;
-		-redirect-,\>,*) unset "${var}[$key]";;
-		-value-,-*) ;;
-		-value-,*) unset "${var}[$key]";;
-		-*) ;;
-		*) unset "${var}[$key]";;
-		esac
-	done
+  local var=$1
+  shift
+    for key in "$argv[@]"; do
+      case $key in
+      -redirect-,\<,*) unset "${var}[$key]";;
+      -redirect-,\>,*) unset "${var}[$key]";;
+      -value-,-*) ;;
+      -value-,*) unset "${var}[$key]";;
+      -*) ;;
+      *) unset "${var}[$key]";;
+      esac
+    done
 }
 fix_comp_assoc _comps        "${(k)_comps[@]}"
 fix_comp_assoc _services     "${(k)_services[@]}"
