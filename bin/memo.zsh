@@ -1,21 +1,47 @@
 #!/bin/zsh
 
 local -A opthash
-zparseopts -D -A opthash -- p
+zparseopts -D -A opthash -- e:
 
 # -------------------------------------------
 # init
 # -------------------------------------------
-work_dir=$HOME/doc/memo
 
-if [[ -n "${opthash[(i)-p]}" ]]; then
-  work_dir=$HOME/Dropbox/plane/memo
+# default dir
+work_dir=$HOME/.memo
+config_dir=$HOME/.memo_config
+
+# custom dir
+if [ -f $config_dir ]; then
+  INI_SECTION=main
+  INI_FILE=$config_dir
+
+  if [[ -n "${opthash[(i)-e]}" ]]; then
+    INI_SECTION=${opthash[-e]}
+  fi
+
+  eval `sed -e 's/[[:space:]]*\=[[:space:]]*/=/g' \
+      -e 's/;.*$//' \
+      -e 's/[[:space:]]*$//' \
+      -e 's/^[[:space:]]*//' \
+      -e "s/^\(.*\)=\([^\"']*\)$/\1=\"\2\"/" \
+     < $INI_FILE \
+      | sed -n -e "/^\[$INI_SECTION\]/,/^\s*\[/{/^[^;].*\=.*/p;}"`
+
+  # sedの区切り文字はs以降の一文字目
+  post_dir=$(echo $dir | sed "s@^~@$HOME@")
+  if [ -e "$post_dir" ]; then
+    work_dir=$post_dir
+  else
+    echo $post_dir: directory not found.
+    exit 1
+  fi
 fi
 
 mkdir -p $work_dir
 
 # -------------------------------------------
-# functions
+# subcommand functions
 # -------------------------------------------
 function create_new {
   if [ -n "$1" ]; then
