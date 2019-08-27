@@ -24,10 +24,6 @@ export XDG_CONFIG_HOME=~/.config
 # ----------------------------------------------------------------
 # プロンプト
 # ----------------------------------------------------------------
-PROMPT="
-%{${fg[cyan]}%}%~%{${reset_color}%}
-[%{${fg[cyan]}%}%n%{${reset_color}%}]$ "
-AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=11'
 
 # Git連携
 autoload -Uz vcs_info
@@ -35,12 +31,16 @@ setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
+zstyle ':vcs_info:*' formats "%F{cyan}%c%u%b%f"
+zstyle ':vcs_info:*' actionformats '%b|%a'
 precmd () {
   vcs_info
 }
-RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
+
+PROMPT='
+%{${fg[blue]}%}# %{${fg[cyan]}%}%n%{${reset_color}%} @ %{${fg[green]}%}%m%{${reset_color}%} in %{${fg[yellow]}%}%~%{${reset_color}%} on ${vcs_info_msg_0_}
+%{${fg[red]}%}$ %{${reset_color}%}'
+
 
 # ----------------------------------------------------------------
 # alias
