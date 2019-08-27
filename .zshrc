@@ -56,8 +56,8 @@ alias vin='() { vim $(ls $1 | fzf) }'
 alias repo='() { cd $(ghq list -p | fzf -q "$*"  --preview "tree -C {} | head -200") }'
 
 # メモ関係
-alias memo="memo.zsh"
-alias memop="memo.zsh -e private"
+alias note="memo.zsh"
+alias memo="memo.zsh -v private"
 
 alias dia="dialy.zsh"
 dropbox_dir=~/Dropbox/plane

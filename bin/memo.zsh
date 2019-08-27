@@ -1,7 +1,15 @@
 #!/bin/zsh
 
 local -A opthash
-zparseopts -D -A opthash -- e:
+zparseopts -D -M -A opthash -- \
+  v: -env \
+  a -archive \
+  n -new \
+  e -edit \
+  l -list \
+  g -grep \
+  r -remove \
+  s -server
 
 # -------------------------------------------
 # init
@@ -16,8 +24,8 @@ if [ -f $config_dir ]; then
   INI_SECTION=main
   INI_FILE=$config_dir
 
-  if [[ -n "${opthash[(i)-e]}" ]]; then
-    INI_SECTION=${opthash[-e]}
+  if [[ -n "${opthash[(i)-v]}" ]]; then
+    INI_SECTION=${opthash[-v]}
   fi
 
   eval `sed -e 's/[[:space:]]*\=[[:space:]]*/=/g' \
@@ -41,7 +49,7 @@ fi
 mkdir -p $work_dir
 
 # -------------------------------------------
-# subcommand functions
+# option functions
 # -------------------------------------------
 function create_new {
   if [ -n "$1" ]; then
@@ -103,21 +111,20 @@ function server {
 }
 
 # -------------------------------------------
-# sub command case
+# run option case
 # -------------------------------------------
-subcmd=$1
-if [ "$subcmd" = n ] || [ "$subcmd" = new ]; then
+if [[ -n "${opthash[(i)-n]}" ]]; then
   create_new $2
-elif [ "$subcmd" = e ] || [ "$subcmd" = edit ]; then
+elif [[ -n "${opthash[(i)-e]}" ]]; then
   edit $2
-elif [ "$subcmd" = l ] || [ "$subcmd" = list ]; then
+elif [[ -n "${opthash[(i)-l]}" ]]; then
   list $2
-elif [ "$subcmd" = g ] || [ "$subcmd" = grep ]; then
+elif [[ -n "${opthash[(i)-g]}" ]]; then
   grep $2
-elif [ "$subcmd" = r ] || [ "$subcmd" = remove ]; then
+elif [[ -n "${opthash[(i)-r]}" ]]; then
   remove $2
-elif [ "$subcmd" = s ] || [ "$subcmd" = server ]; then
+elif [[ -n "${opthash[(i)-s]}" ]]; then
   server $2
 else
-  echo 'command not found.'
+  echo 'option not found.'
 fi
