@@ -57,7 +57,7 @@ alias repo='() { cd $(ghq list -p | fzf -q "$*"  --preview "tree -C {} | head -2
 
 # メモ関係
 alias note="memo.zsh"
-alias memo="memo.zsh -v private"
+alias memo="memo.zsh -e private"
 
 alias dia="dialy.zsh"
 dropbox_dir=~/Dropbox/plane
