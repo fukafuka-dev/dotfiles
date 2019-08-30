@@ -31,7 +31,7 @@ setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}+"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}*"
-zstyle ':vcs_info:*' formats "%F{cyan} %F{yellow}[%f%c%u%b%F{yellow}]%f"
+zstyle ':vcs_info:*' formats "%F{yellow}[%f%F{cyan}%c%u%b%F{yellow}]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () {
   vcs_info
