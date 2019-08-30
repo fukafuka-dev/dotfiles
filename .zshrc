@@ -29,24 +29,25 @@ export XDG_CONFIG_HOME=~/.config
 autoload -Uz vcs_info
 setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{cyan}%c%u%b%f"
-zstyle ':vcs_info:*' actionformats '%b|%a'
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}+"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}*"
+zstyle ':vcs_info:*' formats "%F{cyan} %F{yellow}[%f%c%u%b%F{yellow}]%f"
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () {
   vcs_info
 }
 
 PROMPT='
-%{${fg[blue]}%}# %{${fg[cyan]}%}%n%{${reset_color}%} @ %{${fg[green]}%}%m%{${reset_color}%} in %{${fg[yellow]}%}%~%{${reset_color}%} on ${vcs_info_msg_0_}
-%{${fg[red]}%}$ %{${reset_color}%}'
+%F{red}$%f %F{blue}%n %f'
 
+RPROMPT='%F{yellow}➜ %f %F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}ϟ %f'
 
 # ----------------------------------------------------------------
 # alias
 # ----------------------------------------------------------------
 
 alias vim=$EDITOR
+alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使われる
 alias ls='ls -GF'
 
 # vim
@@ -65,7 +66,7 @@ alias todo='vim $dropbox_dir/todo/todo.txt'
 alias todo-ls='cat $dropbox_dir/todo/todo.txt | fzf'
 
 # 特定のコマンドを実行した時背景色を変える（終了したら戻る）
-alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=colour17"; ssh $1; tmux select-pane -P "fg=default,bg=default" }'
+alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=magenta"; ssh $1; tmux select-pane -P "fg=default,bg=default" }'
 
 # Docker
 alias docker-login='() { docker exec -it $1 bash }'

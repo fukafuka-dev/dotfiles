@@ -88,7 +88,7 @@ function remove {
     query=$1
   fi
 
-  file=$(ls $work_dir | fzf -q "$query" --preview 'head -100 {}')
+  file=$(ls $work_dir | fzf -q "$query" --preview "head -100 $work_dir/{}")
   if [ -n "$file" ]; then
     echo $work_dir/$file
     echo "ok?(y/N): "
@@ -121,7 +121,7 @@ elif [ "$subcmd" = g ] || [ "$subcmd" = grep ]; then
 elif [ "$subcmd" = r ] || [ "$subcmd" = remove ]; then
   remove $2
 elif [ "$subcmd" = s ] || [ "$subcmd" = server ]; then
-  server $2
+  server $2 $3
 else
   echo 'command not found.'
 fi
