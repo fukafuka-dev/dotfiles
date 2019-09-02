@@ -38,14 +38,13 @@ precmd () {
 }
 
 PROMPT='
-%F{red}$%f %F{blue}%n %f'
-
-RPROMPT='%F{yellow}➜ %f %F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}ϟ %f'
+💬 %F{blue}%n%f '
+RPROMPT='%F{yellow}➜ %f %F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}ϟ%f'
 
 # ----------------------------------------------------------------
 # alias
 # ----------------------------------------------------------------
-
+alias vim8='/usr/bin/vim'
 alias vim=$EDITOR
 alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使われる
 alias ls='ls -GF'
@@ -57,8 +56,8 @@ alias vin='() { vim $(ls $1 | fzf) }'
 alias repo='() { cd $(ghq list -p | fzf -q "$*"  --preview "tree -C {} | head -200") }'
 
 # メモ関係
-alias note="memo.zsh"
-alias memo="memo.zsh -e private"
+alias note="memo.zsh -e ~/doc/memo"
+alias memo="memo.zsh -e ~/Dropbox/plane/memo"
 
 alias dia="dialy.zsh"
 dropbox_dir=~/Dropbox/plane
@@ -69,7 +68,12 @@ alias todo-ls='cat $dropbox_dir/todo/todo.txt | fzf'
 alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=magenta"; ssh $1; tmux select-pane -P "fg=default,bg=default" }'
 
 # Docker
-alias docker-login='() { docker exec -it $1 bash }'
+docker_login() {
+  local login_command=bash
+  if [ $# = 2 ]; then login_command=$2 fi
+  docker exec -it $1 $login_command
+}
+alias docker-login='docker_login $1 $2'
 
 # プロジェクト固有
 alias ui-start='foreman start -f Procfile.dev'
@@ -106,21 +110,13 @@ fix_comp_assoc _postpatcomps "${(k)_postpatcomps[@]}"
 # ----------------------------------------------------------------
 # 環境別設定を読み込む
 # ----------------------------------------------------------------
-load_zsh() {
-  local x=$1
-  ZSHHOME="${HOME}/${x}"
-
-  if [ -d $ZSHHOME -a -r $ZSHHOME -a \
-       -x $ZSHHOME ]; then
-      for i in $ZSHHOME/*; do
-          [[ ${i##*/} = *.zsh ]] &&
-              [ \( -f $i -o -h $i \) -a -r $i ] && . $i
-      done
-  fi
+load_if_exists () {
+    if [ -f $1 ]; then
+        source $1
+    fi
 }
 
-echo 'load below'
-load_zsh '.zsh_local'
+load_if_exists "$HOME/.zshrc_local"
 
 # ----------------------------------------------------------------
 # zplugin
@@ -164,3 +160,17 @@ bindkey '^r' history-fzf
 # ----------------------------------------------------------------
 export PATH="$HOME/.anyenv/bin:$PATH"
 eval "$(anyenv init -)"
+
+
+# ----------------------------------------------------------------
+# node
+# ----------------------------------------------------------------
+# npm global moduleのパスを通す
+NODE_PATH=`npm root -g`
+export NODE_PATH
+
+# ----------------------------------------------------------------
+# go
+# ----------------------------------------------------------------
+export GOPATH=$HOME/go
+export PATH="$GOPATH/bin:$PATH"

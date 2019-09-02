@@ -68,8 +68,11 @@ set spelllang=en,cjk
 
 " 行番号を表示
 set number
-autocmd TermOpen * setlocal norelativenumber " terminal modeでの行番号非表示
-autocmd TermOpen * setlocal nonumber
+
+if has('nvim')
+  autocmd TermOpen * setlocal norelativenumber " terminal modeでの行番号非表示
+  autocmd TermOpen * setlocal nonumber
+endif
 
 " 不可視文字を表示
 set list
@@ -79,8 +82,10 @@ set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set signcolumn=yes
 
 " 現在の行を強調表示
-set cursorline
-
+if has('nvim')
+  set cursorline
+endif
+"
 " 括弧入力時の対応する括弧を表示
 set showmatch
 
@@ -110,12 +115,19 @@ endif
 " インクリメンタルサーチ. １文字入力毎に検索を行う
 set incsearch
 
+" インタラクティブに置換検索する
+if has('nvim')
+  set inccommand=split
+endif
+
 " 検索パターンに大文字小文字を区別しない
 set ignorecase
 
 " 検索パターンに大文字を含んでいたら大文字小文字を区別する
 set smartcase
 
+" 検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。（有効:wrapscan/無効:nowrapscan）
+set wrapscan
 " 検索結果をハイライト
 set hlsearch
 
@@ -179,35 +191,38 @@ nnoremap <leader>q :Sayonara<CR>
 " --------------------------------------------------
 
 call plug#begin()
+  " lang
   Plug 'vim-ruby/vim-ruby'
+  Plug 'elzr/vim-json'
   Plug 'posva/vim-vue'
   Plug 'othree/yajs.vim'
+  Plug 'tpope/vim-rails'
+  Plug 'callmekohei/vim-todoedit'
+
+  " vim
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'yonchu/accelerated-smooth-scroll'
-  Plug 'tpope/vim-rails'
   Plug 'cohama/lexima.vim'
   Plug 'bronson/vim-trailing-whitespace'
-  Plug 'itchyny/lightline.vim'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'airblade/vim-gitgutter'
-    Plug 'thinca/vim-partedit'
   Plug 'kamykn/spelunker.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'callmekohei/vim-todoedit'
-  Plug 'elzr/vim-json'
+  Plug 'itchyny/lightline.vim'
   Plug 'dense-analysis/ale'
-  Plug 'maximbaz/lightline-ale'
+    Plug 'maximbaz/lightline-ale'
   Plug 'bfredl/nvim-miniyank'
   Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
   Plug 'simeji/winresizer'
   Plug 'scrooloose/nerdtree'
   Plug 'docunext/closetag.vim'
-  Plug 'christoomey/vim-tmux-navigator'
   Plug 'mhinz/vim-startify'
+  Plug 'junegunn/fzf.vim'
+  Plug 'airblade/vim-gitgutter'
+    Plug 'thinca/vim-partedit'
+  Plug 'christoomey/vim-tmux-navigator'
 
-  Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
-  Plug 'flazz/vim-colorschemes', {'do': 'cp colors/* ~/.vim/colors/'}
+  " color
+  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
 " --------------------------------------------------
@@ -314,6 +329,27 @@ map P <Plug>(miniyank-autoPut)
 
 
 " --------------------------------------------------
+"  vim-lsp
+" --------------------------------------------------
+if executable('solargraph')
+    " gem install solargraph
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'solargraph',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+        \ 'initialization_options': {"diagnostics": "true"},
+        \ 'whitelist': ['ruby'],
+        \ })
+endif
+
+" --------------------------------------------------
 " ファイルタイプ関連を有効にする
 " --------------------------------------------------
 filetype plugin indent on
+
+set synmaxcol=320
+syntax enable
+
+augroup vimrc-highlight
+  au!
+  au Syntax ruby if 1000 < col('$') | syntax off | endif
+augroup END

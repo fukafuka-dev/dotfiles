@@ -2,44 +2,20 @@
 
 local -A opthash
 zparseopts -D -A opthash -- a e:
-
 # -------------------------------------------
-# init
+# options
 # -------------------------------------------
 
 # default dir
 work_dir=$HOME/.memo
-config_dir=$HOME/.memo_config
 
 # custom dir
 if [[ -n "${opthash[(i)-a]}" ]]; then
   echo 'achive機能（未実装）'
 fi
 
-if [ -f $config_dir ]; then
-  INI_SECTION=main
-  INI_FILE=$config_dir
-
-  if [[ -n "${opthash[(i)-e]}" ]]; then
-    INI_SECTION=${opthash[-e]}
-  fi
-
-  eval `sed -e 's/[[:space:]]*\=[[:space:]]*/=/g' \
-      -e 's/;.*$//' \
-      -e 's/[[:space:]]*$//' \
-      -e 's/^[[:space:]]*//' \
-      -e "s/^\(.*\)=\([^\"']*\)$/\1=\"\2\"/" \
-     < $INI_FILE \
-      | sed -n -e "/^\[$INI_SECTION\]/,/^\s*\[/{/^[^;].*\=.*/p;}"`
-
-  # sedの区切り文字はs以降の一文字目
-  post_dir=$(echo $dir | sed "s@^~@$HOME@")
-  if [ -e "$post_dir" ]; then
-    work_dir=$post_dir
-  else
-    echo $post_dir: directory not found.
-    exit 1
-  fi
+if [[ -n "${opthash[(i)-e]}" ]]; then
+  work_dir=${opthash[-e]}
 fi
 
 mkdir -p $work_dir
@@ -106,22 +82,34 @@ function server {
   cd -
 }
 
+
 # -------------------------------------------
 # sub command case
 # -------------------------------------------
-subcmd=$1
-if [ "$subcmd" = n ] || [ "$subcmd" = new ]; then
+case ${1} in
+ new|n)
   create_new $2
-elif [ "$subcmd" = e ] || [ "$subcmd" = edit ]; then
+  ;;
+
+ edit|e)
   edit $2
-elif [ "$subcmd" = l ] || [ "$subcmd" = list ]; then
+  ;;
+
+list|l)
   list $2
-elif [ "$subcmd" = g ] || [ "$subcmd" = grep ]; then
+  ;;
+
+grep|g)
   grep $2
-elif [ "$subcmd" = r ] || [ "$subcmd" = remove ]; then
+  ;;
+remove|r)
   remove $2
-elif [ "$subcmd" = s ] || [ "$subcmd" = server ]; then
+  ;;
+server|s)
   server $2 $3
-else
-  echo 'command not found.'
-fi
+  ;;
+*)
+  echo "[ERROR] Invalid subcommand '${1}'"
+  exit 1
+;;
+esac
