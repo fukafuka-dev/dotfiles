@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-local -A opthash
-zparseopts -D -A opthash -- a e:
 # -------------------------------------------
 # options
 # -------------------------------------------
@@ -9,14 +7,25 @@ zparseopts -D -A opthash -- a e:
 # default dir
 work_dir=$HOME/.memo
 
-# custom dir
-if [[ -n "${opthash[(i)-a]}" ]]; then
-  echo 'achive機能（未実装）'
-fi
+# set options
+while [ $# -gt 0 ];
+do
+  case ${1} in
+    --archive|-a)
+      echo 'achive機能（未実装）'
+    ;;
 
-if [[ -n "${opthash[(i)-e]}" ]]; then
-  work_dir=${opthash[-e]}
-fi
+    --env|-e)
+      work_dir=${2}
+      shift
+    ;;
+
+    *)
+      break
+    ;;
+  esac
+  shift
+done
 
 mkdir -p $work_dir
 
@@ -81,7 +90,6 @@ function server {
   markserv .
   cd -
 }
-
 
 # -------------------------------------------
 # sub command case
