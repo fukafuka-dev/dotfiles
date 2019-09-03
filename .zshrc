@@ -110,13 +110,23 @@ fix_comp_assoc _postpatcomps "${(k)_postpatcomps[@]}"
 # ----------------------------------------------------------------
 # 環境別設定を読み込む
 # ----------------------------------------------------------------
-load_if_exists () {
-    if [ -f $1 ]; then
-        source $1
-    fi
-}
+#load_if_exists () {
+#    if [ -f $1 ]; then
+#        source $1
+#    fi
+#}
+#
+#load_if_exists "$HOME/.zshrc_local"
 
-load_if_exists "$HOME/.zshrc_local"
+case ${OSTYPE} in
+  darwin*)
+    eval "$(direnv hook zsh)" # direnv
+    alias date="gdate" # brew install coreutils
+    ;;
+
+  linux*)
+    ;;
+esac
 
 # ----------------------------------------------------------------
 # zplugin

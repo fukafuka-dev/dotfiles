@@ -1,3 +1,43 @@
+" --------------------------------------------------
+" vim-plug
+" --------------------------------------------------
+
+call plug#begin()
+  " lang
+  Plug 'vim-ruby/vim-ruby'
+  Plug 'elzr/vim-json'
+  Plug 'posva/vim-vue'
+  Plug 'othree/yajs.vim'
+  Plug 'tpope/vim-rails'
+  Plug 'callmekohei/vim-todoedit'
+
+  " vim
+  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'yonchu/accelerated-smooth-scroll'
+  Plug 'cohama/lexima.vim'
+  Plug 'bronson/vim-trailing-whitespace'
+  Plug 'kamykn/spelunker.vim'
+  "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'itchyny/lightline.vim'
+  Plug 'dense-analysis/ale'
+    Plug 'maximbaz/lightline-ale'
+  Plug 'bfredl/nvim-miniyank'
+  Plug 'simeji/winresizer'
+  Plug 'scrooloose/nerdtree'
+  Plug 'docunext/closetag.vim'
+  Plug 'mhinz/vim-startify'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'airblade/vim-gitgutter'
+    Plug 'thinca/vim-partedit'
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'viis/vim-bclose'
+
+  " color
+  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/vim-lsp'
+call plug#end()
+
 "" setting
 set fenc=utf-8
 set nocompatible
@@ -184,46 +224,16 @@ tnoremap <silent> jj <C-\><C-n>
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 nnoremap <leader>w :w<CR>
-nnoremap <leader>q :Sayonara<CR>
 
-" --------------------------------------------------
-" vim-plug
-" --------------------------------------------------
-
-call plug#begin()
-  " lang
-  Plug 'vim-ruby/vim-ruby'
-  Plug 'elzr/vim-json'
-  Plug 'posva/vim-vue'
-  Plug 'othree/yajs.vim'
-  Plug 'tpope/vim-rails'
-  Plug 'callmekohei/vim-todoedit'
-
-  " vim
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'yonchu/accelerated-smooth-scroll'
-  Plug 'cohama/lexima.vim'
-  Plug 'bronson/vim-trailing-whitespace'
-  Plug 'kamykn/spelunker.vim'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'itchyny/lightline.vim'
-  Plug 'dense-analysis/ale'
-    Plug 'maximbaz/lightline-ale'
-  Plug 'bfredl/nvim-miniyank'
-  Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
-  Plug 'simeji/winresizer'
-  Plug 'scrooloose/nerdtree'
-  Plug 'docunext/closetag.vim'
-  Plug 'mhinz/vim-startify'
-  Plug 'junegunn/fzf.vim'
-  Plug 'airblade/vim-gitgutter'
-    Plug 'thinca/vim-partedit'
-  Plug 'christoomey/vim-tmux-navigator'
-
-  " color
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/vim-lsp'
-call plug#end()
+" ウィンドウとバッファが残ってる時は、ウインドウを残す
+function! BufClose()
+  if len(getbufinfo({'buflisted':1})) == 1 || len(getwininfo()) == 1
+    :execute ':q'
+  else
+    :execute ':Bclose'
+  endif
+endfunction
+nnoremap <silent> <leader>q :call BufClose()<cr>
 
 " --------------------------------------------------
 " fzf-vim
@@ -266,6 +276,9 @@ let g:vim_json_syntax_conceal = 0
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
+
+" ALE付属のLSPを有効にする
+let g:ale_completion_enabled = 1
 
 " --------------------------------------------------
 " lightline/ale
