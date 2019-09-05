@@ -1,4 +1,4 @@
-" --------------------------------------------------
+
 " vim-plug
 " --------------------------------------------------
 
@@ -32,10 +32,14 @@ call plug#begin()
     Plug 'thinca/vim-partedit'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'viis/vim-bclose'
+  Plug 'junegunn/goyo.vim'
 
   " color
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/vim-lsp'
+  Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'cormacrelf/vim-colors-github', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'NLKNguyen/papercolor-theme', {'do': 'cp colors/* ~/.vim/colors/'}
+
 call plug#end()
 
 "" setting
@@ -50,10 +54,13 @@ filetype plugin indent off
 
 " color
 syntax enable
-set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-colorscheme iceberg
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+"colorscheme iceberg
+colorscheme afterglow
 
 " バックアップファイルを作らない
 set nobackup
@@ -184,13 +191,6 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" インサートモードでも移動
-"inoremap <c-d> <delete>
-"inoremap <c-j> <down>
-"inoremap <c-k> <up>
-"inoremap <c-h> <left>
-"inoremap <c-l> <right>
-
 inoremap <c-c> <Esc>
 inoremap jj <Esc>
 inoremap っｊ <Esc>
@@ -199,12 +199,6 @@ vnoremap <c-c> <Esc>
 
 " delete key
 inoremap <c-d> <Del>
-
-" 行頭、行末
-nnoremap <c-a> 0
-nnoremap <c-j> <c-e>
-nnoremap <c-k> <c-y>
-nnoremap <c-e> $
 
 " ウインドウ入れ替え(なるべくtmuxに寄せる)
 nnoremap <silent> <c-w>{ <c-w><c-x>
@@ -215,6 +209,9 @@ nnoremap x "_x
 vnoremap x "_x
 nnoremap X "_X
 vnoremap X "_X
+
+" ヤンク
+nnoremap Y y$
 
 " terminal
 tnoremap <silent> <ESC> <C-\><C-n>
@@ -353,6 +350,11 @@ if executable('solargraph')
         \ 'whitelist': ['ruby'],
         \ })
 endif
+
+" --------------------------------------------------
+"  Goyo
+" --------------------------------------------------
+let g:goyo_width=120
 
 " --------------------------------------------------
 " ファイルタイプ関連を有効にする

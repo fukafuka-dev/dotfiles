@@ -49,6 +49,10 @@ alias vim=$EDITOR
 alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使われる
 alias ls='ls -GF'
 
+# ゴミ箱付きrm
+alias rm='mv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
+alias _rm='/bin/rm'
+
 # vim
 alias vin='() { vim $(ls $1 | fzf) }'
 
@@ -121,7 +125,11 @@ fix_comp_assoc _postpatcomps "${(k)_postpatcomps[@]}"
 case ${OSTYPE} in
   darwin*)
     eval "$(direnv hook zsh)" # direnv
-    alias date="gdate" # brew install coreutils
+
+    # GNU Command
+    # brew install coreutils
+    alias date="gdate"
+    alias mv="gmv"
     ;;
 
   linux*)

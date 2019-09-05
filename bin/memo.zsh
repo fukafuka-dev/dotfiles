@@ -49,6 +49,22 @@ function create_new {
   fi
 }
 
+function rename {
+  if [ -n "$1" ]; then
+    query=$1
+    shift
+  fi
+
+  file=$(ls $work_dir | fzf -q "$query" --preview "head -100 $work_dir/{}")
+
+  echo Name:
+  read new_name
+
+  if [ -n "$new_name" ]; then
+    mv $work_dir/$file $work_dir/$new_name.md
+  fi
+}
+
 function edit {
   if [ -n "$1" ]; then
     query=$1
@@ -110,11 +126,14 @@ list|l)
 grep|g)
   grep $2
   ;;
-remove|r)
+delete|d)
   remove $2
   ;;
+rename|r)
+  rename $2 $3
+  ;;
 server|s)
-  server $2 $3
+  server $2
   ;;
 *)
   echo "[ERROR] Invalid subcommand '${1}'"
