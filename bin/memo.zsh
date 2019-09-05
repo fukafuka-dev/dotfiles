@@ -1,6 +1,19 @@
 #!/bin/zsh
 
 # -------------------------------------------
+# alias
+# -------------------------------------------
+case ${OSTYPE} in
+  darwin*)
+    if [ -e /usr/local/bin/gmv ]; then
+      alias rm='gmv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
+    else
+      echo not found gmv
+    fi
+    ;;
+esac
+
+# -------------------------------------------
 # options
 # -------------------------------------------
 
