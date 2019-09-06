@@ -146,7 +146,6 @@ autoload -Uz _zplugin
 
 zplugin light zsh-users/zsh-syntax-highlighting
 zplugin light zsh-users/zsh-autosuggestions
-zplugin light b4b4r07/zsh-gomi
 
 # ----------------------------------------------------------------
 # fzf

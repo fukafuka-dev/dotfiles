@@ -24,6 +24,7 @@ call plug#begin()
   Plug 'bfredl/nvim-miniyank'
   Plug 'simeji/winresizer'
   Plug 'scrooloose/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'docunext/closetag.vim'
   Plug 'mhinz/vim-startify'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -331,12 +332,30 @@ endfunction
 "  NERDTree
 " --------------------------------------------------
 nnoremap <leader>t :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+
+" --------------------------------------------------
+"  NERDTree Git Plugin
+" --------------------------------------------------
+
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "*",
+    \ "Staged"    : "+",
+    \ "Untracked" : "untracked",
+    \ "Renamed"   : "renamed",
+    \ "Unmerged"  : "unmerged",
+    \ "Deleted"   : "x",
+    \ "Dirty"     : "~",
+    \ "Clean"     : "clean",
+    \ 'Ignored'   : 'ignored',
+    \ "Unknown"   : "?"
+    \ }
+
 " --------------------------------------------------
 " OSXでの矩形yank&pasteのバグ
 " --------------------------------------------------
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
-
 
 " --------------------------------------------------
 "  vim-lsp
