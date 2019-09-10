@@ -38,8 +38,8 @@ precmd () {
 }
 
 PROMPT='
-💬 %F{blue}%n%f '
-RPROMPT='%F{yellow}➜ %f %F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}ϟ%f'
+%F{red}$%f %F{blue}%n%f '
+RPROMPT='%F{yellow} => %f%F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}%f'
 
 # ----------------------------------------------------------------
 # alias
@@ -50,8 +50,7 @@ alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使�
 alias ls='ls -GF'
 
 # ゴミ箱付きrm
-alias rm='mv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
-alias _rm='/bin/rm'
+alias rmt='mv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
 
 # vim
 alias vin='() { vim $(ls $1 | fzf) }'

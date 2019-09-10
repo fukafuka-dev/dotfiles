@@ -12,12 +12,12 @@ call plug#begin()
   Plug 'callmekohei/vim-todoedit'
 
   " vim
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'yonchu/accelerated-smooth-scroll'
+"  Plug 'nathanaelkane/vim-indent-guides'
+"  Plug 'yonchu/accelerated-smooth-scroll'
   Plug 'cohama/lexima.vim'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'kamykn/spelunker.vim'
-  "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'itchyny/lightline.vim'
   Plug 'dense-analysis/ale'
     Plug 'maximbaz/lightline-ale'
@@ -26,7 +26,6 @@ call plug#begin()
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'docunext/closetag.vim'
-  Plug 'mhinz/vim-startify'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'airblade/vim-gitgutter'
@@ -40,7 +39,6 @@ call plug#begin()
   Plug 'cormacrelf/vim-colors-github', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'NLKNguyen/papercolor-theme', {'do': 'cp colors/* ~/.vim/colors/'}
-
 call plug#end()
 
 "" setting
@@ -52,16 +50,6 @@ set ambiwidth=double
 " 一旦ファイルタイプ関連を無効化する
 filetype off
 filetype plugin indent off
-
-" color
-syntax enable
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-"colorscheme iceberg
-colorscheme afterglow
 
 " バックアップファイルを作らない
 set nobackup
@@ -124,7 +112,7 @@ endif
 
 " 不可視文字を表示
 set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:>-,trail:-
 
 " サインカラムを常に表示する
 set signcolumn=yes
@@ -146,15 +134,15 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 
-" カーソル設定
-if has('vim_starting')
-    " 挿入モード時に非点滅の縦棒タイプのカーソル
-    let &t_SI .= "\e[6 q"
-    " ノーマルモード時に非点滅のブロックタイプのカーソル
-    let &t_EI .= "\e[2 q"
-    " 置換モード時に非点滅の下線タイプのカーソル
-    let &t_SR .= "\e[4 q"
-endif
+"" カーソル設定
+"if has('vim_starting')
+"    " 挿入モード時に非点滅の縦棒タイプのカーソル
+"    let &t_SI .= "\e[6 q"
+"    " ノーマルモード時に非点滅のブロックタイプのカーソル
+"    let &t_EI .= "\e[2 q"
+"    " 置換モード時に非点滅の下線タイプのカーソル
+"    let &t_SR .= "\e[4 q"
+"endif
 
 " --------------------------------------------------
 " 検索
@@ -232,6 +220,20 @@ function! BufClose()
   endif
 endfunction
 nnoremap <silent> <leader>q :call BufClose()<cr>
+
+
+" --------------------------------------------------
+" color
+" --------------------------------------------------
+
+syntax enable
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+"colorscheme iceberg
+colorscheme afterglow
 
 " --------------------------------------------------
 " fzf-vim
@@ -354,8 +356,10 @@ let g:NERDTreeIndicatorMapCustom = {
 " --------------------------------------------------
 " OSXでの矩形yank&pasteのバグ
 " --------------------------------------------------
-map p <Plug>(miniyank-autoput)
-map P <Plug>(miniyank-autoPut)
+if has('nvim')
+  map p <Plug>(miniyank-autoput)
+  map P <Plug>(miniyank-autoPut)
+endif
 
 " --------------------------------------------------
 "  vim-lsp
@@ -382,8 +386,3 @@ filetype plugin indent on
 
 set synmaxcol=320
 syntax enable
-
-augroup vimrc-highlight
-  au!
-  au Syntax ruby if 1000 < col('$') | syntax off | endif
-augroup END
