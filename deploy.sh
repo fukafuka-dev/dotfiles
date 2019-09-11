@@ -9,10 +9,10 @@ repodir=$(cd $(dirname $0); pwd)
 mkdir -p $HOME/bin
 
 # CLI Settings
-ln -sf $repodir/.zshrc $HOME/.zshrc
-ln -sf $repodir/.vimrc $HOME/.vimrc
-ln -sf $repodir/.tigrc $HOME/.tigrc
-ln -sf $repodir/.tmux.conf $HOME/.tmux.conf
+ln -sf $repodir/zshrc $HOME/.zshrc
+ln -sf $repodir/vimrc $HOME/.vimrc
+ln -sf $repodir/tigrc $HOME/.tigrc
+ln -sf $repodir/tmux.conf $HOME/.tmux.conf
 
 # Scripts
 ln -sf $repodir/bin/memo.zsh $HOME/bin/memo.zsh

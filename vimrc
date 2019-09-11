@@ -9,7 +9,7 @@ call plug#begin()
   Plug 'posva/vim-vue'
   Plug 'othree/yajs.vim'
   Plug 'tpope/vim-rails'
-  Plug 'callmekohei/vim-todoedit'
+  Plug 'junegunn/vim-journal'
 
   " vim
 "  Plug 'nathanaelkane/vim-indent-guides'
@@ -378,6 +378,14 @@ endif
 "  Goyo
 " --------------------------------------------------
 let g:goyo_width=120
+
+" --------------------------------------------------
+" vim-journal
+" --------------------------------------------------
+augroup vim_journal
+  autocmd!
+  autocmd BufNewFile,BufRead *.md  set filetype=journal
+augroup END
 
 " --------------------------------------------------
 " ファイルタイプ関連を有効にする
