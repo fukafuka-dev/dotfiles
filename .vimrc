@@ -13,7 +13,7 @@ call plug#begin()
 
   " vim
 "  Plug 'nathanaelkane/vim-indent-guides'
-"  Plug 'yonchu/accelerated-smooth-scroll'
+  Plug 'yonchu/accelerated-smooth-scroll'
   Plug 'cohama/lexima.vim'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'kamykn/spelunker.vim'
