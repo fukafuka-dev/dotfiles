@@ -21,6 +21,10 @@ colors
 # neovim
 export XDG_CONFIG_HOME=~/.config
 
+# brew install coreutils
+export PATH="/usr/local/opt/coreutils/libexec/gnubin":"$PATH"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
 # ----------------------------------------------------------------
 # プロンプト
 # ----------------------------------------------------------------
@@ -37,9 +41,17 @@ precmd () {
   vcs_info
 }
 
+#PROMPT='
+#%F{red}$%f %F{blue}%n%f '
+#RPROMPT='%F{yellow} => %f%F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}%f'
+
 PROMPT='
-%F{red}$%f %F{blue}%n%f '
+%K{green}%F{black} %n %f%k '
 RPROMPT='%F{yellow} => %f%F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}%f'
+
+# Enable typo correction
+setopt correct
+SPROMPT="(*'~')< Did you mean %B%F{cyan}%r%f%b? [nyae]: "
 
 # ----------------------------------------------------------------
 # alias
@@ -47,8 +59,12 @@ RPROMPT='%F{yellow} => %f%F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}%f'
 alias vim8='/usr/bin/vim'
 alias vim=$EDITOR
 alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使われる
-alias ls='ls -GF'
+alias ls='ls -F --color'
+alias tmux='tmux -2'
 
+# 上書き防止
+alias mv="mv -i"
+alias cp="cp -i"
 # ゴミ箱付きrm
 alias rmt='mv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
 
@@ -81,6 +97,15 @@ alias docker-login='docker_login $1 $2'
 # プロジェクト固有
 alias ui-start='foreman start -f Procfile.dev'
 alias ss='bin/spring stop'
+
+google() { open "https://www.google.com/search?q=${*}" }
+
+wttr()
+{
+  local request="wttr.in"
+  [ "$(tput cols)" -lt 125 ] && request+='?n'
+  curl -H "Accept-Language: ${LANG%_*}" --compressed "$request"
+}
 
 # ----------------------------------------------------------------
 # 補完
@@ -124,11 +149,6 @@ fix_comp_assoc _postpatcomps "${(k)_postpatcomps[@]}"
 case ${OSTYPE} in
   darwin*)
     eval "$(direnv hook zsh)" # direnv
-
-    # GNU Command
-    # brew install coreutils
-    alias date="gdate"
-    alias mv="gmv"
     ;;
 
   linux*)

@@ -33,12 +33,12 @@ call plug#begin()
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'viis/vim-bclose'
   Plug 'junegunn/goyo.vim'
+  Plug 'junegunn/vim-peekaboo'
 
   " color
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'cormacrelf/vim-colors-github', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
-  Plug 'NLKNguyen/papercolor-theme', {'do': 'cp colors/* ~/.vim/colors/'}
 call plug#end()
 
 "" setting
@@ -201,6 +201,8 @@ vnoremap X "_X
 
 " ヤンク
 nnoremap Y y$
+nnoremap Q q
+nnoremap q <nop>
 
 " terminal
 tnoremap <silent> <ESC> <C-\><C-n>
@@ -221,6 +223,11 @@ function! BufClose()
 endfunction
 nnoremap <silent> <leader>q :call BufClose()<cr>
 
+" --------------------------------------------------
+" alias
+" --------------------------------------------------
+
+command Q q
 
 " --------------------------------------------------
 " color
@@ -230,9 +237,9 @@ syntax enable
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
+  " set termguicolors
 endif
-"colorscheme iceberg
+
 colorscheme afterglow
 
 " --------------------------------------------------

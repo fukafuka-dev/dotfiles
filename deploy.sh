@@ -2,9 +2,6 @@
 
 set -eu
 
-rm -f ~/.zshrc
-rm -f ~/.vimrc
-
 repodir=$(cd $(dirname $0); pwd)
 mkdir -p $HOME/bin
 

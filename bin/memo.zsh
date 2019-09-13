@@ -3,15 +3,7 @@
 # -------------------------------------------
 # alias
 # -------------------------------------------
-case ${OSTYPE} in
-  darwin*)
-    if [ -e /usr/local/bin/gmv ]; then
-      alias rm='gmv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
-    else
-      echo not found gmv
-    fi
-    ;;
-esac
+alias rm='mv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
 
 # macでtmp以下は３日で削除されるらしい
 mkdir -p /tmp/garvage
