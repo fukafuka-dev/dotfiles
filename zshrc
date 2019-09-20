@@ -1,3 +1,15 @@
+
+# ----------------------------------------------------------------
+# zplugin
+# ----------------------------------------------------------------
+
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+
+zplugin light zsh-users/zsh-syntax-highlighting
+zplugin light zsh-users/zsh-autosuggestions
+
 # ----------------------------------------------------------------
 # 環境設定
 # ----------------------------------------------------------------
@@ -24,6 +36,16 @@ export XDG_CONFIG_HOME=~/.config
 # brew install coreutils
 export PATH="/usr/local/opt/coreutils/libexec/gnubin":"$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+# fzf
+export FZF_DEFAULT_OPTS="--no-sort --exact --cycle --multi --ansi --reverse --border --sync --bind=ctrl-t:toggle --bind=?:toggle-preview --bind=down:preview-down --bind=up:preview-up"
+
+# ZPlugin/zsh_highlight
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[function]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[globbing]='none'
 
 # ----------------------------------------------------------------
 # プロンプト
@@ -56,35 +78,65 @@ SPROMPT="(*'~')< Did you mean %B%F{cyan}%r%f%b? [nyae]: "
 # ----------------------------------------------------------------
 # alias
 # ----------------------------------------------------------------
-alias vim8='/usr/bin/vim'
-alias vim=$EDITOR
-alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使われる
-alias ls='ls -F --color'
-alias tmux='tmux -2'
-
-# 上書き防止
-alias mv="mv -i"
-alias cp="cp -i"
-# ゴミ箱付きrm
-alias rmt='mv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
 
 # vim
 alias vin='() { vim $(ls $1 | fzf) }'
+alias vim8='/usr/bin/vim'
+alias vim=$EDITOR
+alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使われる
+if [ -e $(which nvim) ]; then
+  alias vimdiff='nvim -d'
+fi
+alias zshrc='$EDITOR ~/.zshrc'
+alias vimrc='$EDITOR ~/.vimrc'
 
-# ghq
-alias repo='() { cd $(ghq list -p | fzf -q "$*"  --preview "tree -C {} | head -200") }'
+alias ls='ls -F --color'
+alias lsl='ls -l --color --time-style=+%Y-%m-%d\ %H:%M:%S'
+alias tmux='tmux -2'
 
-# メモ関係
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+alias ..4='cd ../../../..'
+
+# 安全策
+alias mv='mv -i'
+alias cp='cp -i'
+alias rm='rm -i'
+
+# ゴミ箱付きrm
+alias rmm='mv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
+
+# リポジトリ検索
+repo() {
+  local list=''
+  local SRC_DIR=~/src
+  if [ -n "$(which fd)" ]; then
+    list=$(fd '.git$' $SRC_DIR -t d -H)
+  else
+    list=$(find $SRC_DIR -name .git -type d)
+  fi
+  dir=$(echo $list | sed -e 's@.git$@@'| fzf -q "$*"  --preview "tree -C {} | head -200")
+  if [ -n "$dir" ]; then
+    cd $dir
+  fi
+}
+
+# grep
+alias grep='grep --color=auto'
+
+# メモスクリプト
 alias note="memo.zsh -e ~/doc/memo"
 alias memo="memo.zsh -e ~/Dropbox/plane/memo"
 
-alias dia="dialy.zsh"
-dropbox_dir=~/Dropbox/plane
-alias todo='vim $dropbox_dir/todo/todo.txt'
-alias todo-ls='cat $dropbox_dir/todo/todo.txt | fzf'
-
 # 特定のコマンドを実行した時背景色を変える（終了したら戻る）
 alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=magenta"; ssh $1; tmux select-pane -P "fg=default,bg=default" }'
+
+# CSV整形表示
+if [ -e "$(which tty-table)" ]; then
+  alias csvp='() { column $1 | tty-table}'
+else
+  alias csvp='() { column -s, -t $1 }'
+fi
 
 # Docker
 docker_login() {
@@ -136,37 +188,6 @@ fix_comp_assoc _patcomps     "${(k)_patcomps[@]}"
 fix_comp_assoc _postpatcomps "${(k)_postpatcomps[@]}"
 
 # ----------------------------------------------------------------
-# 環境別設定を読み込む
-# ----------------------------------------------------------------
-#load_if_exists () {
-#    if [ -f $1 ]; then
-#        source $1
-#    fi
-#}
-#
-#load_if_exists "$HOME/.zshrc_local"
-
-case ${OSTYPE} in
-  darwin*)
-    eval "$(direnv hook zsh)" # direnv
-    ;;
-
-  linux*)
-    ;;
-esac
-
-# ----------------------------------------------------------------
-# zplugin
-# ----------------------------------------------------------------
-
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-
-zplugin light zsh-users/zsh-syntax-highlighting
-zplugin light zsh-users/zsh-autosuggestions
-
-# ----------------------------------------------------------------
 # fzf
 # ----------------------------------------------------------------
 function history-fzf() {
@@ -199,6 +220,15 @@ if [ -e "$HOME/.anyenv" ]; then
   export PATH="$HOME/.anyenv/bin:$PATH"
   eval "$(anyenv init -)"
 fi
+
+# ----------------------------------------------------------------
+# direnv
+# ----------------------------------------------------------------
+
+if [ -e "$(which direnv)" ]; then
+  eval "$(direnv hook zsh)" # direnv
+fi
+
 # ----------------------------------------------------------------
 # go
 # ----------------------------------------------------------------

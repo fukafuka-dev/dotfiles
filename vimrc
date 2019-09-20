@@ -10,11 +10,11 @@ call plug#begin()
   Plug 'othree/yajs.vim'
   Plug 'tpope/vim-rails'
   Plug 'junegunn/vim-journal'
-
   " vim
-"  Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'nathanaelkane/vim-indent-guides'
   Plug 'yonchu/accelerated-smooth-scroll'
-  Plug 'cohama/lexima.vim'
+" Plug 'cohama/lexima.vim'
+  Plug 'jiangmiao/auto-pairs'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'kamykn/spelunker.vim'
 "  Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -34,6 +34,9 @@ call plug#begin()
   Plug 'viis/vim-bclose'
   Plug 'junegunn/goyo.vim'
   Plug 'junegunn/vim-peekaboo'
+  Plug 'tpope/vim-fugitive'
+  Plug 'Yggdroot/indentLine'
+  Plug 'junegunn/vim-easy-align'
 
   " color
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
@@ -97,6 +100,9 @@ set splitright
 
 " スペルチェック言語
 set spelllang=en,cjk
+
+" 新しい行を開始した時インデントを合わせる
+set autoindent
 
 " --------------------------------------------------
 " 表示
@@ -162,8 +168,9 @@ set ignorecase
 " 検索パターンに大文字を含んでいたら大文字小文字を区別する
 set smartcase
 
-" 検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。（有効:wrapscan/無効:nowrapscan）
+" 検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。
 set wrapscan
+
 " 検索結果をハイライト
 set hlsearch
 
@@ -393,6 +400,19 @@ augroup vim_journal
   autocmd!
   autocmd BufNewFile,BufRead *.md  set filetype=journal
 augroup END
+
+
+" --------------------------------------------------
+" indentLine
+" --------------------------------------------------
+let g:indentLine_char = '¦'
+let g:indentLine_showFirstIndentLevel = 1
+
+" --------------------------------------------------
+"  vim-easy-align
+" --------------------------------------------------
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " --------------------------------------------------
 " ファイルタイプ関連を有効にする

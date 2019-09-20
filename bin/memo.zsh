@@ -119,32 +119,36 @@ function server {
 # sub command case
 # -------------------------------------------
 case ${1} in
- new|n)
-  create_new $2
+  new|n)
+    create_new $2
   ;;
 
- edit|e)
-  edit $2
+  edit|e)
+    edit $2
   ;;
 
-list|l)
-  list $2
+  list|l)
+    list $2
   ;;
 
-grep|g)
-  grep $2
+  grep|g)
+    grep $2
   ;;
-delete|d)
-  remove $2
+
+  delete|d)
+    remove $2
   ;;
-rename|r)
-  rename $2 $3
+
+  rename|r)
+    rename $2 $3
   ;;
-server|s)
-  server $2
+
+  server|s)
+    server $2
   ;;
-*)
-  echo "[ERROR] Invalid subcommand '${1}'"
-  exit 1
-;;
+
+  *)
+    echo "[ERROR] Invalid subcommand '${1}'"
+    exit 1
+  ;;
 esac
