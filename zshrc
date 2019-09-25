@@ -115,7 +115,7 @@ repo() {
   if which fd > /dev/null 2>&1; then
     list=$(fd '.git$' $SRC_DIR -t d -H)
   else
-    list=$(find $SRC_DIR -name .git -type d)
+    list=$(find $SRC_DIR -name .git -type d 2>/dev/null) # エラーメッセージを非表示にする
   fi
   dir=$(echo $list | sed -e 's@.git$@@'| fzf -q "$*"  --preview "tree -C {} | head -200")
   if [ -n "$dir" ]; then
