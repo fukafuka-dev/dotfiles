@@ -84,7 +84,8 @@ alias vin='() { vim $(ls $1 | fzf) }'
 alias vim8='/usr/bin/vim'
 alias vim=$EDITOR
 alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使われる
-if [ -e $(which nvim) ]; then
+
+if which nvim> /dev/null 2>&1; then
   alias vimdiff='nvim -d'
 fi
 alias zshrc='$EDITOR ~/.zshrc'
@@ -110,7 +111,7 @@ alias rmm='mv -t /tmp/garvage -b --suffix=.$(date +%Y%m%d)'
 repo() {
   local list=''
   local SRC_DIR=~/src
-  if [ -n "$(which fd)" ]; then
+  if which fd > /dev/null 2>&1; then
     list=$(fd '.git$' $SRC_DIR -t d -H)
   else
     list=$(find $SRC_DIR -name .git -type d)
@@ -132,7 +133,7 @@ alias memo="memo.zsh -e ~/Dropbox/plane/memo"
 alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=magenta"; ssh $1; tmux select-pane -P "fg=default,bg=default" }'
 
 # CSV整形表示
-if [ -e "$(which tty-table)" ]; then
+if type "tty-table" > /dev/null 2>&1; then
   alias csvp='() { column $1 | tty-table}'
 else
   alias csvp='() { column -s, -t $1 }'
@@ -225,7 +226,7 @@ fi
 # direnv
 # ----------------------------------------------------------------
 
-if [ -e "$(which direnv)" ]; then
+if which direnv > /dev/null; then
   eval "$(direnv hook zsh)" # direnv
 fi
 
