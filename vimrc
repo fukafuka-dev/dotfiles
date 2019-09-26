@@ -127,7 +127,7 @@ set signcolumn=yes
 
 " 現在の行を強調表示
 if has('nvim')
-  set cursorline
+ " set cursorline
 endif
 "
 " 括弧入力時の対応する括弧を表示
