@@ -10,6 +10,8 @@ call plug#begin()
   Plug 'othree/yajs.vim'
   Plug 'tpope/vim-rails'
   Plug 'junegunn/vim-journal'
+  Plug 'leafgarland/typescript-vim'
+
   " vim
 " Plug 'nathanaelkane/vim-indent-guides'
   Plug 'yonchu/accelerated-smooth-scroll'
@@ -222,7 +224,7 @@ nnoremap <leader>w :w<CR>
 
 " ウィンドウとバッファが残ってる時は、ウインドウを残す
 function! BufClose()
-  if len(getbufinfo({'buflisted':1})) == 1 || len(getwininfo()) == 1
+  if len(getbufinfo({'buflisted':1})) == 1 && len(getwininfo()) == 1
     :execute ':q'
   else
     :execute ':Bclose'
@@ -293,6 +295,11 @@ let g:ale_lint_on_text_changed = 0
 
 " ALE付属のLSPを有効にする
 let g:ale_completion_enabled = 1
+
+let g:ale_linters = {
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['tslint'],
+      \ }
 
 " --------------------------------------------------
 " lightline/ale

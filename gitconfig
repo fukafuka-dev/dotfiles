@@ -4,7 +4,7 @@
 [include]
   path = ~/.gitconfig.local
 
-[includeIf "gitdir:~/src/github.com/"]
+[includeIf "gitdir:~/config/"]
   path = ~/.gitconfig.special
 
 [alias]
