@@ -68,8 +68,11 @@ precmd () {
 #%F{red}$%f %F{blue}%n%f '
 #RPROMPT='%F{yellow} => %f%F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}%f'
 
+if [ -n "$NICKNAME" ]; then
+  LOCAL_NICKNAME=@$NICKNAME
+fi
 PROMPT='
-%K{green}%F{black} %n %f%k '
+%K{green}%F{black} %n$LOCAL_NICKNAME %f%k '
 RPROMPT='%F{yellow} => %f%F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}%f'
 
 # Enable typo correction
@@ -116,7 +119,7 @@ repo() {
   if which fd > /dev/null 2>&1; then
     list=$(fd '.git$' $SRC_DIR -t d -H)
   else
-    list=$(find $SRC_DIR -name .git -type d 2>/dev/null) # エラーメッセージを非表示にする
+    list=$(ag -g $SRC_DIR -name .git -type d 2>/dev/null) # エラーメッセージを非表示にする
   fi
   dir=$(echo $list | sed -e 's@.git$@@'| fzf -q "$*"  --preview "tree -C {} | head -200")
   if [ -n "$dir" ]; then
