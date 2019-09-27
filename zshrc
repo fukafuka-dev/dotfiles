@@ -64,10 +64,8 @@ precmd () {
   vcs_info
 }
 
-#PROMPT='
-#%F{red}$%f %F{blue}%n%f '
-#RPROMPT='%F{yellow} => %f%F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}%f'
 
+# /etc/profile.d/prompt.sh
 if [ -n "$NICKNAME" ]; then
   LOCAL_NICKNAME=@$NICKNAME
 fi
