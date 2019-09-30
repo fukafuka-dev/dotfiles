@@ -5,6 +5,7 @@
 call plug#begin()
   " lang
   Plug 'vim-ruby/vim-ruby'
+  Plug 'tpope/vim-endwise'
   Plug 'elzr/vim-json'
   Plug 'posva/vim-vue'
   Plug 'othree/yajs.vim'
