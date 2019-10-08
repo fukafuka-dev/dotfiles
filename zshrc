@@ -96,7 +96,7 @@ alias vimrc='$EDITOR ~/.vimrc'
 alias ls='ls -F --color'
 alias lsl='ls -l --color --time-style=+%Y-%m-%d\ %H:%M:%S'
 alias tmux='tmux -2'
-alias tmuxtree='pstree $(pidof tmux | sed -e "s/ /,/g"  | cut -d, -f1) -U'
+anytree () { pstree $(pidof $1 | sed -e "s/ /,/g"  | tr ',' '\n' | fzf) -U $2 }
 
 alias ..2='cd ../..'
 alias ..3='cd ../../..'

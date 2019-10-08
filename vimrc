@@ -40,6 +40,7 @@ call plug#begin()
   Plug 'tpope/vim-fugitive'
   Plug 'Yggdroot/indentLine'
   Plug 'junegunn/vim-easy-align'
+  Plug 'lilydjwg/colorizer'
 
   " color
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
