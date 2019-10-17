@@ -14,13 +14,15 @@ call plug#begin()
   Plug 'leafgarland/typescript-vim'
 
   " vim
-" Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'yonchu/accelerated-smooth-scroll'
-" Plug 'cohama/lexima.vim'
+  "Plug 'yonchu/accelerated-smooth-scroll'
+
   Plug 'jiangmiao/auto-pairs'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'kamykn/spelunker.vim'
-"  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'docunext/closetag.vim'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'Yggdroot/indentLine'
+
   Plug 'itchyny/lightline.vim'
   Plug 'dense-analysis/ale'
     Plug 'maximbaz/lightline-ale'
@@ -28,7 +30,6 @@ call plug#begin()
   Plug 'simeji/winresizer'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'docunext/closetag.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'airblade/vim-gitgutter'
@@ -38,8 +39,6 @@ call plug#begin()
   Plug 'junegunn/goyo.vim'
   Plug 'junegunn/vim-peekaboo'
   Plug 'tpope/vim-fugitive'
-  Plug 'Yggdroot/indentLine'
-  Plug 'junegunn/vim-easy-align'
   Plug 'lilydjwg/colorizer'
 
   " color
@@ -374,19 +373,6 @@ let g:NERDTreeIndicatorMapCustom = {
 if has('nvim')
   map p <Plug>(miniyank-autoput)
   map P <Plug>(miniyank-autoPut)
-endif
-
-" --------------------------------------------------
-"  vim-lsp
-" --------------------------------------------------
-if executable('solargraph')
-    " gem install solargraph
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'solargraph',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-        \ 'initialization_options': {"diagnostics": "true"},
-        \ 'whitelist': ['ruby'],
-        \ })
 endif
 
 " --------------------------------------------------
