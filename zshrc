@@ -103,6 +103,7 @@ alias lsl='ls -l --color --time-style=+%Y-%m-%d\ %H:%M:%S'
 alias tmux='tmux -2'
 anytree () { pstree $(pidof $1 | sed -e "s/ /,/g"  | tr ',' '\n' | fzf) -U $2 }
 
+alias ..='cd ..'
 alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias ..4='cd ../../../..'
