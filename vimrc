@@ -11,11 +11,11 @@ call plug#begin()
   Plug 'tpope/vim-rails'
   Plug 'junegunn/vim-journal'
   Plug 'leafgarland/typescript-vim'
+  Plug 'zah/nim.vim'
 
-  " vim
-  "Plug 'yonchu/accelerated-smooth-scroll'
-  Plug 'cohama/vim-smartinput-endwise'
-  "Plug 'jiangmiao/auto-pairs'
+" vim
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'tpope/vim-endwise'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'kamykn/spelunker.vim'
   Plug 'docunext/closetag.vim'
@@ -52,9 +52,12 @@ set nocompatible
 set wildmenu
 set ambiwidth=double
 
-" 一旦ファイルタイプ関連を無効化する
-filetype off
-filetype plugin indent off
+" --------------------------------------------------
+" ファイルタイプ関連を有効にする
+" --------------------------------------------------
+filetype plugin indent on
+set synmaxcol=320
+syntax enable
 
 " バックアップファイルを作らない
 set nobackup
@@ -400,11 +403,3 @@ let g:indentLine_color_term = 239
 " --------------------------------------------------
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-
-" --------------------------------------------------
-" ファイルタイプ関連を有効にする
-" --------------------------------------------------
-filetype plugin indent on
-
-set synmaxcol=320
-syntax enable
