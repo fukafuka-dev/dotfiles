@@ -5,7 +5,6 @@
 call plug#begin()
   " lang
   Plug 'vim-ruby/vim-ruby'
-  Plug 'tpope/vim-endwise'
   Plug 'elzr/vim-json'
   Plug 'posva/vim-vue'
   Plug 'othree/yajs.vim'
@@ -15,8 +14,8 @@ call plug#begin()
 
   " vim
   "Plug 'yonchu/accelerated-smooth-scroll'
-
-  Plug 'jiangmiao/auto-pairs'
+  Plug 'cohama/vim-smartinput-endwise'
+  "Plug 'jiangmiao/auto-pairs'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'kamykn/spelunker.vim'
   Plug 'docunext/closetag.vim'
