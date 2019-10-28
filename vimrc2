@@ -12,7 +12,10 @@ call plug#begin()
   Plug 'junegunn/vim-journal'
   Plug 'leafgarland/typescript-vim'
   Plug 'zah/nim.vim'
-  Plug 'tyru/eskk.vim'
+
+  Plug 'tyru/skk.vim'
+
+  let skk_large_jisyo = "/Users/y_imai/.skk-jisho/SKK-JISYO.L"
 
 " vim
   Plug 'jiangmiao/auto-pairs'
@@ -404,9 +407,3 @@ let g:indentLine_color_term = 239
 " --------------------------------------------------
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-
-
-" --------------------------------------------------
-"  SKK
-" --------------------------------------------------
-let g:eskk#large_dictionary = '~/.skk-jisho/SKK-JISYO.L'
