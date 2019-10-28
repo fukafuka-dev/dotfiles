@@ -12,7 +12,7 @@ call plug#begin()
   Plug 'junegunn/vim-journal'
   Plug 'leafgarland/typescript-vim'
   Plug 'zah/nim.vim'
-  Plug 'tyru/eskk.vim'
+"  Plug 'tyru/eskk.vim'
 
 " vim
   Plug 'jiangmiao/auto-pairs'
@@ -22,11 +22,10 @@ call plug#begin()
   Plug 'docunext/closetag.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'Yggdroot/indentLine'
-
   Plug 'itchyny/lightline.vim'
   Plug 'dense-analysis/ale'
     Plug 'maximbaz/lightline-ale'
-  Plug 'bfredl/nvim-miniyank'
+
   Plug 'simeji/winresizer'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -40,6 +39,10 @@ call plug#begin()
   Plug 'junegunn/vim-peekaboo'
   Plug 'tpope/vim-fugitive'
   Plug 'lilydjwg/colorizer'
+
+  if has('nvim')
+    Plug 'bfredl/nvim-miniyank'
+  endif
 
   " color
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
@@ -409,4 +412,4 @@ nmap ga <Plug>(EasyAlign)
 " --------------------------------------------------
 "  SKK
 " --------------------------------------------------
-let g:eskk#large_dictionary = '~/.skk-jisho/SKK-JISYO.L'
+"let g:eskk#large_dictionary = '~/.skk-dic/SKK-JISYO.L'
