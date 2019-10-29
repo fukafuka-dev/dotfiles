@@ -22,18 +22,10 @@ call plug#begin()
   Plug 'docunext/closetag.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'Yggdroot/indentLine'
-<<<<<<< HEAD
   Plug 'LeafCage/yankround.vim'
-
   Plug 'itchyny/lightline.vim'
   Plug 'dense-analysis/ale'
     Plug 'maximbaz/lightline-ale'
-=======
-  Plug 'itchyny/lightline.vim'
-  Plug 'dense-analysis/ale'
-    Plug 'maximbaz/lightline-ale'
-
->>>>>>> 3405c764e389036dc94336891921df9b33a2b2e3
   Plug 'simeji/winresizer'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -405,9 +397,7 @@ nmap ga <Plug>(EasyAlign)
 " --------------------------------------------------
 "  SKK
 " --------------------------------------------------
-<<<<<<< HEAD
 let g:eskk#large_dictionary = '~/.skk-jisho/SKK-JISYO.L'
-
 
 " --------------------------------------------------
 " yankround
@@ -420,6 +410,3 @@ nmap <C-n> <Plug>(yankround-next)
 
 "" 履歴取得数
 let g:yankround_max_history = 50
-=======
-"let g:eskk#large_dictionary = '~/.skk-dic/SKK-JISYO.L'
->>>>>>> 3405c764e389036dc94336891921df9b33a2b2e3
