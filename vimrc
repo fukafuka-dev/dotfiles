@@ -36,7 +36,6 @@ call plug#begin()
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'viis/vim-bclose'
   Plug 'junegunn/goyo.vim'
-  Plug 'junegunn/vim-peekaboo'
   Plug 'tpope/vim-fugitive'
   Plug 'lilydjwg/colorizer'
 
