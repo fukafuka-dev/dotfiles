@@ -17,15 +17,9 @@ export LANG=ja_JP.UTF-8
 export TERM=xterm-256color
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 
-<<<<<<< HEAD
 if which /usr/local/bin/vim> /dev/null 2>&1; then
   export EDITOR='/usr/local/bin/vim'
   export VISUAL='/usr/local/bin/vim'
-=======
-if which nvim> /dev/null 2>&1; then
-  export EDITOR='nvim'
-  export VISUAL='nvim'
->>>>>>> 3405c764e389036dc94336891921df9b33a2b2e3
 else
   export EDITOR='vim'
   export VISUAL='vim'
