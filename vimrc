@@ -22,11 +22,11 @@ call plug#begin()
   Plug 'docunext/closetag.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'Yggdroot/indentLine'
+  Plug 'LeafCage/yankround.vim'
 
   Plug 'itchyny/lightline.vim'
   Plug 'dense-analysis/ale'
     Plug 'maximbaz/lightline-ale'
-  Plug 'bfredl/nvim-miniyank'
   Plug 'simeji/winresizer'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -129,11 +129,6 @@ set listchars=tab:>-,trail:-
 " サインカラムを常に表示する
 set signcolumn=yes
 
-" 現在の行を強調表示
-if has('nvim')
- " set cursorline
-endif
-"
 " 括弧入力時の対応する括弧を表示
 set showmatch
 
@@ -208,10 +203,8 @@ nnoremap Q q
 nnoremap q <nop>
 
 " terminal
-if has('nvim')
-  tnoremap <silent> <ESC> <C-\><C-n>
-  tnoremap <silent> jj <C-\><C-n>
-endif
+tnoremap <silent> <ESC> <C-\><C-n>
+tnoremap <silent> jj <C-\><C-n>
 
 " Leader
 let mapleader = "\<Space>"
@@ -371,14 +364,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 " --------------------------------------------------
-" OSXでの矩形yank&pasteのバグ
-" --------------------------------------------------
-if has('nvim')
-  map p <Plug>(miniyank-autoput)
-  map P <Plug>(miniyank-autoPut)
-endif
-
-" --------------------------------------------------
 "  Goyo
 " --------------------------------------------------
 let g:goyo_width=120
@@ -410,3 +395,16 @@ nmap ga <Plug>(EasyAlign)
 "  SKK
 " --------------------------------------------------
 let g:eskk#large_dictionary = '~/.skk-jisho/SKK-JISYO.L'
+
+
+" --------------------------------------------------
+" yankround
+" --------------------------------------------------
+"" キーマップ
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+
+"" 履歴取得数
+let g:yankround_max_history = 50
