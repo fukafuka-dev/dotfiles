@@ -12,7 +12,7 @@ call plug#begin()
   Plug 'junegunn/vim-journal'
   Plug 'leafgarland/typescript-vim'
   Plug 'zah/nim.vim'
-"  Plug 'tyru/eskk.vim'
+  Plug 'tyru/eskk.vim'
 
 " vim
   Plug 'jiangmiao/auto-pairs'
