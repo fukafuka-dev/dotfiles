@@ -42,6 +42,8 @@ export XDG_CONFIG_HOME=~/.config
 # brew install coreutils
 export PATH="/usr/local/opt/coreutils/libexec/gnubin":"$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+export PATH=/usr/local/opt/findutils/libexec/gnubin:${PATH}
+export MANPATH=/usr/local/opt/findutils/libexec/gnuman:${MANPATH}
 
 # fzf
 export FZF_DEFAULT_OPTS="--no-sort --exact --cycle --multi --ansi --reverse --border --sync --bind=ctrl-t:toggle --bind=?:toggle-preview --bind=down:preview-down --bind=up:preview-up"
@@ -120,7 +122,7 @@ repo() {
   if which fd > /dev/null 2>&1; then
     list=$(fd '.git$' $SRC_DIR -t d -H)
   else
-    list=$(ag -g $SRC_DIR -name .git -type d 2>/dev/null) # エラーメッセージを非表示にする
+    list=$(find $SRC_DIR -regex '.*\.git$' -type d 2>/dev/null) # エラーメッセージを非表示にする
   fi
   dir=$(echo $list | sed -e 's@.git$@@'| fzf -q "$*"  --preview "tree -C {} | head -200")
   if [ -n "$dir" ]; then
