@@ -38,10 +38,8 @@ call plug#begin()
   Plug 'junegunn/goyo.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'lilydjwg/colorizer'
-
-  if has('nvim')
-    Plug 'bfredl/nvim-miniyank'
-  endif
+  Plug 'osyo-manga/vim-over'
+  Plug 'easymotion/vim-easymotion'
 
   " color
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
@@ -58,117 +56,66 @@ set ambiwidth=double
 " --------------------------------------------------
 " ファイルタイプ関連を有効にする
 " --------------------------------------------------
-filetype plugin indent on
-set synmaxcol=320
 syntax enable
+filetype plugin indent on
+set synmaxcol=200
+colorscheme afterglow
+set background=dark
 
-" バックアップファイルを作らない
-set nobackup
-set nowritebackup
+" --------------------------------------------------
+" Basic
+" --------------------------------------------------
 
-" スワップファイルを作らない
-set noswapfile
-
-" 編集中のファイルが変更されたら自動で読み直す
-set autoread
-
-" バッファが編集中でもその他のファイルを開けるように
-set hidden
-
-" 入力中のコマンドをステータスに表示する
-set showcmd
-
-" クリップボードを有効にする
-set clipboard+=unnamed
-
-" backspece
-set backspace=indent,eol,start
-
-" 自動更新時間
-set updatetime=500
-
-" ビープ音消す
-set vb t_vb=
+set nobackup                    " ファイルを上書きする前にバックアップを作らない
+set nowritebackup               " ファイルの上書きの前にバックアップを作り、バックアップは上書きに成功した後削除される
+set noswapfile                  " スワップファイルを作らない
+set autoread                    " 編集中のファイルが変更されたら自動で読み直す
+set hidden                      " バッファが編集中でもその他のファイルを開けるように
+set showcmd                     " 入力中のコマンドをステータスに表示する
+set clipboard+=unnamed          " クリップボードを有効にする
+set backspace=indent,eol,start  " Ctrl-H, バックスペースを有効にする
+set updatetime=500              " 自動更新時間
+set vb t_vb=                    " ビープ音消す
+set scrolloff=3                 " スクロール先が見えるようにする
+set ttyfast                     " 高速ターミナル接続を行う(スクロールが重くなる対策)
+set lazyredraw                  " マクロやコマンドを実行する間、画面を再描画しない(スクロールが重くなる対策)
 
 " --------------------------------------------------
 " 操作
 " --------------------------------------------------
 
-" 行末の1文字先までカーソルを移動できるように
-set virtualedit=onemore
-
-" インデントはスマートインデント
-set smartindent
-
-" 新しいウインドウを下に開く
-set splitbelow
-
-" 新しいウィンドウを右に開く
-set splitright
-
-" スペルチェック言語
-set spelllang=en,cjk
-
-" 新しい行を開始した時インデントを合わせる
-set autoindent
+set virtualedit=onemore " 行末の1文字先までカーソルを移動できるように
+set smartindent         " インデントはスマートインデント
+set splitbelow          " 新しいウインドウを下に開
+set splitright          " 新しいウィンドウを右に開く
+set spelllang=en,cjk    " スペルチェック言語
+set autoindent          " 新しい行を開始した時インデントを合わせる
 
 " --------------------------------------------------
 " 表示
 " --------------------------------------------------
 
-" 行番号を表示
-set number
-
-if has('nvim')
-  autocmd TermOpen * setlocal norelativenumber " terminal modeでの行番号非表示
-  autocmd TermOpen * setlocal nonumber
-endif
-
-" 不可視文字を表示
-set list
-set listchars=tab:>-,trail:-
-
-" サインカラムを常に表示する
-set signcolumn=yes
-
-" 括弧入力時の対応する括弧を表示
-set showmatch
-
-" 対応括弧の表示秒数を3秒にする
-set matchtime=3
-
-" ステータスラインを常に表示
-set laststatus=2
-set expandtab
-set tabstop=2
-set shiftwidth=2
+set number                   " 行番号を表示
+set list                     " 不可視文字を表示
+set listchars=tab:>-,trail:- " 不可視文の表示記号を指定
+set signcolumn=yes           " サインカラムを常に表示する
+set showmatch                " 括弧入力時の対応する括弧を表示
+set matchtime=3              " 対応括弧の表示秒数を3秒にする
+set laststatus=2             " ステータスラインを常に表示
+set expandtab                " タブ文字の代わりにスペースを▼挿入
+set tabstop=2                " タブ数を▼設定
+set shiftwidth=2             " Shift + >> で何個タブを移動させるか
 
 " --------------------------------------------------
 " 検索
 " --------------------------------------------------
 
-" インクリメンタルサーチ. １文字入力毎に検索を行う
-set incsearch
-
-" インタラクティブに置換検索する
-if has('nvim')
-  set inccommand=split
-endif
-
-" 検索パターンに大文字小文字を区別しない
-set ignorecase
-
-" 検索パターンに大文字を含んでいたら大文字小文字を区別する
-set smartcase
-
-" 検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。
-set wrapscan
-
-" 検索結果をハイライト
-set hlsearch
-
-"vimgrepすると新しいwindowで開く
-autocmd QuickFixCmdPost *grep* cwindow
+set incsearch                          " インクリメンタルサーチ. １文字入力毎に検索を行う
+set ignorecase                         " 検索パターンに大文字小文字を区別しない
+set smartcase                          " 検索パターンに大文字を含んでいたら大文字小文字を区別する
+set wrapscan                           " 検索がファイル末尾まで進んだら、ファイル先頭から再び検索する。
+set hlsearch                           " 検索結果をハイライト
+autocmd QuickFixCmdPost *grep* cwindow " vimgrepすると新しいwindowで開く
 
 " --------------------------------------------------
 " key bind
@@ -180,13 +127,13 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+" 楽なモード▼変更
 inoremap <c-c> <Esc>
 inoremap jj <Esc>
 inoremap っｊ <Esc>
 vnoremap <c-c> <Esc>
-"vnoremap jj <Esc>
 
-" delete key
+" Deleteキー
 inoremap <c-d> <Del>
 
 " ウインドウ入れ替え(なるべくtmuxに寄せる)
@@ -201,6 +148,8 @@ vnoremap X "_X
 
 " ヤンク
 nnoremap Y y$
+
+" 誤動作防止
 nnoremap Q q
 nnoremap q <nop>
 
@@ -230,19 +179,6 @@ nnoremap <silent> <leader>q :call BufClose()<cr>
 command Q q
 
 " --------------------------------------------------
-" color
-" --------------------------------------------------
-
-syntax enable
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  " set termguicolors
-endif
-
-colorscheme afterglow
-
-" --------------------------------------------------
 " fzf-vim
 " --------------------------------------------------
 
@@ -255,14 +191,9 @@ nnoremap <leader>s :GFiles?<CR>
 " netrw
 " --------------------------------------------------
 
-" netrwは常にtree view
-let g:netrw_liststyle = 3
-
-" vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
-let g:netrw_altv = 1
-
-" oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
-let g:netrw_alto = 1
+let g:netrw_liststyle = 3 " netrwは常にtree view
+let g:netrw_altv = 1      " vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
+let g:netrw_alto = 1      " oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
 
 " --------------------------------------------------
 " vim-trailing-whitespace
@@ -378,7 +309,6 @@ augroup vim_journal
   autocmd BufNewFile,BufRead *.md  set filetype=journal
 augroup END
 
-
 " --------------------------------------------------
 " indentLine
 " --------------------------------------------------
@@ -391,7 +321,6 @@ let g:indentLine_color_term = 239
 " --------------------------------------------------
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-
 
 " --------------------------------------------------
 "  SKK
@@ -411,3 +340,18 @@ nmap <C-n> <Plug>(yankround-next)
 
 "" 履歴取得数
 let g:yankround_max_history = 50
+
+" --------------------------------------------------
+" vim-over
+" --------------------------------------------------
+" 専用のコマンドラインから入力しないといけない
+nnoremap <silent> <Space>// :OverCommandLine<CR>%s/
+
+" --------------------------------------------------
+" vim-easymotion
+" --------------------------------------------------
+nmap s <Plug>(easymotion-s2)
+map f <Plug>(easymotion-fl)
+map t <Plug>(easymotion-tl)
+map F <Plug>(easymotion-Fl)
+map T <Plug>(easymotion-Tl)
