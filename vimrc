@@ -27,8 +27,6 @@ call plug#begin()
   Plug 'dense-analysis/ale'
     Plug 'maximbaz/lightline-ale'
   Plug 'simeji/winresizer'
-  Plug 'scrooloose/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'airblade/vim-gitgutter'
@@ -193,9 +191,11 @@ nnoremap <leader>s :GFiles?<CR>
 " netrw
 " --------------------------------------------------
 
-let g:netrw_liststyle = 3 " netrwは常にtree view
-let g:netrw_altv = 1      " vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
-let g:netrw_alto = 1      " oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
+let g:netrw_preview = 1                       " プレビューウィンドウを垂直分割で表示する
+let g:netrw_liststyle = 3                   " netrwは常にtree view
+let g:netrw_altv = 1                        " vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
+let g:netrw_alto = 1                        " oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
+let g:netrw_winsize = 'equalalways'i        " ウィンドウを等倍で開く
 
 " --------------------------------------------------
 " vim-trailing-whitespace
@@ -274,29 +274,6 @@ function! AbsolutePath()
     return a
   endif
 endfunction
-
-" --------------------------------------------------
-"  NERDTree
-" --------------------------------------------------
-nnoremap <leader>t :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
-
-" --------------------------------------------------
-"  NERDTree Git Plugin
-" --------------------------------------------------
-
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "*",
-    \ "Staged"    : "+",
-    \ "Untracked" : "untracked",
-    \ "Renamed"   : "renamed",
-    \ "Unmerged"  : "unmerged",
-    \ "Deleted"   : "x",
-    \ "Dirty"     : "~",
-    \ "Clean"     : "clean",
-    \ 'Ignored'   : 'ignored',
-    \ "Unknown"   : "?"
-    \ }
 
 " --------------------------------------------------
 "  Goyo
