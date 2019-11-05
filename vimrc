@@ -154,8 +154,10 @@ nnoremap Q q
 nnoremap q <nop>
 
 " terminal
-tnoremap <silent> <ESC> <C-\><C-n>
-tnoremap <silent> jj <C-\><C-n>
+if has('terminal')
+  tnoremap <silent> <ESC> <C-\><C-n>
+  tnoremap <silent> jj <C-\><C-n>
+endif
 
 " Leader
 let mapleader = "\<Space>"
