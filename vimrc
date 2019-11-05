@@ -195,7 +195,7 @@ let g:netrw_preview = 1                       " プレビューウィンドウ�
 let g:netrw_liststyle = 3                   " netrwは常にtree view
 let g:netrw_altv = 1                        " vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
 let g:netrw_alto = 1                        " oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
-let g:netrw_winsize = 'equalalways'i        " ウィンドウを等倍で開く
+let g:netrw_winsize = 'equalalways'         " ウィンドウを等倍で開く
 
 " --------------------------------------------------
 " vim-trailing-whitespace
