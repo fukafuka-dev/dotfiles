@@ -43,6 +43,7 @@ call plug#begin()
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'cormacrelf/vim-colors-github', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'yasukotelin/shirotelin', {'do': 'cp colors/* ~/.vim/colors/'}
 call plug#end()
 
 "" setting
@@ -59,6 +60,8 @@ filetype plugin indent on
 set synmaxcol=200
 colorscheme afterglow
 set background=dark
+"colorscheme shirotelin
+"set background=light
 
 " --------------------------------------------------
 " Basic
