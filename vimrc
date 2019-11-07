@@ -337,3 +337,15 @@ map f <Plug>(easymotion-fl)
 map t <Plug>(easymotion-tl)
 map F <Plug>(easymotion-Fl)
 map T <Plug>(easymotion-Tl)
+
+
+" --------------------------------------------------
+" vim-tmux-navigator
+" --------------------------------------------------
+if has('terminal')
+  " ターミナルモードでもTmuxと同様のウインドウ移動をする
+  tnoremap <silent> <C-h> <C-\><C-n>:TmuxNavigateLeft<cr>
+  tnoremap <silent> <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
+  tnoremap <silent> <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
+  tnoremap <silent> <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
+endif
