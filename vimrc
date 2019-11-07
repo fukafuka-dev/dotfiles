@@ -60,7 +60,7 @@ filetype plugin indent on
 set synmaxcol=200
 colorscheme afterglow
 set background=dark
-"colorscheme shirotelin
+"colorscheme github
 "set background=light
 
 " --------------------------------------------------
