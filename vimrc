@@ -57,7 +57,7 @@ set ambiwidth=double
 " --------------------------------------------------
 syntax enable
 filetype plugin indent on
-set synmaxcol=200
+set synmaxcol=300
 colorscheme afterglow
 set background=dark
 "colorscheme github
@@ -128,7 +128,7 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" 楽なモード▼変更
+" 楽なモード変更
 inoremap <c-c> <Esc>
 inoremap jj <Esc>
 inoremap っｊ <Esc>
