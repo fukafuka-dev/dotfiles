@@ -1,5 +1,10 @@
+[pager]
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
+
 [core]
-	excludesfile = ~/.gitignore.global
+  excludesfile = ~/.gitignore.global
 
 [include]
   path = ~/.gitconfig.local
