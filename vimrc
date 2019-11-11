@@ -1,4 +1,4 @@
-
+" --------------------------------------------------
 " vim-plug
 " --------------------------------------------------
 
@@ -14,7 +14,7 @@ call plug#begin()
   Plug 'zah/nim.vim'
   Plug 'tyru/eskk.vim'
 
-" vim
+  " vim
   Plug 'jiangmiao/auto-pairs'
   Plug 'tpope/vim-endwise'
   Plug 'bronson/vim-trailing-whitespace'
@@ -46,22 +46,21 @@ call plug#begin()
   Plug 'yasukotelin/shirotelin', {'do': 'cp colors/* ~/.vim/colors/'}
 call plug#end()
 
-"" setting
+" setting
 set fenc=utf-8
 set nocompatible
 set wildmenu
 set ambiwidth=double
 
 " --------------------------------------------------
-" ファイルタイプ関連を有効にする
+" ファイルタイプ/シンタックス
 " --------------------------------------------------
+
 syntax enable
 filetype plugin indent on
 set synmaxcol=300
 colorscheme afterglow
 set background=dark
-"colorscheme github
-"set background=light
 
 " --------------------------------------------------
 " Basic
@@ -194,11 +193,11 @@ nnoremap <leader>s :GFiles?<CR>
 " netrw
 " --------------------------------------------------
 
-let g:netrw_preview = 1                       " プレビューウィンドウを垂直分割で表示する
-let g:netrw_liststyle = 3                   " netrwは常にtree view
-let g:netrw_altv = 1                        " vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
-let g:netrw_alto = 1                        " oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
-let g:netrw_winsize = 'equalalways'         " ウィンドウを等倍で開く
+let g:netrw_preview = 1             " プレビューウィンドウを垂直分割で表示する
+let g:netrw_liststyle = 3           " netrwは常にtree view
+let g:netrw_altv = 1                " vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
+let g:netrw_alto = 1                " oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
+let g:netrw_winsize = 'equalalways' " ウィンドウを等倍で開く
 
 " --------------------------------------------------
 " vim-trailing-whitespace
@@ -281,11 +280,13 @@ endfunction
 " --------------------------------------------------
 "  Goyo
 " --------------------------------------------------
+
 let g:goyo_width=120
 
 " --------------------------------------------------
 " vim-journal
 " --------------------------------------------------
+
 augroup vim_journal
   autocmd!
   autocmd BufNewFile,BufRead *.md  set filetype=journal
@@ -294,6 +295,7 @@ augroup END
 " --------------------------------------------------
 " indentLine
 " --------------------------------------------------
+
 let g:indentLine_char = '¦'
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_color_term = 239
@@ -301,12 +303,14 @@ let g:indentLine_color_term = 239
 " --------------------------------------------------
 "  vim-easy-align
 " --------------------------------------------------
+
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " --------------------------------------------------
 "  SKK
 " --------------------------------------------------
+
 let g:eskk#directory = "~/.eskk"
 let g:eskk#dictionary = { 'path': "~/.eskk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
 let g:eskk#large_dictionary = { 'path': "~/.eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
@@ -314,7 +318,8 @@ let g:eskk#large_dictionary = { 'path': "~/.eskk/SKK-JISYO.L", 'sorted': 1, 'enc
 " --------------------------------------------------
 " yankround
 " --------------------------------------------------
-"" キーマップ
+
+" キーマップ
 nmap p <Plug>(yankround-p)
 nmap P <Plug>(yankround-P)
 nmap <C-p> <Plug>(yankround-prev)
@@ -326,22 +331,24 @@ let g:yankround_max_history = 50
 " --------------------------------------------------
 " vim-over
 " --------------------------------------------------
+
 " 専用のコマンドラインから入力しないといけない
 nnoremap <silent> <Space>// :OverCommandLine<CR>%s/
 
 " --------------------------------------------------
 " vim-easymotion
 " --------------------------------------------------
+
 nmap s <Plug>(easymotion-s2)
 map f <Plug>(easymotion-fl)
 map t <Plug>(easymotion-tl)
 map F <Plug>(easymotion-Fl)
 map T <Plug>(easymotion-Tl)
 
-
 " --------------------------------------------------
 " vim-tmux-navigator
 " --------------------------------------------------
+
 if has('terminal')
   " ターミナルモードでもTmuxと同様のウインドウ移動をする
   tnoremap <silent> <C-h> <C-\><C-n>:TmuxNavigateLeft<cr>
