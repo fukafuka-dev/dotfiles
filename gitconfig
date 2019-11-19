@@ -7,6 +7,9 @@
 [includeIf "gitdir:~/config/"]
   path = ~/.gitconfig.special
 
+[includeIf "gitdir:~/src/github.com/"]
+  path = ~/.gitconfig.special
+
 [alias]
   logp = log --graph --name-status --pretty=format:'%C(yellow)%h %C(blue)%an%Creset %C(cyan)%s%Creset %C(red)%d%Creset %Cgreen(%cr)' --date=relative
 
