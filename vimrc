@@ -44,6 +44,7 @@ call plug#begin()
   Plug 'cormacrelf/vim-colors-github', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
   Plug 'yasukotelin/shirotelin', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'tomasiser/vim-code-dark', {'do': 'cp colors/* ~/.vim/colors/'}
 call plug#end()
 
 " setting
@@ -60,7 +61,7 @@ syntax enable
 filetype plugin indent on
 set synmaxcol=300
 set background=dark
-colorscheme codedark
+colorscheme afterglow
 
 " --------------------------------------------------
 " Basic
