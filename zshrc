@@ -71,13 +71,8 @@ precmd () {
   vcs_info
 }
 
-
-# /etc/profile.d/prompt.sh
-if [ -n "$NICKNAME" ]; then
-  LOCAL_NICKNAME=@$NICKNAME
-fi
 PROMPT='
-%K{green}%F{black} %n$LOCAL_NICKNAME %f%k '
+%K{green}%F{black} %n@${HOST} %f%k '
 RPROMPT='%F{yellow} => %f%F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}%f'
 
 # Enable typo correction
