@@ -184,6 +184,7 @@ nnoremap <silent> <leader>q :call BufClose()<cr>
 " --------------------------------------------------
 
 command Q q
+command W w
 
 " --------------------------------------------------
 " fzf-vim
