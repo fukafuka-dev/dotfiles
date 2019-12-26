@@ -13,8 +13,10 @@ call plug#begin()
   Plug 'leafgarland/typescript-vim'
   Plug 'zah/nim.vim'
   Plug 'tyru/eskk.vim'
+  Plug 'guns/vim-clojure-static'
 
   " vim
+  Plug 'luochen1990/rainbow'
   Plug 'jiangmiao/auto-pairs'
   Plug 'tpope/vim-endwise'
   Plug 'bronson/vim-trailing-whitespace'
@@ -384,3 +386,9 @@ if has("vim_starting") && !has('gui_running') && has('vertsplit')
   map <expr> <t_F9> EnableVsplitMode()
   let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
 endif
+
+
+" --------------------------------------------------
+"  luochen1990/rainbow
+" --------------------------------------------------
+let g:rainbow_active = 1
