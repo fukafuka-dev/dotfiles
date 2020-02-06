@@ -233,6 +233,9 @@ let g:ale_linters = {
       \ 'typescript': ['tslint'],
       \ }
 
+highlight link ALEErrorSign ErrorMsg
+highlight link ALEWarningSign cStorageClass
+
 " --------------------------------------------------
 " lightline/ale
 " --------------------------------------------------
