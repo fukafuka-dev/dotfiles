@@ -55,6 +55,9 @@ ZSH_HIGHLIGHT_STYLES[function]='fg=magenta'
 ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
 ZSH_HIGHLIGHT_STYLES[globbing]='none'
 
+# C-sを無効化
+stty stop undef
+
 # ----------------------------------------------------------------
 # プロンプト
 # ----------------------------------------------------------------

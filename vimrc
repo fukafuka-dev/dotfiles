@@ -40,6 +40,7 @@ call plug#begin()
   Plug 'lilydjwg/colorizer'
   Plug 'osyo-manga/vim-over'
   Plug 'easymotion/vim-easymotion'
+  Plug 'kentarosasaki/vim-emacs-bindings'
 
   " color
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
@@ -124,6 +125,11 @@ autocmd QuickFixCmdPost *grep* cwindow " vimgrepすると新しいwindowで開�
 " key bind
 " --------------------------------------------------
 
+" Leader
+let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
+nnoremap <leader>w :w<CR>
+
 " 折り返しでも行単位で移動
 nnoremap j gj
 nnoremap k gk
@@ -138,6 +144,12 @@ vnoremap <c-c> <Esc>
 
 " Deleteキー
 inoremap <c-d> <Del>
+
+" ウインドウ
+nnoremap <leader>+ <C-w>_<C-w><Bar>
+nnoremap <leader>= <C-w>=
+nnoremap <leader>- :sp<CR>
+nnoremap <leader>\ :vs<CR>
 
 " ウインドウ入れ替え(なるべくtmuxに寄せる)
 nnoremap <silent> <c-w>{ <c-w><c-x>
@@ -163,11 +175,6 @@ if has('terminal')
   tnoremap <silent> <ESC> <C-\><C-n>
   tnoremap <silent> jj <C-\><C-n>
 endif
-
-" Leader
-let mapleader = "\<Space>"
-let maplocalleader = "\<Space>"
-nnoremap <leader>w :w<CR>
 
 " ウィンドウとバッファが残ってる時は、ウインドウを残す
 function! BufClose()
@@ -360,10 +367,15 @@ map T <Plug>(easymotion-Tl)
 
 if has('terminal')
   " ターミナルモードでもTmuxと同様のウインドウ移動をする
-  tnoremap <silent> <C-h> <C-\><C-n>:TmuxNavigateLeft<cr>
-  tnoremap <silent> <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
-  tnoremap <silent> <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
-  tnoremap <silent> <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
+"  tnoremap <silent> <C-h> <C-\><C-n>:TmuxNavigateLeft<cr>
+"  tnoremap <silent> <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
+"  tnoremap <silent> <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
+"  tnoremap <silent> <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
+  tnoremap <silent> <C-h> <C-w>h
+  tnoremap <silent> <C-j> <C-w>j
+  tnoremap <silent> <C-k> <C-w>k
+  tnoremap <silent> <C-l> <C-w>l
+  tnoremap <silent> <C-w>p <C-w>"@
 endif
 
 " --------------------------------------------------
