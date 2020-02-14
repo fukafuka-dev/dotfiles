@@ -14,6 +14,7 @@ call plug#begin()
   Plug 'zah/nim.vim'
   Plug 'tyru/eskk.vim'
   Plug 'guns/vim-clojure-static'
+  Plug 'vim-python/python-syntax'
 
   " vim
   Plug 'luochen1990/rainbow'
@@ -40,7 +41,7 @@ call plug#begin()
   Plug 'lilydjwg/colorizer'
   Plug 'osyo-manga/vim-over'
   Plug 'easymotion/vim-easymotion'
-  Plug 'kentarosasaki/vim-emacs-bindings'
+  Plug 'dhruvasagar/vim-table-mode'
 
   " color
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
@@ -306,6 +307,7 @@ let g:goyo_width=120
 augroup vim_journal
   autocmd!
   autocmd BufNewFile,BufRead *.md  set filetype=journal
+  autocmd BufNewFile,BufRead *.txt  set filetype=journal
 augroup END
 
 " --------------------------------------------------
@@ -408,3 +410,9 @@ endif
 "  luochen1990/rainbow
 " --------------------------------------------------
 let g:rainbow_active = 1
+
+
+" --------------------------------------------------
+"  vim-python/python-syntax
+" --------------------------------------------------
+let g:python_highlight_all = 1
