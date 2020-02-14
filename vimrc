@@ -15,6 +15,7 @@ call plug#begin()
   Plug 'tyru/eskk.vim'
   Plug 'guns/vim-clojure-static'
   Plug 'vim-python/python-syntax'
+  Plug 'ShikChen/osc52.vim'
 
   " vim
   Plug 'luochen1990/rainbow'
@@ -42,6 +43,7 @@ call plug#begin()
   Plug 'osyo-manga/vim-over'
   Plug 'easymotion/vim-easymotion'
   Plug 'dhruvasagar/vim-table-mode'
+  Plug 'skanehira/vsession'
 
   " color
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
@@ -139,9 +141,9 @@ vnoremap k gk
 
 " 楽なモード変更
 inoremap <c-c> <Esc>
-inoremap jj <Esc>
-inoremap っｊ <Esc>
 vnoremap <c-c> <Esc>
+"inoremap jj <Esc>
+"inoremap っｊ <Esc>
 
 " Deleteキー
 inoremap <c-d> <Del>
@@ -169,12 +171,16 @@ nnoremap Y y$
 nnoremap Q q
 nnoremap q <nop>
 
+" manコマンドを引くとバグる
+nnoremap K <nop>
+
 nnoremap L :redraw!<CR>
 
 " terminal
 if has('terminal')
   tnoremap <silent> <ESC> <C-\><C-n>
-  tnoremap <silent> jj <C-\><C-n>
+  tnoremap <silent> <C-g> <C-\><C-n>
+"  tnoremap <silent> jj <C-\><C-n>
 endif
 
 " ウィンドウとバッファが残ってる時は、ウインドウを残す
@@ -416,3 +422,13 @@ let g:rainbow_active = 1
 "  vim-python/python-syntax
 " --------------------------------------------------
 let g:python_highlight_all = 1
+
+" osc52.vim
+" クリップボードにヤンクする
+" --------------------------------------------------
+vnoremap <leader>y y:call SendViaOSC52(getreg('"'))<CR>
+
+" --------------------------------------------------
+" vsession
+" --------------------------------------------------
+let g:vsession_use_fzf = 1
