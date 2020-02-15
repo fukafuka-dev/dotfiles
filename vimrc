@@ -54,10 +54,12 @@ call plug#begin()
 call plug#end()
 
 " setting
-set fenc=utf-8
 set nocompatible
 set wildmenu
 set ambiwidth=double
+set encoding=utf-8
+set fileencodings=utf-8
+set fileformats=unix,dos,mac
 
 " --------------------------------------------------
 " ファイルタイプ/シンタックス
