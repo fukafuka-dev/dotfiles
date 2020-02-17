@@ -4,18 +4,9 @@
 
 call plug#begin()
   " lang
-  Plug 'vim-ruby/vim-ruby'
-  Plug 'elzr/vim-json'
-  Plug 'posva/vim-vue'
-  Plug 'othree/yajs.vim'
+  Plug 'sheerun/vim-polyglot'
   Plug 'tpope/vim-rails'
   Plug 'junegunn/vim-journal'
-  Plug 'leafgarland/typescript-vim'
-  Plug 'zah/nim.vim'
-  Plug 'tyru/eskk.vim'
-  Plug 'guns/vim-clojure-static'
-  Plug 'vim-python/python-syntax'
-  Plug 'ShikChen/osc52.vim'
 
   " vim
   Plug 'luochen1990/rainbow'
@@ -38,12 +29,15 @@ call plug#begin()
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'viis/vim-bclose'
   Plug 'junegunn/goyo.vim'
-  Plug 'tpope/vim-fugitive'
   Plug 'lilydjwg/colorizer'
   Plug 'osyo-manga/vim-over'
   Plug 'easymotion/vim-easymotion'
   Plug 'dhruvasagar/vim-table-mode'
   Plug 'skanehira/vsession'
+
+  " outside
+  Plug 'ShikChen/osc52.vim'
+  Plug 'tyru/eskk.vim'
 
   " color
   Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
@@ -434,3 +428,8 @@ vnoremap <leader>y y:call SendViaOSC52(getreg('"'))<CR>
 " vsession
 " --------------------------------------------------
 let g:vsession_use_fzf = 1
+
+" --------------------------------------------------
+"  vim-close-tag
+" --------------------------------------------------
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.php,*.vue'
