@@ -20,8 +20,8 @@ set line-graphics = utf-8
 # タブサイズ
 set tab-size = 2
 
-# マウスを有効にする
-set mouse = true
+# マウスを無効にする
+set mouse = false
 
 # リフレッシュするタイミング
 set refresh-mode = auto
