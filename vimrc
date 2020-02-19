@@ -179,6 +179,10 @@ if has('terminal')
 "  tnoremap <silent> jj <C-\><C-n>
 endif
 
+" --------------------------------------------------
+" functions
+" --------------------------------------------------
+
 " ウィンドウとバッファが残ってる時は、ウインドウを残す
 function! BufClose()
   if len(getbufinfo({'buflisted':1})) == 1 && len(getwininfo()) == 1
@@ -188,6 +192,23 @@ function! BufClose()
   endif
 endfunction
 nnoremap <silent> <leader>q :call BufClose()<cr>
+
+function! CdCurrentDirectory()
+  execute ':cd' expand('%:h')
+  pwd
+endfunction
+command Cdc :call CdCurrentDirectory()
+
+function! CdGitRootDirectory()
+  try
+    let path = system('git rev-parse --show-toplevel')
+    execute ':cd' path
+    pwd
+  catch
+    echo 'no git repository'
+  endtry
+endfunction
+command Cdg :call CdGitRootDirectory()
 
 " --------------------------------------------------
 " alias

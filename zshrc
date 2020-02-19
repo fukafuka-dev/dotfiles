@@ -156,7 +156,7 @@ alias docker-login='docker_login $1 $2'
 
 # プロジェクト固有
 alias ui-start='foreman start -f Procfile.dev'
-alias ss='bin/spring stop'
+alias ss='bin/spring stop && direnv allow'
 
 google() { open "https://www.google.com/search?q=${*}" }
 
