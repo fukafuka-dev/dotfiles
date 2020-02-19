@@ -30,21 +30,18 @@ call plug#begin()
   Plug 'viis/vim-bclose'
   Plug 'junegunn/goyo.vim'
   Plug 'lilydjwg/colorizer'
-  Plug 'osyo-manga/vim-over'
   Plug 'easymotion/vim-easymotion'
   Plug 'dhruvasagar/vim-table-mode'
   Plug 'skanehira/vsession'
 
-  " outside
+  " outside tools
   Plug 'ShikChen/osc52.vim'
   Plug 'tyru/eskk.vim'
 
   " color
-  Plug 'danilo-augusto/vim-afterglow', {'do': 'cp colors/* ~/.vim/colors/'}
-  Plug 'cormacrelf/vim-colors-github', {'do': 'cp colors/* ~/.vim/colors/'}
-  Plug 'morhetz/gruvbox', {'do': 'cp colors/* ~/.vim/colors/'}
-  Plug 'yasukotelin/shirotelin', {'do': 'cp colors/* ~/.vim/colors/'}
-  Plug 'tomasiser/vim-code-dark', {'do': 'cp colors/* ~/.vim/colors/'}
+  Plug 'danilo-augusto/vim-afterglow'
+  Plug 'cormacrelf/vim-colors-github'
+  Plug 'changyuheng/color-scheme-holokai-for-vim'
 call plug#end()
 
 " setting

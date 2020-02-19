@@ -50,10 +50,29 @@ export FZF_DEFAULT_OPTS="--no-sort --exact --cycle --multi --ansi --reverse --bo
 
 # ZPlugin/zsh_highlight
 typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta'
-ZSH_HIGHLIGHT_STYLES[function]='fg=magenta'
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
-ZSH_HIGHLIGHT_STYLES[globbing]='none'
+ZSH_HIGHLIGHT_STYLES[default]=none
+ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
+ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[alias]=fg=green
+ZSH_HIGHLIGHT_STYLES[builtin]=fg=green
+ZSH_HIGHLIGHT_STYLES[function]=fg=green
+ZSH_HIGHLIGHT_STYLES[command]=fg=green
+ZSH_HIGHLIGHT_STYLES[precommand]=fg=green,underline
+ZSH_HIGHLIGHT_STYLES[commandseparator]=none
+ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=green
+ZSH_HIGHLIGHT_STYLES[path]=underline
+ZSH_HIGHLIGHT_STYLES[path_prefix]=underline
+ZSH_HIGHLIGHT_STYLES[path_approx]=fg=yellow,underline
+ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue
+ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=none
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=none
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=cyan
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
+ZSH_HIGHLIGHT_STYLES[assign]=none
 
 # C-sを無効化
 stty stop undef
@@ -70,13 +89,10 @@ zstyle ':vcs_info:git:*' stagedstr "%F{yellow}+"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}*"
 zstyle ':vcs_info:*' formats "%F{yellow}[%f%F{cyan}%c%u%b%F{yellow}]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () {
-  vcs_info
-}
+precmd () { vcs_info }
 
-PROMPT='
-%K{green}%F{black} %n@${HOST} %f%k '
-RPROMPT='%F{yellow} => %f%F{cyan}%~%f ${vcs_info_msg_0_} %F{yellow}%f'
+PROMPT='%n@${HOST} '
+RPROMPT='%F{cyan}%~%f ${vcs_info_msg_0_}'
 
 # Enable typo correction
 setopt correct
