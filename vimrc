@@ -41,7 +41,6 @@ call plug#begin()
   " color
   Plug 'danilo-augusto/vim-afterglow'
   Plug 'cormacrelf/vim-colors-github'
-  Plug 'changyuheng/color-scheme-holokai-for-vim'
 call plug#end()
 
 " setting
@@ -56,11 +55,16 @@ set fileformats=unix,dos,mac
 " ファイルタイプ/シンタックス
 " --------------------------------------------------
 
+" Trueカラーが必要な時
+if (has("termguicolors"))
+  "set termguicolors
+endif
+
 syntax enable
 filetype plugin indent on
 set synmaxcol=300
 set background=dark
-colorscheme afterglow
+colorscheme default
 
 " --------------------------------------------------
 " Basic
