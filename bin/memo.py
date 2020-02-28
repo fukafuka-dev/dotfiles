@@ -49,7 +49,7 @@ def main():
     # new
     if args.name:
         make_dir(work_dir)
-        open_memo(f"{str(work_dir.joinpath(args.name))}.txt")
+        open_memo(f"{args.name}.txt", work_dir)
 
     # edit
     elif work_dir.is_dir():
