@@ -3,12 +3,12 @@
 # zplugin
 # ----------------------------------------------------------------
 
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source ~/.zinit/bin/zinit.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-zplugin light zsh-users/zsh-syntax-highlighting
-zplugin light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
 
 # ----------------------------------------------------------------
 # 環境設定
@@ -91,7 +91,20 @@ zstyle ':vcs_info:*' formats "%F{yellow}%f%F{green}%c%u%b%F{yellow}%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 
-PROMPT='👻 '
+
+case ${HOSTNAME} in
+  "sata")
+    local host_icon=👻
+    ;;
+  "sandbox")
+    local host_icon=🎳
+    ;;
+  *)
+    local host_icon=🍎
+    ;;
+esac
+
+PROMPT='${host_icon} '
 RPROMPT='%F{cyan}%n@${HOST}:%~%f ${vcs_info_msg_0_}'
 
 # Enable typo correction
@@ -258,3 +271,5 @@ fi
 # ----------------------------------------------------------------
 export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
+### End of Zinit's installer chunk
+### End of Zinit's installer chunk

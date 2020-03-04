@@ -5,7 +5,7 @@ set -eu
 # zsh, Zplugin, vim-plug, tmux, tig
 
 # ZPlugin
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 
 # vim-plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
