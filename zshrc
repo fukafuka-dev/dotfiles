@@ -94,7 +94,11 @@ precmd () { vcs_info }
 
 case ${HOSTNAME} in
   "sata")
-    local host_icon=👻 ;;
+    local host_icon=👻
+    ;;
+  "ned")
+    local host_icon=📜
+    ;;
   "sandbox")
     local host_icon=🎳 ;;
   *)
