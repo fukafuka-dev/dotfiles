@@ -94,14 +94,11 @@ precmd () { vcs_info }
 
 case ${HOSTNAME} in
   "sata")
-    local host_icon=👻
-    ;;
+    local host_icon=👻 ;;
   "sandbox")
-    local host_icon=🎳
-    ;;
+    local host_icon=🎳 ;;
   *)
-    local host_icon=🍎
-    ;;
+    local host_icon=🍎 ;;
 esac
 
 PROMPT='${host_icon} '
@@ -271,5 +268,12 @@ fi
 # ----------------------------------------------------------------
 export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
-### End of Zinit's installer chunk
-### End of Zinit's installer chunk
+
+# ----------------------------------------------------------------
+# git path (mac)
+# ----------------------------------------------------------------
+case ${OSTYPE} in
+  darwin*)
+    export PATH="/usr/local/opt/gettext/bin:$PATH"
+    ;;
+esac
