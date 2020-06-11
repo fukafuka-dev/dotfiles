@@ -107,7 +107,7 @@ case ${HOST} in
     ;;
   *)
     if [[ ${OSTYPE} == "darwin"* ]]; then
-      local host_icon=;
+      local host_icon=" ";
     else
       local host_icon=👀;
     fi
