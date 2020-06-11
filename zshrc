@@ -92,17 +92,24 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 
 
-case ${HOSTNAME} in
+case ${HOST} in
   "sata")
-    local host_icon=👻
+    local host_icon=🤔
     ;;
   "ned")
-    local host_icon=📜
+    local host_icon=🥺
     ;;
   "sandbox")
-    local host_icon=🎳 ;;
+    local host_icon=🎳
+    ;;
+  "vagrant")
+    local host_icon=💻
+    ;;
   *)
-    local host_icon=🍎 ;;
+    if ${OSTYPE} == "darwin";
+      then local host_icon=🍎;
+      else local host_icon=👀;
+    fi
 esac
 
 PROMPT='${host_icon} '
