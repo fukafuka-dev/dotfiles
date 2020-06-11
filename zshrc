@@ -106,10 +106,12 @@ case ${HOST} in
     local host_icon=💻
     ;;
   *)
-    if ${OSTYPE} == "darwin";
-      then local host_icon=🍎;
-      else local host_icon=👀;
+    if [[ ${OSTYPE} == "darwin"* ]]; then
+      local host_icon=;
+    else
+      local host_icon=👀;
     fi
+   ;
 esac
 
 PROMPT='${host_icon} '
