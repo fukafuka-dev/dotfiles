@@ -4,7 +4,7 @@ set -eu
 # lib
 sudo apt update
 sudo apt upgrade
-sudo apt install language-pack-ja automake gcc pkg-config libpcre3-dev liblzma-dev zlib1g-dev libevent-dev libncursesw5-dev bison -y
+sudo apt install language-pack-ja automake gcc pkg-config libpcre3-dev liblzma-dev zlib1g-dev libevent-dev libncurses5-dev libncursesw5-dev bison -y
 
 # TimeZone
 sudo timedatectl set-timezone Asia/Tokyo
@@ -32,6 +32,7 @@ sh autogen.sh
 make
 sudo make install
 cd ../
+rm -rf tmux
 sudo apt remove tmux -y
 
 # tig
@@ -63,5 +64,9 @@ ln -sf $repodir/vimrc $HOME/.vimrc
 ln -sf $repodir/tigrc $HOME/.tigrc
 ln -sf $repodir/tmux.conf $HOME/.tmux.conf
 ln -sf $repodir/gitconfig $HOME/.gitconfig
+ln -sf $repodir/gitconfig.special $HOME/.gitconfig.special
+
+# default shell
+sudo chsh -s /usr/bin/zsh ubuntu
 
 echo 'finish'
