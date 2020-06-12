@@ -4,7 +4,7 @@ set -eu
 # lib
 sudo apt update
 sudo apt upgrade
-sudo apt install language-pack-ja automake gcc pkg-config libpcre3-dev liblzma-dev zlib1g-dev libevent-dev libncurses5-dev libncursesw5-dev bison -y
+sudo apt install zsh language-pack-ja automake gcc pkg-config libpcre3-dev liblzma-dev zlib1g-dev libevent-dev libncurses5-dev libncursesw5-dev bison -y
 
 # TimeZone
 sudo timedatectl set-timezone Asia/Tokyo
