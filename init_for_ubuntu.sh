@@ -4,7 +4,7 @@ set -eu
 # lib
 sudo apt update
 sudo apt upgrade
-sudo apt install zsh language-pack-ja build-essential pkg-config libpcre3-dev liblzma-dev zlib1g-dev libevent-dev libncurses5-dev libncursesw5-dev bison -y
+sudo apt install zsh language-pack-ja build-essential automake pkg-config libpcre3-dev liblzma-dev zlib1g-dev libevent-dev libncurses5-dev libncursesw5-dev bison -y
 
 # TimeZone
 sudo update-locale LANG=ja_JP.UTF-8
