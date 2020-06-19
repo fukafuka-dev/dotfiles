@@ -290,3 +290,5 @@ case ${OSTYPE} in
     export PATH="/usr/local/opt/gettext/bin:$PATH"
     ;;
 esac
+### End of Zinit's installer chunk
+### End of Zinit's installer chunk
