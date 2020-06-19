@@ -7,7 +7,7 @@ sudo apt upgrade
 sudo apt install zsh language-pack-ja automake gcc pkg-config libpcre3-dev liblzma-dev zlib1g-dev libevent-dev libncurses5-dev libncursesw5-dev bison -y
 
 # TimeZone
-sudo timedatectl set-timezone Asia/Tokyo
+sudo update-locale LANG=ja_JP.UTF-8
 
 # fd
 fd_name=fd-v8.1.1-i686-unknown-linux-musl
@@ -17,12 +17,7 @@ sudo mv ${fd_name}/fd /usr/local/bin
 rm -rf ${fd_name} ${fd_name}.tar.gz
 
 # ag
-git clone https://github.com/ggreer/the_silver_searcher.git
-cd ./the_silver_searcher
-./build.sh
-sudo make install
-cd ../
-rm -rf the_silver_searcher
+sudo apt install silversearcher-ag
 
 # tmux
 git clone https://github.com/tmux/tmux.git
