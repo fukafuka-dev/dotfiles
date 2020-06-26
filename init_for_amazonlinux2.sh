@@ -15,17 +15,15 @@ tar -zxvf ${fd_name}.tar.gz
 sudo mv ${fd_name}/fd /usr/local/bin
 rm -rf ${fd_name} ${fd_name}.tar.gz
 
-# tmux
-mkdir libevent
-cd libevent
-le_ver=2.1.11
-wget https://github.com/libevent/libevent/releases/download/release-${le_ver}-stable/libevent-${le_ver}-stable.tar.gz 
-tar zxvf libevent-${le_ver}-stable.tar.gz
-cd libevent-${le_ver}-stable
-./configure
-cd ../../ 
-rm -rf libevent
+# ag
+git clone https://github.com/ggreer/the_silver_searcher.git
+cd ./the_silver_searcher
+./build.sh
+sudo make install
+cd ../
+rm -rf the_silver_searcher
 
+# tmux
 git clone https://github.com/tmux/tmux.git
 cd tmux
 sh autogen.sh
