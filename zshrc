@@ -36,14 +36,15 @@ bindkey -e
 autoload -Uz colors
 colors
 
-# neovim
-export XDG_CONFIG_HOME=~/.config
-
 # brew install coreutils
-export PATH="/usr/local/opt/coreutils/libexec/gnubin":"$PATH"
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-export PATH=/usr/local/opt/findutils/libexec/gnubin:${PATH}
-export MANPATH=/usr/local/opt/findutils/libexec/gnuman:${MANPATH}
+case ${OSTYPE} in
+  darwin*)
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin":"$PATH"
+    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+    export PATH=/usr/local/opt/findutils/libexec/gnubin:${PATH}
+    export MANPATH=/usr/local/opt/findutils/libexec/gnuman:${MANPATH}
+    ;;
+esac
 
 # fzf
 export FZF_DEFAULT_OPTS="--no-sort --exact --cycle --multi --ansi --reverse --border --sync --bind=ctrl-t:toggle --bind=?:toggle-preview --bind=down:preview-down --bind=up:preview-up"
@@ -94,16 +95,16 @@ precmd () { vcs_info }
 
 case ${HOST} in
   "sata")
-    local host_icon=🤔
+    local host_icon=💽
     ;;
   "ned")
-    local host_icon=🥺
+    local host_icon=📜
     ;;
   "sandbox")
     local host_icon=🎳
     ;;
   "vagrant")
-    local host_icon=💻
+    local host_icon=🔧
     ;;
   *)
     if [[ ${OSTYPE} == "darwin"* ]]; then
@@ -204,6 +205,18 @@ wttr()
   local request="wttr.in"
   [ "$(tput cols)" -lt 125 ] && request+='?n'
   curl -H "Accept-Language: ${LANG%_*}" --compressed "$request"
+}
+
+# connect to default vpn setting
+vpn () {
+  service_name="VPN (L2TP)"
+  if [[ "$1" = start ]]; then
+    scutil --nc start $service_name --user "$vpn_user" --secret "$vpn_secret"
+  elif [[ "$1" = stop ]]; then
+    scutil --nc stop $service_name
+  else
+    echo "no command $1"
+  fi
 }
 
 # ----------------------------------------------------------------
