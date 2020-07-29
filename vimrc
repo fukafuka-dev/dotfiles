@@ -33,6 +33,7 @@ call plug#begin()
   Plug 'easymotion/vim-easymotion'
   Plug 'dhruvasagar/vim-table-mode'
   Plug 'skanehira/vsession'
+  Plug 'tpope/vim-surround'
 
   " outside tools
   Plug 'ShikChen/osc52.vim'
