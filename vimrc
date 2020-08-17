@@ -456,3 +456,10 @@ let g:vsession_use_fzf = 1
 "  vim-close-tag
 " --------------------------------------------------
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.php,*.vue'
+
+if executable('win32yank.exe')
+  augroup Yank
+    autocmd!
+    autocmd TextYankPost * :call system('win32yank.exe -i', @")
+  augroup END
+endif
