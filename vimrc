@@ -372,13 +372,6 @@ nmap <C-n> <Plug>(yankround-next)
 let g:yankround_max_history = 50
 
 " --------------------------------------------------
-" vim-over
-" --------------------------------------------------
-
-" 専用のコマンドラインから入力しないといけない
-nnoremap <silent> <Space>// :OverCommandLine<CR>%s/
-
-" --------------------------------------------------
 " vim-easymotion
 " --------------------------------------------------
 
@@ -463,3 +456,8 @@ if executable('win32yank.exe')
     autocmd TextYankPost * :call system('win32yank.exe -i', @")
   augroup END
 endif
+
+" --------------------------------------------------
+"  vim-polyglot
+" --------------------------------------------------
+let g:polyglot_disabled = ['csv']

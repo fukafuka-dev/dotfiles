@@ -12,6 +12,7 @@
 
 [alias]
   logp = log --graph --name-status --pretty=format:'%C(yellow)%h %C(blue)%an%Creset %C(cyan)%s%Creset %C(red)%d%Creset %Cgreen(%cr)' --date=relative
+  co = checkout
 
 [credential]
   helper = cache
