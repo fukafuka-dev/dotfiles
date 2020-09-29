@@ -9,6 +9,7 @@ autoload -Uz _zinit
 
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
+zinit light popstas/zsh-command-time
 
 # ----------------------------------------------------------------
 # 環境設定
@@ -49,7 +50,14 @@ esac
 # fzf
 export FZF_DEFAULT_OPTS="--no-sort --exact --cycle --multi --ansi --reverse --border --sync --bind=ctrl-t:toggle --bind=?:toggle-preview --bind=down:preview-down --bind=up:preview-up"
 
+# C-sを無効化
+stty stop undef
+
+
+# ----------------------------------------------------------------
 # ZPlugin/zsh_highlight
+# ----------------------------------------------------------------
+
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[default]=none
 ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
@@ -75,8 +83,18 @@ ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=cyan
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
 ZSH_HIGHLIGHT_STYLES[assign]=none
 
-# C-sを無効化
-stty stop undef
+# ----------------------------------------------------------------
+# zsh-command-time
+# ----------------------------------------------------------------
+
+# If command execution time above min. time, plugins will not output time.
+ZSH_COMMAND_TIME_MIN_SECONDS=3
+
+# Message to display (set to "" for disable).
+ZSH_COMMAND_TIME_MSG="Execution time: %s"
+
+# Message color.
+ZSH_COMMAND_TIME_COLOR="cyan"
 
 # ----------------------------------------------------------------
 # プロンプト
@@ -92,31 +110,8 @@ zstyle ':vcs_info:*' formats "%F{yellow}%f%F{green}%c%u%b%F{yellow}%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 
-
-case ${HOST} in
-  "sata")
-    local host_icon=💽
-    ;;
-  "ned")
-    local host_icon=📜
-    ;;
-  "sandbox")
-    local host_icon=🎳
-    ;;
-  "vagrant")
-    local host_icon=🔧
-    ;;
-  *)
-    if [[ ${OSTYPE} == "darwin"* ]]; then
-      local host_icon=" ";
-    else
-      local host_icon=👀;
-    fi
-   ;
-esac
-
-PROMPT='${host_icon} '
-RPROMPT='%F{cyan}%n@${HOST}:%~%f ${vcs_info_msg_0_}'
+PROMPT='[${HOST}] '
+RPROMPT='%F{cyan}%~%f ${vcs_info_msg_0_}'
 
 # Enable typo correction
 setopt correct
