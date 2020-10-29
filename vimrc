@@ -263,7 +263,7 @@ let g:ale_lint_on_text_changed = 0
 
 let g:ale_linters = {
       \ 'javascript': ['eslint'],
-      \ 'typescript': ['tslint', 'eslint', 'tsserver'],
+      \ 'typescript': ['eslint', 'tsserver'],
       \ }
 
 highlight link ALEErrorSign ErrorMsg
