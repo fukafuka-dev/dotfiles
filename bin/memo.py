@@ -13,7 +13,7 @@ def parse_args():
     return parser.parse_args()
 
 def default_memo_dir():
-    return Path.home().joinpath("doc/memo")
+    return Path.home().joinpath("Dropbox/memo")
 
 def memo_dir(current_path):
     return Path(current_path)

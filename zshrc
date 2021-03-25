@@ -303,10 +303,12 @@ export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
 
 # ----------------------------------------------------------------
-# git path (mac)
+# mac
 # ----------------------------------------------------------------
 case ${OSTYPE} in
   darwin*)
     export PATH="/usr/local/opt/gettext/bin:$PATH"
+    export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
     ;;
 esac
+

@@ -4,7 +4,6 @@
 
 call plug#begin()
   " lang
-  Plug 'sheerun/vim-polyglot'
   Plug 'tpope/vim-rails'
   Plug 'junegunn/vim-journal'
 
@@ -456,8 +455,3 @@ if executable('win32yank.exe')
     autocmd TextYankPost * :call system('win32yank.exe -i', @")
   augroup END
 endif
-
-" --------------------------------------------------
-"  vim-polyglot
-" --------------------------------------------------
-let g:polyglot_disabled = ['csv']
