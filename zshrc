@@ -3,13 +3,13 @@
 # zplugin
 # ----------------------------------------------------------------
 
-source ~/.zinit/bin/zinit.zsh
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+source ~/.zi/bin/zi.zsh
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
 
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-autosuggestions
-zinit light popstas/zsh-command-time
+zi light zsh-users/zsh-syntax-highlighting
+zi light zsh-users/zsh-autosuggestions
+zi light popstas/zsh-command-time
 
 # ----------------------------------------------------------------
 # 環境設定
@@ -122,7 +122,7 @@ SPROMPT="(*'~')< Did you mean %B%F{cyan}%r%f%b? [nyae]: "
 # ----------------------------------------------------------------
 
 # vim
-alias vin='() { vim $(ls $1 | fzf) }'
+alias vin='() { vim $(ls $1 | fzf -q "$*"  --preview "tree -C {} | head -200") }'
 alias vim8='/usr/bin/vim'
 alias vim=$EDITOR
 alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使われる

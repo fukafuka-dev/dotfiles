@@ -1,4 +1,10 @@
 " --------------------------------------------------
+"  vim-polyglot
+" --------------------------------------------------
+" これを最初に書かないとエラーになる仕様になった
+let g:polyglot_disabled = ['csv']
+
+" --------------------------------------------------
 " vim-plug
 " --------------------------------------------------
 
@@ -6,6 +12,7 @@ call plug#begin()
   " lang
   Plug 'tpope/vim-rails'
   Plug 'junegunn/vim-journal'
+  Plug 'mechatroner/rainbow_csv'
 
   " vim
   Plug 'luochen1990/rainbow'
@@ -24,14 +31,11 @@ call plug#begin()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'airblade/vim-gitgutter'
-    Plug 'thinca/vim-partedit'
+  "    Plug 'thinca/vim-partedit'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'viis/vim-bclose'
-  Plug 'junegunn/goyo.vim'
   Plug 'lilydjwg/colorizer'
   Plug 'easymotion/vim-easymotion'
-  Plug 'dhruvasagar/vim-table-mode'
-  Plug 'skanehira/vsession'
   Plug 'tpope/vim-surround'
 
   " outside tools
@@ -149,7 +153,7 @@ inoremap <c-d> <Del>
 nnoremap <leader>+ <C-w>_<C-w><Bar>
 nnoremap <leader>= <C-w>=
 nnoremap <leader>- :sp<CR>
-nnoremap <leader>\ :vs<CR>
+nnoremap <leader>/ :vs<CR>
 
 " ウインドウ入れ替え(なるべくtmuxに寄せる)
 nnoremap <silent> <c-w>{ <c-w><c-x>

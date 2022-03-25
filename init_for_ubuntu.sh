@@ -40,8 +40,8 @@ sudo make install
 cd ..
 rm -rf tig
 
-# ZPlugin
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+# ZInit
+sh -c "$(curl -fsSL https://git.io/get-zi)" --
 
 # vim-plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
