@@ -13,6 +13,7 @@ call plug#begin()
   Plug 'tpope/vim-rails'
   Plug 'junegunn/vim-journal'
   Plug 'mechatroner/rainbow_csv'
+  Plug 'leafgarland/typescript-vim'
 
   " vim
   Plug 'luochen1990/rainbow'
@@ -98,6 +99,8 @@ set splitbelow          " 新しいウインドウを下に開
 set splitright          " 新しいウィンドウを右に開く
 set spelllang=en,cjk    " スペルチェック言語
 set autoindent          " 新しい行を開始した時インデントを合わせる
+set diffopt+=vertical   " diffsplitした時、左右に開く
+set formatoptions=q     " 自動改行をしない
 
 " --------------------------------------------------
 " 表示
@@ -153,7 +156,7 @@ inoremap <c-d> <Del>
 nnoremap <leader>+ <C-w>_<C-w><Bar>
 nnoremap <leader>= <C-w>=
 nnoremap <leader>- :sp<CR>
-nnoremap <leader>/ :vs<CR>
+nnoremap <leader>\ :vs<CR>
 
 " ウインドウ入れ替え(なるべくtmuxに寄せる)
 nnoremap <silent> <c-w>{ <c-w><c-x>
