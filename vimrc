@@ -38,6 +38,7 @@ call plug#begin()
   Plug 'lilydjwg/colorizer'
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
+  Plug 'mattn/vim-molder'
 
   " outside tools
   Plug 'ShikChen/osc52.vim'

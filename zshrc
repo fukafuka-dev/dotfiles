@@ -167,9 +167,7 @@ repo() {
 alias grep='grep --color=auto'
 
 # メモスクリプト
-alias memo="memo.py --config ~/Dropbox/plane/memo"
-alias note="memo.py"
-alias ncd='(){cd "$(memo.py --config)"}'
+alias note="~/bin/memo.rb --config ~/doc/memo"
 
 # 特定のコマンドを実行した時背景色を変える（終了したら戻る）
 alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=magenta"; ssh $1; tmux select-pane -P "fg=default,bg=default" }'
