@@ -4,13 +4,10 @@
 
 call plug#begin()
   " syntax highlight
-  Plug 'danilo-augusto/vim-afterglow'
   Plug 'tpope/vim-rails'
-  Plug 'junegunn/vim-journal'
   Plug 'mechatroner/rainbow_csv'
   Plug 'leafgarland/typescript-vim'
   Plug 'vim-python/python-syntax'
-  Plug 'elzr/vim-json'
 
   " vim
   Plug 'bronson/vim-trailing-whitespace'
@@ -27,9 +24,11 @@ call plug#begin()
   Plug 'junegunn/fzf.vim'
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
+  Plug 'lambdalisue/fern.vim', { 'branch': 'main' }
 
   " ui
-  Plug 'Yggdroot/indentLine'
+  Plug 'nathanaelkane/vim-indent-guides'
+"  Plug 'Yggdroot/indentLine'
   Plug 'airblade/vim-gitgutter'
   Plug 'viis/vim-bclose'
   Plug 'mattn/vim-molder'
@@ -318,12 +317,6 @@ let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_color_term = 239
 
 " --------------------------------------------------
-" vim-json
-" --------------------------------------------------
-" indentLineによってダブルクォーテーションが非表示になるため打ち消す
-let g:vim_json_syntax_conceal = 0
-
-" --------------------------------------------------
 "  SKK
 " --------------------------------------------------
 
@@ -407,3 +400,32 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 nnoremap <leader>p :<C-u>CtrlP<CR>
 let g:ctrlp_map = '<Nop>'
 
+
+" --------------------------------------------------
+"  Fern
+" --------------------------------------------------
+let g:fern#default_hidden=1
+nnoremap <silent> <Leader>e :<C-u>:Fern . -reveal=% -drawer -toggle -width=42<CR>
+
+function! s:init_fern() abort
+  set nonumber
+  nmap <buffer> <CR> <Plug>(fern-action-open-or-expand)
+  nmap <buffer> <C-h> <C-w>h
+  nmap <buffer> <C-j> <C-w>j
+  nmap <buffer> <C-k> <C-w>k
+  nmap <buffer> <C-l> <C-w>l
+endfunction
+
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
+
+" --------------------------------------------------
+"  vim-indent-guides
+" --------------------------------------------------
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1a1a1a ctermbg=black
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#2a2a2a ctermbg=darkgray
