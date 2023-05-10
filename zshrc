@@ -48,11 +48,10 @@ case ${OSTYPE} in
 esac
 
 # fzf
-export FZF_DEFAULT_OPTS="--no-sort --exact --cycle --multi --ansi --reverse --border --sync --bind=ctrl-t:toggle --bind=?:toggle-preview --bind=down:preview-down --bind=up:preview-up"
+export FZF_DEFAULT_OPTS="--no-sort --exact --cycle --multi --ansi --reverse --sync --bind=ctrl-t:toggle --bind=?:toggle-preview --bind=down:preview-down --bind=up:preview-up"
 
 # C-sを無効化
 stty stop undef
-
 
 # ----------------------------------------------------------------
 # ZPlugin/zsh_highlight
@@ -122,8 +121,6 @@ SPROMPT="(*'~')< Did you mean %B%F{cyan}%r%f%b? [nyae]: "
 # ----------------------------------------------------------------
 
 # vim
-alias vin='() { vim $(ls $1 | fzf -q "$*"  --preview "tree -C {} | head -200") }'
-alias vim8='/usr/bin/vim'
 alias vim=$EDITOR
 alias view='() { $EDITOR -R $1 }' # viewコマンドは元々あるがviが使われる
 
@@ -133,12 +130,6 @@ alias vimrc='$EDITOR ~/.vimrc'
 alias ls='ls -F --color'
 alias lsl='ls -l --color --time-style=+%Y-%m-%d\ %H:%M:%S'
 alias tmux='tmux -2'
-anytree () { pstree $(pidof $1 | sed -e "s/ /,/g"  | tr ',' '\n' | fzf) -U $2 }
-
-alias ..='cd ..'
-alias ..2='cd ../..'
-alias ..3='cd ../../..'
-alias ..4='cd ../../../..'
 
 # 安全策
 alias mv='mv -i'
@@ -163,9 +154,6 @@ repo() {
   fi
 }
 
-# grep
-alias grep='grep --color=auto'
-
 # メモスクリプト
 alias note="~/bin/memo.rb --config ~/doc/memo"
 
@@ -174,31 +162,10 @@ alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=magenta"; ssh $1; tmux s
 
 # CSV整形表示
 if type "tty-table" > /dev/null 2>&1; then
-  alias csvp='() { column $1 | tty-table}'
+  alias csvp='() { cat $1 | tty-table}'
 else
   alias csvp='() { column -s, -t $1 }'
 fi
-
-# Docker
-docker_login() {
-  local login_command=bash
-  if [ $# = 2 ]; then login_command=$2 fi
-  docker exec -it $1 $login_command
-}
-alias docker-login='docker_login $1 $2'
-
-# プロジェクト固有
-alias ui-start='foreman start -f Procfile.dev'
-alias ss='bin/spring stop && direnv allow'
-
-google() { open "https://www.google.com/search?q=${*}" }
-
-wttr()
-{
-  local request="wttr.in"
-  [ "$(tput cols)" -lt 125 ] && request+='?n'
-  curl -H "Accept-Language: ${LANG%_*}" --compressed "$request"
-}
 
 # connect to default vpn setting
 vpn () {

@@ -1,48 +1,45 @@
 " --------------------------------------------------
-"  vim-polyglot
-" --------------------------------------------------
-" これを最初に書かないとエラーになる仕様になった
-let g:polyglot_disabled = ['csv']
-
-" --------------------------------------------------
 " vim-plug
 " --------------------------------------------------
 
 call plug#begin()
-  " lang
+  " syntax highlight
+  Plug 'danilo-augusto/vim-afterglow'
   Plug 'tpope/vim-rails'
   Plug 'junegunn/vim-journal'
   Plug 'mechatroner/rainbow_csv'
   Plug 'leafgarland/typescript-vim'
+  Plug 'vim-python/python-syntax'
+  Plug 'elzr/vim-json'
 
   " vim
+  Plug 'bronson/vim-trailing-whitespace'
   Plug 'luochen1990/rainbow'
   Plug 'jiangmiao/auto-pairs'
   Plug 'tpope/vim-endwise'
-  Plug 'bronson/vim-trailing-whitespace'
   Plug 'kamykn/spelunker.vim'
   Plug 'docunext/closetag.vim'
-  Plug 'junegunn/vim-easy-align'
-  Plug 'Yggdroot/indentLine'
   Plug 'LeafCage/yankround.vim'
   Plug 'itchyny/lightline.vim'
   Plug 'dense-analysis/ale'
     Plug 'maximbaz/lightline-ale'
-  Plug 'simeji/winresizer'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  Plug 'airblade/vim-gitgutter'
-  "    Plug 'thinca/vim-partedit'
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'viis/vim-bclose'
-  Plug 'lilydjwg/colorizer'
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
+
+  " ui
+  Plug 'Yggdroot/indentLine'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'viis/vim-bclose'
   Plug 'mattn/vim-molder'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'simeji/winresizer'
+  Plug 'christoomey/vim-tmux-navigator'
 
   " outside tools
   Plug 'ShikChen/osc52.vim'
-  Plug 'tyru/eskk.vim'
+  "Plug 'tyru/eskk.vim'
 
   " color
   Plug 'danilo-augusto/vim-afterglow'
@@ -61,16 +58,17 @@ set fileformats=unix,dos,mac
 " ファイルタイプ/シンタックス
 " --------------------------------------------------
 
-" Trueカラーが必要な時
-if (has("termguicolors"))
-  "set termguicolors
-endif
-
 syntax enable
 filetype plugin indent on
 set synmaxcol=300
-set background=dark
-colorscheme default
+"set background=dark
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" カラースキーム
+colorscheme afterglow
+let g:afterglow_inherit_background=1
 
 " --------------------------------------------------
 " Basic
@@ -129,6 +127,9 @@ set wrapscan                           " 検索がファイル末尾まで進ん
 set hlsearch                           " 検索結果をハイライト
 autocmd QuickFixCmdPost *grep* cwindow " vimgrepすると新しいwindowで開く
 
+" 検索後のハイライト
+hi Search ctermbg=brown
+
 " --------------------------------------------------
 " key bind
 " --------------------------------------------------
@@ -147,8 +148,6 @@ vnoremap k gk
 " 楽なモード変更
 inoremap <c-c> <Esc>
 vnoremap <c-c> <Esc>
-"inoremap jj <Esc>
-"inoremap っｊ <Esc>
 
 " Deleteキー
 inoremap <c-d> <Del>
@@ -175,10 +174,7 @@ nnoremap Y y$
 " 誤動作防止
 nnoremap Q q
 nnoremap q <nop>
-
-" manコマンドを引くとバグる
 nnoremap K <nop>
-
 nnoremap L :redraw!<CR>
 
 " terminal
@@ -236,26 +232,10 @@ nnoremap <leader>g :GFiles<CR>
 nnoremap <leader>s :GFiles?<CR>
 
 " --------------------------------------------------
-" netrw
-" --------------------------------------------------
-
-let g:netrw_preview = 1             " プレビューウィンドウを垂直分割で表示する
-let g:netrw_liststyle = 3           " netrwは常にtree view
-let g:netrw_altv = 1                " vでファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
-let g:netrw_alto = 1                " oでファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
-let g:netrw_winsize = 'equalalways' " ウィンドウを等倍で開く
-
-" --------------------------------------------------
 " vim-trailing-whitespace
 " --------------------------------------------------
 
 autocmd BufWritePre * :FixWhitespace
-
-" --------------------------------------------------
-" vim-json
-" --------------------------------------------------
-
-let g:vim_json_syntax_conceal = 0
 
 " --------------------------------------------------
 " ale
@@ -264,6 +244,7 @@ let g:vim_json_syntax_conceal = 0
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
+let g:ale_virtualtext_cursor = 'disabled'
 
 " ALE付属のLSPを有効にする
 " let g:ale_completion_enabled = 1
@@ -273,8 +254,10 @@ let g:ale_linters = {
       \ 'typescript': ['eslint', 'tsserver'],
       \ }
 
-highlight link ALEErrorSign ErrorMsg
-highlight link ALEWarningSign cStorageClass
+highlight ALEError ctermbg=darkred
+highlight ALEWarning ctermbg=darkblue
+highlight link ALEStyleError ALEError
+highlight link ALEStyleWarning ALEWarning
 
 " --------------------------------------------------
 " lightline/ale
@@ -327,22 +310,6 @@ function! AbsolutePath()
 endfunction
 
 " --------------------------------------------------
-"  Goyo
-" --------------------------------------------------
-
-let g:goyo_width=120
-
-" --------------------------------------------------
-" vim-journal
-" --------------------------------------------------
-
-augroup vim_journal
-  autocmd!
-  autocmd BufNewFile,BufRead *.md  set filetype=journal
-  autocmd BufNewFile,BufRead *.txt  set filetype=journal
-augroup END
-
-" --------------------------------------------------
 " indentLine
 " --------------------------------------------------
 
@@ -351,11 +318,10 @@ let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_color_term = 239
 
 " --------------------------------------------------
-"  vim-easy-align
+" vim-json
 " --------------------------------------------------
-
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
+" indentLineによってダブルクォーテーションが非表示になるため打ち消す
+let g:vim_json_syntax_conceal = 0
 
 " --------------------------------------------------
 "  SKK
@@ -394,10 +360,6 @@ map T <Plug>(easymotion-Tl)
 
 if has('terminal')
   " ターミナルモードでもTmuxと同様のウインドウ移動をする
-"  tnoremap <silent> <C-h> <C-\><C-n>:TmuxNavigateLeft<cr>
-"  tnoremap <silent> <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
-"  tnoremap <silent> <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
-"  tnoremap <silent> <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
   tnoremap <silent> <C-h> <C-w>h
   tnoremap <silent> <C-j> <C-w>j
   tnoremap <silent> <C-k> <C-w>k
@@ -406,36 +368,9 @@ if has('terminal')
 endif
 
 " --------------------------------------------------
-" https://qiita.com/kefir_/items/c725731d33de4d8fb096
-" vim縦スクロールの高速化(検証中)
-" --------------------------------------------------
-" Use vsplit mode
-if has("vim_starting") && !has('gui_running') && has('vertsplit')
-  function! EnableVsplitMode()
-    " enable origin mode and left/right margins
-    let &t_CS = "y"
-    let &t_ti = &t_ti . "\e[?6;69h"
-    let &t_te = "\e[?6;69l\e[999H" . &t_te
-    let &t_CV = "\e[%i%p1%d;%p2%ds"
-    call writefile([ "\e[?6;69h" ], "/dev/tty", "a")
-  endfunction
-
-  " old vim does not ignore CPR
-  map <special> <Esc>[3;9R <Nop>
-
-  " new vim can't handle CPR with direct mapping
-  " map <expr> ^[[3;3R EnableVsplitMode()
-  set t_F9=[3;3R
-  map <expr> <t_F9> EnableVsplitMode()
-  let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
-endif
-
-
-" --------------------------------------------------
 "  luochen1990/rainbow
 " --------------------------------------------------
 let g:rainbow_active = 1
-
 
 " --------------------------------------------------
 "  vim-python/python-syntax
@@ -463,3 +398,12 @@ if executable('win32yank.exe')
     autocmd TextYankPost * :call system('win32yank.exe -i', @")
   augroup END
 endif
+
+" --------------------------------------------------
+"  ctrlp
+" --------------------------------------------------
+"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git|vendor/|tmp/'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+nnoremap <leader>p :<C-u>CtrlP<CR>
+let g:ctrlp_map = '<Nop>'
+
