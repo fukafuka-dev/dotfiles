@@ -4,20 +4,20 @@
 
 call plug#begin()
   " syntax highlight
-  Plug 'tpope/vim-rails'
   Plug 'mechatroner/rainbow_csv'
-  Plug 'leafgarland/typescript-vim'
-  Plug 'vim-python/python-syntax'
+  Plug 'tpope/vim-rails', { 'for': 'ruby' }
+  Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+  Plug 'vim-python/python-syntax', { 'for': 'python' }
 
   " vim
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'luochen1990/rainbow'
   Plug 'jiangmiao/auto-pairs'
   Plug 'tpope/vim-endwise'
-  Plug 'kamykn/spelunker.vim'
   Plug 'docunext/closetag.vim'
   Plug 'LeafCage/yankround.vim'
   Plug 'itchyny/lightline.vim'
+
   Plug 'dense-analysis/ale'
     Plug 'maximbaz/lightline-ale'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -28,7 +28,6 @@ call plug#begin()
 
   " ui
   Plug 'nathanaelkane/vim-indent-guides'
-"  Plug 'Yggdroot/indentLine'
   Plug 'airblade/vim-gitgutter'
   Plug 'viis/vim-bclose'
   Plug 'mattn/vim-molder'
@@ -38,11 +37,9 @@ call plug#begin()
 
   " outside tools
   Plug 'ShikChen/osc52.vim'
-  "Plug 'tyru/eskk.vim'
 
   " color
   Plug 'danilo-augusto/vim-afterglow'
-  Plug 'cormacrelf/vim-colors-github'
 call plug#end()
 
 " setting
@@ -60,19 +57,42 @@ set fileformats=unix,dos,mac
 syntax enable
 filetype plugin indent on
 set synmaxcol=300
-"set background=dark
+set background=dark
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-" カラースキーム
+" --------------------------------------------------
+"  markdown設定
+" --------------------------------------------------
+augroup update_markdown_syntax
+  autocmd!
+  autocmd FileType markdown syntax match markdownError '\w\@<=\w\@='
+augroup END
+
+" --------------------------------------------------
+" Color Scheme
+" --------------------------------------------------
 colorscheme afterglow
-let g:afterglow_inherit_background=1
+"let g:afterglow_inherit_background=1
+
+" terminal(fzf含む)はcolorschemeが適用されない
+if has('terminal') && exists('##ColorSchemePre')
+  let g:terminal_ansi_colors = [
+    \ "#e8e8e8", "#bb5653", "#909d62", "#eac179", "#7da9c7", "#b06597", "#8cdcd8", "#d8d8d8",
+    \ "#626262", "#bb5653", "#909d62", "#eac179", "#7da9c7", "#b06597", "#8cdcd8", "#e8e8e8"
+  \ ]
+
+  augroup mycolorscheme
+    autocmd!
+    autocmd ColorSchemePre * unlet! g:terminal_ansi_colors
+    autocmd ColorSchemePre * autocmd! mycolorscheme
+  augroup END
+endif
 
 " --------------------------------------------------
 " Basic
 " --------------------------------------------------
-
 set nobackup                    " ファイルを上書きする前にバックアップを作らない
 set nowritebackup               " ファイルの上書きの前にバックアップを作り、バックアップは上書きに成功した後削除される
 set noswapfile                  " スワップファイルを作らない
@@ -86,6 +106,7 @@ set vb t_vb=                    " ビープ音消す
 set scrolloff=3                 " スクロール先が見えるようにする
 set ttyfast                     " 高速ターミナル接続を行う(スクロールが重くなる対策)
 set lazyredraw                  " マクロやコマンドを実行する間、画面を再描画しない(スクロールが重くなる対策)
+set re=1                        " 正規表現のエンジン
 
 " --------------------------------------------------
 " 操作
@@ -111,8 +132,8 @@ set signcolumn=yes           " サインカラムを常に表示する
 set showmatch                " 括弧入力時の対応する括弧を表示
 set matchtime=3              " 対応括弧の表示秒数を3秒にする
 set laststatus=2             " ステータスラインを常に表示
-set expandtab                " タブ文字の代わりにスペースを▼挿入
-set tabstop=2                " タブ数を▼設定
+set expandtab                " タブ文字の代わりにスペースを挿入
+set tabstop=2                " タブ数を設定
 set shiftwidth=2             " Shift + >> で何個タブを移動させるか
 
 " --------------------------------------------------
@@ -180,8 +201,14 @@ nnoremap L :redraw!<CR>
 if has('terminal')
   tnoremap <silent> <ESC> <C-\><C-n>
   tnoremap <silent> <C-g> <C-\><C-n>
-"  tnoremap <silent> jj <C-\><C-n>
 endif
+
+" --------------------------------------------------
+" alias
+" --------------------------------------------------
+
+command Q q
+command W w
 
 " --------------------------------------------------
 " functions
@@ -196,30 +223,6 @@ function! BufClose()
   endif
 endfunction
 nnoremap <silent> <leader>q :call BufClose()<cr>
-
-function! CdCurrentDirectory()
-  execute ':cd' expand('%:h')
-  pwd
-endfunction
-command Cdc :call CdCurrentDirectory()
-
-function! CdGitRootDirectory()
-  try
-    let path = system('git rev-parse --show-toplevel')
-    execute ':cd' path
-    pwd
-  catch
-    echo 'no git repository'
-  endtry
-endfunction
-command Cdg :call CdGitRootDirectory()
-
-" --------------------------------------------------
-" alias
-" --------------------------------------------------
-
-command Q q
-command W w
 
 " --------------------------------------------------
 " fzf-vim
@@ -253,6 +256,7 @@ let g:ale_linters = {
       \ 'typescript': ['eslint', 'tsserver'],
       \ }
 
+" エラーの色を暗めの色に設定
 highlight ALEError ctermbg=darkred
 highlight ALEWarning ctermbg=darkblue
 highlight link ALEStyleError ALEError
@@ -309,22 +313,6 @@ function! AbsolutePath()
 endfunction
 
 " --------------------------------------------------
-" indentLine
-" --------------------------------------------------
-
-let g:indentLine_char = '¦'
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_color_term = 239
-
-" --------------------------------------------------
-"  SKK
-" --------------------------------------------------
-
-let g:eskk#directory = "~/.eskk"
-let g:eskk#dictionary = { 'path': "~/.eskk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
-let g:eskk#large_dictionary = { 'path': "~/.eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
-
-" --------------------------------------------------
 " yankround
 " --------------------------------------------------
 
@@ -376,21 +364,9 @@ let g:python_highlight_all = 1
 vnoremap <leader>y y:call SendViaOSC52(getreg('"'))<CR>
 
 " --------------------------------------------------
-" vsession
-" --------------------------------------------------
-let g:vsession_use_fzf = 1
-
-" --------------------------------------------------
 "  vim-close-tag
 " --------------------------------------------------
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.php,*.vue'
-
-if executable('win32yank.exe')
-  augroup Yank
-    autocmd!
-    autocmd TextYankPost * :call system('win32yank.exe -i', @")
-  augroup END
-endif
 
 " --------------------------------------------------
 "  ctrlp
@@ -399,7 +375,6 @@ endif
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 nnoremap <leader>p :<C-u>CtrlP<CR>
 let g:ctrlp_map = '<Nop>'
-
 
 " --------------------------------------------------
 "  Fern
@@ -429,3 +404,13 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1a1a1a ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#2a2a2a ctermbg=darkgray
+
+" --------------------------------------------------
+"  windowsの設定
+" --------------------------------------------------
+if executable('win32yank.exe')
+  augroup Yank
+    autocmd!
+    autocmd TextYankPost * :call system('win32yank.exe -i', @")
+  augroup END
+endif
