@@ -40,6 +40,9 @@ sudo make install
 cd ..
 rm -rf tig
 
+# asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0
+
 # ZInit
 sh -c "$(curl -fsSL https://git.io/get-zi)" --
 

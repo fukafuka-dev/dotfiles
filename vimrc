@@ -26,7 +26,6 @@ call plug#begin()
   Plug 'junegunn/fzf.vim'
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
-  Plug 'lambdalisue/fern.vim', { 'branch': 'main' }
   Plug 'junegunn/vim-easy-align'
 
   " ui
@@ -36,6 +35,7 @@ call plug#begin()
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'simeji/winresizer'
   Plug 'christoomey/vim-tmux-navigator'
+  Plug 'lambdalisue/fern.vim', { 'branch': 'main' }
 
   " outside tools
   Plug 'ShikChen/osc52.vim'
@@ -232,6 +232,13 @@ endfunction
 nnoremap <silent> <leader>q :call BufClose()<cr>
 
 " --------------------------------------------------
+" netrw
+" --------------------------------------------------
+let g:netrw_liststyle=1 " ファイルツリーの表示形式、1にするとls -laのような表示になります
+let g:netrw_sizestyle="H" " サイズを(K,M,G)で表示する
+let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S" " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+
+"--------------------------------------------------
 " fzf-vim
 " --------------------------------------------------
 
@@ -442,3 +449,11 @@ if executable('win32yank.exe')
     autocmd TextYankPost * :call system('win32yank.exe -i', @")
   augroup END
 endif
+
+let g:ssh_user_host = 'y_imai@ned'
+let g:ssh_user_home = 'y_imai'
+command! -nargs=? Re call s:tramp_mode(<f-args>)
+function! s:tramp_mode(...) abort
+  let l:file_path = a:0 > 0 ? a:1 . '/' : ''
+  exe(':e scp://' . g:ssh_user_host . '//home/' . g:ssh_user_home . '/' . l:file_path)
+endfunction

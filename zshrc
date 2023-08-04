@@ -28,7 +28,7 @@ fi
 export PAGER='less'
 
 # bin
-export PATH="$HOME/bin":"$PATH"
+export PATH="$HOME/bin:$PATH"
 
 # emacs風bindkey
 bindkey -e
@@ -240,18 +240,13 @@ bindkey '^r' history-fzf
 # ----------------------------------------------------------------
 # anyenv
 # ----------------------------------------------------------------
-
-\n. $(brew --prefix asdf)/asdf.sh
-
-#if [ -e "$HOME/.anyenv" ]; then
-#  export PATH="$HOME/.anyenv/bin:$PATH"
-#  eval "$(anyenv init -)"
-#fi
+if [ -e "$HOME/.asdf" ]; then
+  . "$HOME/.asdf/asdf.sh"
+fi
 
 # ----------------------------------------------------------------
 # direnv
 # ----------------------------------------------------------------
-
 if which direnv > /dev/null; then
   eval "$(direnv hook zsh)" # direnv
 fi
@@ -274,9 +269,9 @@ export PATH="$GOPATH/bin:$PATH"
 # ----------------------------------------------------------------
 case ${OSTYPE} in
   darwin*)
+    export PATH="$HOME/local/bin:$PATH"
     export PATH="/usr/local/opt/gettext/bin:$PATH"
     export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
     alias preview="open -a '/Applications/Google Chrome.app'"
     ;;
 esac
-
