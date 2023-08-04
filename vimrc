@@ -450,6 +450,9 @@ if executable('win32yank.exe')
   augroup END
 endif
 
+" --------------------------------------------------
+"  netrwでssh越しにファイルを開く
+" --------------------------------------------------
 let g:ssh_user_host = 'y_imai@ned'
 let g:ssh_user_home = 'y_imai'
 command! -nargs=? Re call s:tramp_mode(<f-args>)
