@@ -8,6 +8,8 @@ call plug#begin()
   Plug 'tpope/vim-rails', { 'for': 'ruby' }
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'vim-python/python-syntax', { 'for': 'python' }
+  Plug 'rhysd/vim-gfm-syntax', { 'for': 'markdown' }
+  Plug 'habamax/vim-asciidoctor'
 
   " vim
   Plug 'bronson/vim-trailing-whitespace'
@@ -25,21 +27,23 @@ call plug#begin()
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
   Plug 'lambdalisue/fern.vim', { 'branch': 'main' }
+  Plug 'junegunn/vim-easy-align'
 
   " ui
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'airblade/vim-gitgutter'
   Plug 'viis/vim-bclose'
-  Plug 'mattn/vim-molder'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'simeji/winresizer'
   Plug 'christoomey/vim-tmux-navigator'
 
   " outside tools
   Plug 'ShikChen/osc52.vim'
+  Plug 'yoshida-m-3/vim-im-select' "https://wonwon-eater.com/mac-ime/
 
   " color
   Plug 'danilo-augusto/vim-afterglow'
+  Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
 " setting
@@ -57,10 +61,16 @@ set fileformats=unix,dos,mac
 syntax enable
 filetype plugin indent on
 set synmaxcol=300
-set background=dark
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" --------------------------------------------------
+" Color Scheme
+" --------------------------------------------------
+set background=dark
+colorscheme PaperColor
+"colorscheme afterglow
 
 " --------------------------------------------------
 "  markdown設定
@@ -69,12 +79,6 @@ augroup update_markdown_syntax
   autocmd!
   autocmd FileType markdown syntax match markdownError '\w\@<=\w\@='
 augroup END
-
-" --------------------------------------------------
-" Color Scheme
-" --------------------------------------------------
-colorscheme afterglow
-"let g:afterglow_inherit_background=1
 
 " terminal(fzf含む)はcolorschemeが適用されない
 if has('terminal') && exists('##ColorSchemePre')
@@ -135,6 +139,7 @@ set laststatus=2             " ステータスラインを常に表示
 set expandtab                " タブ文字の代わりにスペースを挿入
 set tabstop=2                " タブ数を設定
 set shiftwidth=2             " Shift + >> で何個タブを移動させるか
+"autocmd FileType markdown setlocal sw=2 sts=2 ts=2 et
 
 " --------------------------------------------------
 " 検索
@@ -168,6 +173,8 @@ vnoremap k gk
 " 楽なモード変更
 inoremap <c-c> <Esc>
 vnoremap <c-c> <Esc>
+inoremap <c-ｃ> <Esc>
+vnoremap <c-ｃ> <Esc>
 
 " Deleteキー
 inoremap <c-d> <Del>
@@ -237,7 +244,13 @@ nnoremap <leader>s :GFiles?<CR>
 " vim-trailing-whitespace
 " --------------------------------------------------
 
-autocmd BufWritePre * :FixWhitespace
+function! StripTrailingWhitespace()
+    if &ft =~ 'markdown'
+        return
+    endif
+    :FixWhitespace
+endfun
+autocmd BufWritePre * call StripTrailingWhitespace()
 
 " --------------------------------------------------
 " ale
@@ -336,6 +349,11 @@ map F <Plug>(easymotion-Fl)
 map T <Plug>(easymotion-Tl)
 
 " --------------------------------------------------
+" vim-easy-align
+" --------------------------------------------------
+autocmd FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
+
+" --------------------------------------------------
 " vim-tmux-navigator
 " --------------------------------------------------
 
@@ -402,8 +420,18 @@ augroup END
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1a1a1a ctermbg=black
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#2a2a2a ctermbg=darkgray
+if &background ==# 'light'
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#cacaca ctermbg=black
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#d5d5d5 ctermbg=darkgray
+else
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1a1a1a ctermbg=black
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#2a2a2a ctermbg=darkgray
+endif
+
+" --------------------------------------------------
+"  vim-gfm-syntax
+" --------------------------------------------------
+let g:markdown_fenced_languages = ['ruby']
 
 " --------------------------------------------------
 "  windowsの設定

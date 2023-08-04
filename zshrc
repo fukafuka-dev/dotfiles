@@ -241,10 +241,12 @@ bindkey '^r' history-fzf
 # anyenv
 # ----------------------------------------------------------------
 
-if [ -e "$HOME/.anyenv" ]; then
-  export PATH="$HOME/.anyenv/bin:$PATH"
-  eval "$(anyenv init -)"
-fi
+\n. $(brew --prefix asdf)/asdf.sh
+
+#if [ -e "$HOME/.anyenv" ]; then
+#  export PATH="$HOME/.anyenv/bin:$PATH"
+#  eval "$(anyenv init -)"
+#fi
 
 # ----------------------------------------------------------------
 # direnv
@@ -274,6 +276,7 @@ case ${OSTYPE} in
   darwin*)
     export PATH="/usr/local/opt/gettext/bin:$PATH"
     export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+    alias preview="open -a '/Applications/Google Chrome.app'"
     ;;
 esac
 
