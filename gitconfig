@@ -1,22 +1,13 @@
 [core]
   excludesfile = ~/.gitignore.global
 
-[include]
-  path = ~/.gitconfig.local
-
-[includeIf "gitdir:~/config/"]
-  path = ~/.gitconfig.special
-
-[includeIf "gitdir:~/src/github.com/"]
-  path = ~/.gitconfig.special
-
-# Mac用
-[includeIf "gitdir:~/local/"]
-  path = ~/.gitconfig.special
-
 [alias]
   logp = log --graph --name-status --pretty=format:'%C(yellow)%h %C(blue)%an%Creset %C(cyan)%s%Creset %C(red)%d%Creset %Cgreen(%cr)' --date=relative
   co = checkout
 
 [credential]
   helper = cache
+
+[user]
+  email = 30380789+albtrs@users.noreply.github.com
+  name = albtrs

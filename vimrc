@@ -9,7 +9,6 @@ call plug#begin()
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'vim-python/python-syntax', { 'for': 'python' }
   Plug 'rhysd/vim-gfm-syntax', { 'for': 'markdown' }
-  Plug 'habamax/vim-asciidoctor'
 
   " vim
   Plug 'bronson/vim-trailing-whitespace'
@@ -39,7 +38,6 @@ call plug#begin()
 
   " outside tools
   Plug 'ShikChen/osc52.vim'
-  Plug 'yoshida-m-3/vim-im-select' "https://wonwon-eater.com/mac-ime/
 
   " color
   Plug 'danilo-augusto/vim-afterglow'
