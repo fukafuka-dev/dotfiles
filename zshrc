@@ -28,7 +28,7 @@ fi
 export PAGER='less'
 
 # bin
-export PATH="$HOME/bin:$PATH"
+export PATH=$HOME/bin:$PATH
 
 # emacs風bindkey
 bindkey -e
@@ -40,10 +40,14 @@ colors
 # brew install coreutils
 case ${OSTYPE} in
   darwin*)
+    export PATH="/opt/homebrew/bin":"$PATH"
     export PATH="/usr/local/opt/coreutils/libexec/gnubin":"$PATH"
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     export PATH=/usr/local/opt/findutils/libexec/gnubin:${PATH}
     export MANPATH=/usr/local/opt/findutils/libexec/gnuman:${MANPATH}
+    export PATH="/opt/homebrew/opt/mysql@5.7/bin:$PATH"
+    export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+    export PKG_CONFIG_PATH="/usr/local/opt/imagemagick@6/lib/pkgconfig"
     ;;
 esac
 
@@ -155,7 +159,8 @@ repo() {
 }
 
 # メモスクリプト
-alias note="~/bin/memo.rb --config ~/doc/memo"
+alias note="~/bin/memo.rb --config ~/doc/markdown"
+alias todo="vim ~/doc/markdown/memo/todo.md"
 
 # 特定のコマンドを実行した時背景色を変える（終了したら戻る）
 alias ssh-login='(){tmux select-pane -P "fg=colour15,bg=magenta"; ssh $1; tmux select-pane -P "fg=default,bg=default" }'
@@ -241,7 +246,8 @@ bindkey '^r' history-fzf
 # anyenv
 # ----------------------------------------------------------------
 if [ -e "$HOME/.asdf" ]; then
-  . "$HOME/.asdf/asdf.sh"
+# . "$HOME/.asdf/asdf.sh"
+  . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
 fi
 
 # ----------------------------------------------------------------
@@ -265,7 +271,7 @@ export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
 
 # ----------------------------------------------------------------
-# mac
+# mac ファイル分けたい・・・
 # ----------------------------------------------------------------
 case ${OSTYPE} in
   darwin*)
@@ -273,5 +279,11 @@ case ${OSTYPE} in
     export PATH="/usr/local/opt/gettext/bin:$PATH"
     export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
     alias preview="open -a '/Applications/Google Chrome.app'"
+
+    # The next line updates PATH for the Google Cloud SDK.
+    if [ -f '~/lib/google-cloud-sdk/path.zsh.inc' ]; then . '~/lib/google-cloud-sdk/path.zsh.inc'; fi
+
+    # The next line enables shell command completion for gcloud.
+    if [ -f '~/lib/google-cloud-sdk/completion.zsh.inc' ]; then . '~/lib/google-cloud-sdk/completion.zsh.inc'; fi
     ;;
 esac

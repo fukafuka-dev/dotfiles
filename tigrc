@@ -25,3 +25,6 @@ set mouse = false
 
 # リフレッシュするタイミング
 set refresh-mode = auto
+
+# 単語単位でのdiff
+set diff-highlight = true

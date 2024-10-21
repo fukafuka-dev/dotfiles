@@ -9,6 +9,8 @@ call plug#begin()
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'vim-python/python-syntax', { 'for': 'python' }
   Plug 'rhysd/vim-gfm-syntax', { 'for': 'markdown' }
+  Plug 'habamax/vim-asciidoctor'
+  Plug 'hashivim/vim-terraform'
 
   " vim
   Plug 'bronson/vim-trailing-whitespace'
@@ -26,6 +28,7 @@ call plug#begin()
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
   Plug 'junegunn/vim-easy-align'
+  Plug 'KorySchneider/vim-trim'
 
   " ui
   Plug 'nathanaelkane/vim-indent-guides'
@@ -35,9 +38,13 @@ call plug#begin()
   Plug 'simeji/winresizer'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'lambdalisue/fern.vim', { 'branch': 'main' }
+  Plug 'lambdalisue/fern.vim'
+  Plug 'miyakogi/seiya.vim'
 
   " outside tools
   Plug 'ShikChen/osc52.vim'
+  " Plug 'yoshida-m-3/vim-im-select' "https://wonwon-eater.com/mac-ime/
+  Plug 'github/copilot.vim'
 
   " color
   Plug 'danilo-augusto/vim-afterglow'
@@ -66,8 +73,14 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " --------------------------------------------------
 " Color Scheme
 " --------------------------------------------------
+let g:seiya_auto_enable=1
 set background=dark
 colorscheme PaperColor
+hi Normal guibg=NONE
+hi LineNr guibg=NONE
+hi VertSplit guibg=NONE
+hi Special guibg=NONE
+hi Identifier guibg=NONE
 "colorscheme afterglow
 
 " --------------------------------------------------
@@ -122,6 +135,7 @@ set spelllang=en,cjk    " スペルチェック言語
 set autoindent          " 新しい行を開始した時インデントを合わせる
 set diffopt+=vertical   " diffsplitした時、左右に開く
 set formatoptions=q     " 自動改行をしない
+let g:omni_sql_no_default_maps = 1 " ビルトインSQL補間を無効にする
 
 " --------------------------------------------------
 " 表示
@@ -137,7 +151,7 @@ set laststatus=2             " ステータスラインを常に表示
 set expandtab                " タブ文字の代わりにスペースを挿入
 set tabstop=2                " タブ数を設定
 set shiftwidth=2             " Shift + >> で何個タブを移動させるか
-"autocmd FileType markdown setlocal sw=2 sts=2 ts=2 et
+autocmd FileType markdown setlocal sw=2 sts=2 ts=2 et
 
 " --------------------------------------------------
 " 検索
@@ -182,6 +196,9 @@ nnoremap <leader>+ <C-w>_<C-w><Bar>
 nnoremap <leader>= <C-w>=
 nnoremap <leader>- :sp<CR>
 nnoremap <leader>\ :vs<CR>
+
+" ツリー
+nnoremap <leader>t :Fern . -drawer -toggle<CR>
 
 " ウインドウ入れ替え(なるべくtmuxに寄せる)
 nnoremap <silent> <c-w>{ <c-w><c-x>
@@ -425,6 +442,7 @@ augroup END
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
 let g:indent_guides_auto_colors = 0
+let g:indent_guides_guide_size = 1
 if &background ==# 'light'
   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#cacaca ctermbg=black
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#d5d5d5 ctermbg=darkgray

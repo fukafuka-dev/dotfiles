@@ -4,6 +4,7 @@
 [alias]
   logp = log --graph --name-status --pretty=format:'%C(yellow)%h %C(blue)%an%Creset %C(cyan)%s%Creset %C(red)%d%Creset %Cgreen(%cr)' --date=relative
   co = checkout
+  unstage = restore --staged
 
 [credential]
   helper = cache
@@ -11,3 +12,8 @@
 [user]
   email = 30380789+albtrs@users.noreply.github.com
   name = albtrs
+
+[pager]
+  log = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less
+  show = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less
+  diff = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less

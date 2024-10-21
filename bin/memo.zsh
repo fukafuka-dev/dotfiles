@@ -13,7 +13,7 @@ mkdir -p /tmp/garvage
 # -------------------------------------------
 
 # default dir
-work_dir=$HOME/.memo
+work_dir=$HOME/doc/memo
 
 # set options
 while [ $# -gt 0 ];
@@ -50,7 +50,8 @@ function create_new {
   fi
 
   if [ -n "$title" ]; then
-    file=$(date "+%Y-%m-%d-$title.md")
+    #file=$(date "+%Y-%m-%d-$title.md")
+    file="$title.md"
     $EDITOR $work_dir/$file
   else
     echo 'empty filename.'
@@ -89,7 +90,17 @@ function list {
 }
 
 function grep {
-  ag "$1" $work_dir
+  #ag "$1" $work_dir
+
+  if [ -n "$1" ]; then
+    query=$1
+  fi
+
+  file=$(ag $query $work_dir | fzf --preview 'echo {} | awk -F : '\''{print $1}'\'' | xargs cat | head -100')
+  file_dir=$(echo $file | awk -F : '{print $1}')
+  if [ -n "$file" ]; then
+    $EDITOR $file_dir
+  fi
 }
 
 function remove {
@@ -119,6 +130,9 @@ function server {
 # sub command case
 # -------------------------------------------
 case ${1} in
+  "")
+    edit
+  ;;
   new|n)
     create_new $2
   ;;
