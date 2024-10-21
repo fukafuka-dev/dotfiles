@@ -24,11 +24,13 @@ call plug#begin()
   Plug 'dense-analysis/ale'
     Plug 'maximbaz/lightline-ale'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf.vim'
+    Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
   Plug 'junegunn/vim-easy-align'
   Plug 'KorySchneider/vim-trim'
+  Plug 'glidenote/memolist.vim'
 
   " ui
   Plug 'nathanaelkane/vim-indent-guides'
@@ -43,7 +45,6 @@ call plug#begin()
 
   " outside tools
   Plug 'ShikChen/osc52.vim'
-  " Plug 'yoshida-m-3/vim-im-select' "https://wonwon-eater.com/mac-ime/
   Plug 'github/copilot.vim'
 
   " color
@@ -84,7 +85,7 @@ hi Identifier guibg=NONE
 "colorscheme afterglow
 
 " --------------------------------------------------
-"  markdown設定
+" markdown設定
 " --------------------------------------------------
 augroup update_markdown_syntax
   autocmd!
@@ -389,12 +390,12 @@ if has('terminal')
 endif
 
 " --------------------------------------------------
-"  luochen1990/rainbow
+" luochen1990/rainbow
 " --------------------------------------------------
 let g:rainbow_active = 1
 
 " --------------------------------------------------
-"  vim-python/python-syntax
+" vim-python/python-syntax
 " --------------------------------------------------
 let g:python_highlight_all = 1
 
@@ -404,12 +405,12 @@ let g:python_highlight_all = 1
 vnoremap <leader>y y:call SendViaOSC52(getreg('"'))<CR>
 
 " --------------------------------------------------
-"  vim-close-tag
+" vim-close-tag
 " --------------------------------------------------
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.php,*.vue'
 
 " --------------------------------------------------
-"  ctrlp
+" ctrlp
 " --------------------------------------------------
 "let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git|vendor/|tmp/'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
@@ -417,7 +418,7 @@ nnoremap <leader>p :<C-u>CtrlP<CR>
 let g:ctrlp_map = '<Nop>'
 
 " --------------------------------------------------
-"  Fern
+" Fern
 " --------------------------------------------------
 let g:fern#default_hidden=1
 nnoremap <silent> <Leader>e :<C-u>:Fern . -reveal=% -drawer -toggle -width=42<CR>
@@ -437,7 +438,7 @@ augroup fern-custom
 augroup END
 
 " --------------------------------------------------
-"  vim-indent-guides
+" vim-indent-guides
 " --------------------------------------------------
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
@@ -452,12 +453,12 @@ else
 endif
 
 " --------------------------------------------------
-"  vim-gfm-syntax
+" vim-gfm-syntax
 " --------------------------------------------------
 let g:markdown_fenced_languages = ['ruby']
 
 " --------------------------------------------------
-"  windowsの設定
+" windowsの設定
 " --------------------------------------------------
 if executable('win32yank.exe')
   augroup Yank
@@ -467,7 +468,7 @@ if executable('win32yank.exe')
 endif
 
 " --------------------------------------------------
-"  netrwでssh越しにファイルを開く
+" netrwでssh越しにファイルを開く
 " --------------------------------------------------
 let g:ssh_user_host = 'y_imai@ned'
 let g:ssh_user_home = 'y_imai'
@@ -476,3 +477,21 @@ function! s:tramp_mode(...) abort
   let l:file_path = a:0 > 0 ? a:1 . '/' : ''
   exe(':e scp://' . g:ssh_user_host . '//home/' . g:ssh_user_home . '/' . l:file_path)
 endfunction
+
+" --------------------------------------------------
+" memolist
+" --------------------------------------------------
+if has("mac")
+  let g:memolist_path = "~/doc/memo"
+  let g:memolist_template_dir_path = "~/.memolist/templetes"
+else
+  let g:memolist_path = "~/doc/life/memo"
+  let g:memolist_template_dir_path = "~/doc/life/templete/memolist"
+endif
+
+let g:memolist_memo_suffix = "md"
+let g:memolist_fzf = 1
+
+nnoremap <Leader>mn :MemoNew<CR>
+nnoremap <Leader>ml :FzfPreviewMemoListRpc<CR>
+nnoremap <Leader>mg :FzfPreviewMemoListGrepRpc<CR>

@@ -27,4 +27,4 @@ set mouse = false
 set refresh-mode = auto
 
 # 単語単位でのdiff
-set diff-highlight = true
+#set diff-highlight = true

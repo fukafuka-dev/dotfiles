@@ -12,8 +12,3 @@
 [user]
   email = 30380789+albtrs@users.noreply.github.com
   name = albtrs
-
-[pager]
-  log = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less
-  show = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less
-  diff = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less
