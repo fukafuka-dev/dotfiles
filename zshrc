@@ -253,8 +253,14 @@ bindkey '^r' history-fzf
 # anyenv
 # ----------------------------------------------------------------
 if [ -e "$HOME/.asdf" ]; then
-# . "$HOME/.asdf/asdf.sh"
-  . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+  case ${OSTYPE} in
+    darwin*)
+      . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+      ;;
+    *)
+      . "$HOME/.asdf/asdf.sh"
+      ;;
+  esac
 fi
 
 # ----------------------------------------------------------------
