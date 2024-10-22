@@ -437,6 +437,8 @@ augroup fern-custom
   autocmd FileType fern call s:init_fern()
 augroup END
 
+let g:fern_disable_startup_warnings = 1"
+
 " --------------------------------------------------
 " vim-indent-guides
 " --------------------------------------------------

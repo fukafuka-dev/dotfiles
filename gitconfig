@@ -1,5 +1,7 @@
 [core]
   excludesfile = ~/.gitignore.global
+  quotepath = false # 日本語文字化け対策
+  ignorecase = false # 大文字・小文字の区別
 
 [alias]
   logp = log --graph --name-status --pretty=format:'%C(yellow)%h %C(blue)%an%Creset %C(cyan)%s%Creset %C(red)%d%Creset %Cgreen(%cr)' --date=relative
