@@ -85,8 +85,8 @@ rename_file() {
 }
 
 grep_file() {
-  # TODO: agの結果をfzfで絞り込むなどする
-  echo "grep"
+  working_dir=$(get_working_dir)
+  ag $1 $working_dir
 }
 
 # --------------------------------------------
@@ -130,7 +130,7 @@ case $COMMAND in
     rename_file
     ;;
   grep | g)
-    grep_file
+    grep_file $@
     ;;
   debug )
     echo $FILE

@@ -294,9 +294,11 @@ case ${OSTYPE} in
     alias preview="open -a '/Applications/Google Chrome.app'"
 
     # The next line updates PATH for the Google Cloud SDK.
-    if [ -f '~/lib/google-cloud-sdk/path.zsh.inc' ]; then . '~/lib/google-cloud-sdk/path.zsh.inc'; fi
+    if [ -f "$HOME/lib/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/lib/google-cloud-sdk/path.zsh.inc"; fi
 
     # The next line enables shell command completion for gcloud.
-    if [ -f '~/lib/google-cloud-sdk/completion.zsh.inc' ]; then . '~/lib/google-cloud-sdk/completion.zsh.inc'; fi
+    if [ -f "$HOME/lib/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/lib/google-cloud-sdk/completion.zsh.inc"; fi
+
     ;;
 esac
+
