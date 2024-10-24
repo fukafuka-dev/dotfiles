@@ -125,7 +125,7 @@ archive() {
   local file=$(open_fzf $inbox_dir)
 
   if [ -n "$file" ]; then
-    mv $inbox_dir$file $archive_dir$file
+    mv "$inbox_dir$file" "$archive_dir$file"
   fi
 }
 
