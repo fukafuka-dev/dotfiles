@@ -46,13 +46,20 @@ open_fzf() {
 }
 
 open_fzf_with_working_dir() {
-  echo ${working_dir}$(open_fzf $working_dir)
+  local file=$(open_fzf $working_dir)
+  if [ -n "$file" ]; then
+    echo ${working_dir}${file}
+  fi
+}
+
+convert_spaces() {
+  local input_string="$1"
+  echo "$input_string" | tr ' ' '-'
 }
 
 create_new_file() {
   read -p "Title: " title
-
-  local formatted_title="${title// /-}" # 空白を-に変換
+  local formatted_title=$(convert_spaces "$title")
   local date_prefix=$(date +"%Y-%m-%d") # 日付を取得
   local filename="${date_prefix}-${formatted_title}.md"
 
@@ -105,9 +112,9 @@ rename_file() {
 
   local dir=$(dirname "$file")
   local date=$(basename "$file" | cut -d'-' -f1-3)
-  local newfile="$dir/$date-$newname.md"
-  mv "$file" $newfile
-  echo $newfile
+  local formatted_filename=$(convert_spaces "$newname")
+  local newfile="$dir/$date-$formatted_filename.md"
+  mv "$file" "$newfile"
 }
 
 grep_file() {
@@ -116,7 +123,10 @@ grep_file() {
 
 archive() {
   local file=$(open_fzf $inbox_dir)
-  mv $inbox_dir$file $archive_dir$file
+
+  if [ -n "$file" ]; then
+    mv $inbox_dir$file $archive_dir$file
+  fi
 }
 
 # --------------------------------------------
