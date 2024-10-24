@@ -1,27 +1,52 @@
 #!/bin/bash
-
-useage() {
-  echo "TODO"
+#
+load_config() {
+  . "$HOME/.memo/config"
 }
 
-get_working_dir() {
-  dir=$(eval echo $base_dir) # ~を展開
-  if [[ "$base_dir" != */ ]]; then
+usage() {
+  echo $opt_archive
+}
+
+init_working_dir() {
+  # defulat dir
+  local dir="~/doc/memo"
+
+  # configファイルから読み込み
+  if [ -n "$CONFIG_WORKING_DIR" ]; then
+    dir=$CONFIG_WORKING_DIR
+  fi
+
+  # ~を展開してスラッシュを追加
+  dir=$(eval echo $dir)
+  if [[ "$dir" != */ ]]; then
     dir="${dir}/"
   fi
 
-  echo $dir
+  inbox_dir="${dir}inbox/"
+  archive_dir="${dir}archive/"
+
+  # inbox/archive切り替え
+  if "$opt_archive"; then
+    working_dir=$archive_dir
+  else
+    working_dir=$inbox_dir
+  fi
 }
 
 open_fzf() {
-  local working_dir=$(get_working_dir)
+  local working_dir=$1
   local filename=$(ls "$working_dir" | fzf -q "$query" --preview "head -100 $working_dir/{}")
 
   if [ -z "$filename" ]; then
     echo ""
   else
-    echo "${working_dir}${filename}"
+    echo "$filename"
   fi
+}
+
+open_fzf_with_working_dir() {
+  echo ${working_dir}$(open_fzf $working_dir)
 }
 
 create_new_file() {
@@ -30,9 +55,6 @@ create_new_file() {
   local formatted_title="${title// /-}" # 空白を-に変換
   local date_prefix=$(date +"%Y-%m-%d") # 日付を取得
   local filename="${date_prefix}-${formatted_title}.md"
-
-  # ディレクトリ名を取得
-  local working_dir=$(get_working_dir)
 
   # フルパス生成
   local path="${working_dir}${filename}"
@@ -43,16 +65,20 @@ create_new_file() {
 }
 
 list_and_open_file() {
-  local file=$(open_fzf)
+  local file=$(open_fzf_with_working_dir)
   if [ -z "$file" ]; then
     return
   fi
 
-  vim "$file"
+  echo $file
+
+  if [ -n "$file" ]; then
+    vim "$file"
+  fi
 }
 
 delete_file() {
-  local file=$(open_fzf)
+  local file=$(open_fzf_with_working_dir)
 
   # ファイルが選択されなかった場合は終了
   if [ -z "$file" ]; then
@@ -67,7 +93,7 @@ delete_file() {
 }
 
 rename_file() {
-  local file=$(open_fzf)
+  local file=$(open_fzf_with_working_dir)
   if [ -z "$file" ]; then
     return
   fi
@@ -85,20 +111,25 @@ rename_file() {
 }
 
 grep_file() {
-  working_dir=$(get_working_dir)
-  ag $1 $working_dir
+  echo "TODO"
+}
+
+archive() {
+  local file=$(open_fzf $inbox_dir)
+  mv $inbox_dir$file $archive_dir$file
 }
 
 # --------------------------------------------
 
-base_dir="~/doc/memo"
+# configファイル読み込み
+load_config
 
 # オプションと引数の解析
-opt_base_dir=""
-while getopts "p:" opt; do
+opt_archive=false
+while getopts "a" opt; do
   case $opt in
-    p)
-      opt_base_dir=$OPTARG
+    a)
+      opt_archive=true
       ;;
     *)
       usage
@@ -107,10 +138,8 @@ while getopts "p:" opt; do
 done
 shift $((OPTIND -1))
 
-# 変数処理
-if [ -n "$opt_base_dir" ]; then
-  base_dir=$opt_base_dir
-fi
+# 作業ディレクトリの指定
+init_working_dir
 
 # サブコマンド
 COMMAND=$1
@@ -132,8 +161,11 @@ case $COMMAND in
   grep | g)
     grep_file $@
     ;;
+  archive | a)
+    archive
+    ;;
   debug )
-    echo $FILE
+    usage
     ;;
   *)
     create_new_file

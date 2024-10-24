@@ -159,14 +159,7 @@ repo() {
 }
 
 # メモスクリプト
-case ${OSTYPE} in
-  darwin*)
-    alias memo="~/bin/memo.sh -p ~/doc/memo"
-    ;;
-  *)
-    alias memo="~/bin/memo.sh -p ~/doc/life/memo"
-    ;;
-esac
+alias memo="~/bin/memo.sh"
 alias todo="vim ~/doc/markdown/memo/todo.md"
 
 # 特定のコマンドを実行した時背景色を変える（終了したら戻る）
