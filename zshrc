@@ -11,6 +11,10 @@ zi light zsh-users/zsh-syntax-highlighting
 zi light zsh-users/zsh-autosuggestions
 zi light popstas/zsh-command-time
 
+# 環境別設定をロード
+[ -f $HOME/.zshrc_mac ] && . $HOME/.zshrc_mac
+[ -f $HOME/.zshrc_ubuntu ] && . $HOME/.zshrc_ubuntu
+
 # ----------------------------------------------------------------
 # 環境設定
 # ----------------------------------------------------------------
@@ -18,13 +22,9 @@ export LANG=ja_JP.UTF-8
 export TERM=xterm-256color
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 
-if which /usr/local/bin/vim> /dev/null 2>&1; then
-  export EDITOR='/usr/local/bin/vim'
-  export VISUAL='/usr/local/bin/vim'
-else
-  export EDITOR='vim'
-  export VISUAL='vim'
-fi
+# デフォルトのエディタ
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PAGER='less'
 
 # bin
@@ -243,20 +243,6 @@ bindkey '^r' history-fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # ----------------------------------------------------------------
-# anyenv
-# ----------------------------------------------------------------
-if [ -e "$HOME/.asdf" ]; then
-  case ${OSTYPE} in
-    darwin*)
-      . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
-      ;;
-    *)
-      . "$HOME/.asdf/asdf.sh"
-      ;;
-  esac
-fi
-
-# ----------------------------------------------------------------
 # direnv
 # ----------------------------------------------------------------
 if which direnv > /dev/null; then
@@ -275,23 +261,3 @@ fi
 # ----------------------------------------------------------------
 export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
-
-# ----------------------------------------------------------------
-# mac ファイル分けたい・・・
-# ----------------------------------------------------------------
-case ${OSTYPE} in
-  darwin*)
-    export PATH="$HOME/local/bin:$PATH"
-    export PATH="/usr/local/opt/gettext/bin:$PATH"
-    export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-    alias preview="open -a '/Applications/Google Chrome.app'"
-
-    # The next line updates PATH for the Google Cloud SDK.
-    if [ -f "$HOME/lib/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/lib/google-cloud-sdk/path.zsh.inc"; fi
-
-    # The next line enables shell command completion for gcloud.
-    if [ -f "$HOME/lib/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/lib/google-cloud-sdk/completion.zsh.inc"; fi
-
-    ;;
-esac
-

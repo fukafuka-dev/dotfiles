@@ -25,7 +25,7 @@ call plug#begin()
     Plug 'maximbaz/lightline-ale'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+    "Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
   Plug 'junegunn/vim-easy-align'
@@ -483,16 +483,19 @@ endfunction
 " --------------------------------------------------
 " memolist
 " --------------------------------------------------
-if has("mac")
-  let g:memolist_path = "~/doc/memo"
-  let g:memolist_template_dir_path = "~/.memolist/templetes"
-else
-  let g:memolist_path = "~/doc/life/memo"
-  let g:memolist_template_dir_path = "~/doc/life/templete/memolist"
-endif
+"if has("mac")
+"  let g:memolist_path = "~/doc/memo/inbox"
+"  let g:memolist_template_dir_path = "~/.memolist/templetes"
+"else
+"  let g:memolist_path = "~/doc/life/inbox"
+"  let g:memolist_template_dir_path = "~/doc/life/templete/memolist"
+"endif
 
-let g:memolist_memo_suffix = "md"
-let g:memolist_fzf = 1
+"let g:memolist_memo_suffix = "md"
+"let g:memolist_fzf = 1
+
+set clipboard&
+set clipboard^=unnamedplus
 
 nnoremap <Leader>mn :MemoNew<CR>
 nnoremap <Leader>ml :FzfPreviewMemoListRpc<CR>
