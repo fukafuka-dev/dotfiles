@@ -25,7 +25,6 @@ call plug#begin()
     Plug 'maximbaz/lightline-ale'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    "Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
   Plug 'junegunn/vim-easy-align'
@@ -72,12 +71,13 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " --------------------------------------------------
-" OS別設定
+" プラグイン別設定
 " --------------------------------------------------
 
-if has('wsl')
-  runtime init/wsl2.vim
-endif
+let splt = split(glob("~/.config/nvim/init/" . "*.vim"))
+for file in splt
+  execute 'source' file
+endfor
 
 " --------------------------------------------------
 " Color Scheme
@@ -206,9 +206,6 @@ nnoremap <leader>= <C-w>=
 nnoremap <leader>- :sp<CR>
 nnoremap <leader>\ :vs<CR>
 
-" ツリー
-nnoremap <leader>t :Fern . -drawer -toggle<CR>
-
 " ウインドウ入れ替え(なるべくtmuxに寄せる)
 nnoremap <silent> <c-w>{ <c-w><c-x>
 nnoremap <silent> <c-w>} <c-w>x
@@ -261,240 +258,3 @@ nnoremap <silent> <leader>q :call BufClose()<cr>
 let g:netrw_liststyle=1 " ファイルツリーの表示形式、1にするとls -laのような表示になります
 let g:netrw_sizestyle="H" " サイズを(K,M,G)で表示する
 let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S" " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-
-"--------------------------------------------------
-" fzf-vim
-" --------------------------------------------------
-
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>g :GFiles<CR>
-nnoremap <leader>s :GFiles?<CR>
-
-" --------------------------------------------------
-" vim-trailing-whitespace
-" --------------------------------------------------
-
-function! StripTrailingWhitespace()
-    if &ft =~ 'markdown'
-        return
-    endif
-    :FixWhitespace
-endfun
-autocmd BufWritePre * call StripTrailingWhitespace()
-
-" --------------------------------------------------
-" ale
-" --------------------------------------------------
-
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
-let g:ale_virtualtext_cursor = 'disabled'
-
-" ALE付属のLSPを有効にする
-" let g:ale_completion_enabled = 1
-
-let g:ale_linters = {
-      \ 'javascript': ['eslint'],
-      \ 'typescript': ['eslint', 'tsserver'],
-      \ }
-
-" エラーの色を暗めの色に設定
-highlight ALEError ctermbg=darkred
-highlight ALEWarning ctermbg=darkblue
-highlight link ALEStyleError ALEError
-highlight link ALEStyleWarning ALEWarning
-
-" --------------------------------------------------
-" lightline/ale
-" --------------------------------------------------
-
-let g:lightline = {}
-
-let g:lightline.colorscheme = 'wombat'
-
-let g:lightline.component_expand = {
-\   'linter_checking': 'lightline#ale#checking',
-\   'linter_warnings': 'lightline#ale#warnings',
-\   'linter_errors': 'lightline#ale#errors',
-\   'linter_ok': 'lightline#ale#ok',
-\ }
-
-let g:lightline.component_type = {
-\   'linter_checking': 'left',
-\   'linter_warnings': 'warning',
-\   'linter_errors': 'error',
-\   'linter_ok': 'left',
-\ }
-
-let g:lightline.component_function = {
-\   'absolute_path': 'AbsolutePath'
-\ }
-
-let g:lightline.active = {
-\   'left': [
-\     ['mode', 'paste'],
-\     ['readonly', 'absolute_path', 'modified']
-\   ],
-\  'right': [
-\     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-\     [ 'lineinfo' ],
-\     [ 'percent' ],
-\     [ 'fileformat', 'fileencoding', 'filetype' ]
-\   ]
-\ }
-
-function! AbsolutePath()
-  let a = substitute(expand('%:p'), $HOME, '~', '')
-  if a == ""
-    return 'none'
-  elseif strlen(a) > 40
-    return a[strlen(a)-40:]
-  else
-    return a
-  endif
-endfunction
-
-" --------------------------------------------------
-" yankround
-" --------------------------------------------------
-
-" キーマップ
-nmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
-
-"" 履歴取得数
-let g:yankround_max_history = 50
-
-" --------------------------------------------------
-" vim-easymotion
-" --------------------------------------------------
-
-nmap s <Plug>(easymotion-s2)
-map f <Plug>(easymotion-fl)
-map t <Plug>(easymotion-tl)
-map F <Plug>(easymotion-Fl)
-map T <Plug>(easymotion-Tl)
-
-" --------------------------------------------------
-" vim-easy-align
-" --------------------------------------------------
-autocmd FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
-
-" --------------------------------------------------
-" vim-tmux-navigator
-" --------------------------------------------------
-
-if has('terminal')
-  " ターミナルモードでもTmuxと同様のウインドウ移動をする
-  tnoremap <silent> <C-h> <C-w>h
-  tnoremap <silent> <C-j> <C-w>j
-  tnoremap <silent> <C-k> <C-w>k
-  tnoremap <silent> <C-l> <C-w>l
-  tnoremap <silent> <C-w>p <C-w>"@
-endif
-
-" --------------------------------------------------
-" luochen1990/rainbow
-" --------------------------------------------------
-let g:rainbow_active = 1
-
-" --------------------------------------------------
-" vim-python/python-syntax
-" --------------------------------------------------
-let g:python_highlight_all = 1
-
-" osc52.vim
-" クリップボードにヤンクする
-" --------------------------------------------------
-vnoremap <leader>y y:call SendViaOSC52(getreg('"'))<CR>
-
-" --------------------------------------------------
-" vim-close-tag
-" --------------------------------------------------
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.php,*.vue'
-
-" --------------------------------------------------
-" ctrlp
-" --------------------------------------------------
-"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git|vendor/|tmp/'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-nnoremap <leader>p :<C-u>CtrlP<CR>
-let g:ctrlp_map = '<Nop>'
-
-" --------------------------------------------------
-" Fern
-" --------------------------------------------------
-let g:fern#default_hidden=1
-nnoremap <silent> <Leader>e :<C-u>:Fern . -reveal=% -drawer -toggle -width=42<CR>
-
-function! s:init_fern() abort
-  set nonumber
-  nmap <buffer> <CR> <Plug>(fern-action-open-or-expand)
-  nmap <buffer> <C-h> <C-w>h
-  nmap <buffer> <C-j> <C-w>j
-  nmap <buffer> <C-k> <C-w>k
-  nmap <buffer> <C-l> <C-w>l
-endfunction
-
-augroup fern-custom
-  autocmd! *
-  autocmd FileType fern call s:init_fern()
-augroup END
-
-let g:fern_disable_startup_warnings = 1"
-
-" --------------------------------------------------
-" vim-indent-guides
-" --------------------------------------------------
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_guide_size = 1
-if &background ==# 'light'
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#cacaca ctermbg=black
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#d5d5d5 ctermbg=darkgray
-else
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1a1a1a ctermbg=black
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#2a2a2a ctermbg=darkgray
-endif
-
-" --------------------------------------------------
-" vim-gfm-syntax
-" --------------------------------------------------
-let g:markdown_fenced_languages = ['ruby']
-
-" --------------------------------------------------
-" netrwでssh越しにファイルを開く
-" --------------------------------------------------
-let g:ssh_user_host = 'y_imai@ned'
-let g:ssh_user_home = 'y_imai'
-command! -nargs=? Re call s:tramp_mode(<f-args>)
-function! s:tramp_mode(...) abort
-  let l:file_path = a:0 > 0 ? a:1 . '/' : ''
-  exe(':e scp://' . g:ssh_user_host . '//home/' . g:ssh_user_home . '/' . l:file_path)
-endfunction
-
-" --------------------------------------------------
-" memolist
-" --------------------------------------------------
-"if has("mac")
-"  let g:memolist_path = "~/doc/memo/inbox"
-"  let g:memolist_template_dir_path = "~/.memolist/templetes"
-"else
-"  let g:memolist_path = "~/doc/life/inbox"
-"  let g:memolist_template_dir_path = "~/doc/life/templete/memolist"
-"endif
-
-"let g:memolist_memo_suffix = "md"
-"let g:memolist_fzf = 1
-
-set clipboard&
-set clipboard^=unnamedplus
-
-nnoremap <Leader>mn :MemoNew<CR>
-nnoremap <Leader>ml :FzfPreviewMemoListRpc<CR>
-nnoremap <Leader>mg :FzfPreviewMemoListGrepRpc<CR>
