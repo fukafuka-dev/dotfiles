@@ -43,8 +43,9 @@ call plug#begin()
   Plug 'miyakogi/seiya.vim'
 
   " outside tools
-  Plug 'ShikChen/osc52.vim'
+if has('mac')
   Plug 'github/copilot.vim'
+endif
 
   " color
   Plug 'danilo-augusto/vim-afterglow'
@@ -69,15 +70,6 @@ set synmaxcol=300
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-" --------------------------------------------------
-" プラグイン別設定
-" --------------------------------------------------
-
-let splt = split(glob("~/.config/nvim/init/" . "*.vim"))
-for file in splt
-  execute 'source' file
-endfor
 
 " --------------------------------------------------
 " Color Scheme
@@ -123,7 +115,8 @@ set noswapfile                  " スワップファイルを作らない
 set autoread                    " 編集中のファイルが変更されたら自動で読み直す
 set hidden                      " バッファが編集中でもその他のファイルを開けるように
 set showcmd                     " 入力中のコマンドをステータスに表示する
-set clipboard+=unnamed          " クリップボードを有効にする
+"set clipboard+=unnamed          " クリップボードを有効にする
+set clipboard+=unnamedplus
 set backspace=indent,eol,start  " Ctrl-H, バックスペースを有効にする
 set updatetime=500              " 自動更新時間
 set vb t_vb=                    " ビープ音消す
@@ -183,6 +176,7 @@ hi Search ctermbg=brown
 " Leader
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
+
 nnoremap <leader>w :w<CR>
 
 " 折り返しでも行単位で移動
@@ -258,3 +252,12 @@ nnoremap <silent> <leader>q :call BufClose()<cr>
 let g:netrw_liststyle=1 " ファイルツリーの表示形式、1にするとls -laのような表示になります
 let g:netrw_sizestyle="H" " サイズを(K,M,G)で表示する
 let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S" " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+
+" --------------------------------------------------
+" プラグイン別設定
+" --------------------------------------------------
+
+let splt = split(glob("~/.config/nvim/init/" . "*.vim"))
+for file in splt
+  execute 'source' file
+endfor

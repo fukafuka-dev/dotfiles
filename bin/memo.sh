@@ -68,7 +68,7 @@ create_new_file() {
 
   # ファイル作成
   mkdir -p "$working_dir"
-  vim "$path" -c "r! echo \"$title\n=========\"" -c "normal G$"
+  nvim "$path" -c "r! echo \"$title\n=========\"" -c "normal G$"
 }
 
 list_and_open_file() {
@@ -80,7 +80,7 @@ list_and_open_file() {
   echo $file
 
   if [ -n "$file" ]; then
-    vim "$file"
+    nvim "$file"
   fi
 }
 
